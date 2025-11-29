@@ -1,0 +1,198 @@
+2025-11-29T13:54:07.274Z [INFO] [SYSTEM] Using native fetch API
+2025-11-29T13:54:07.276Z [INFO] [PROXY] Starting WordPress MCP Proxy with enhanced authentication
+2025-11-29T13:54:07.279Z [INFO] [PROXY] MCP server connected to transport successfully
+2025-11-29T13:54:07.287Z [INFO] [INIT] 📩 Client Initialize Request received
+2025-11-29T13:54:07.288Z [DEBUG] [INIT] Initialize request details:
+{
+  "method": "initialize",
+  "params": {
+    "protocolVersion": "2025-06-18",
+    "capabilities": {},
+    "clientInfo": {
+      "name": "Kilo Code",
+      "version": "4.125.0"
+    }
+  }
+}
+2025-11-29T13:54:07.288Z [INFO] [INIT] 🔄 Initializing WordPress connection with client parameters
+2025-11-29T13:54:07.289Z [INFO] [TRANSPORT_DETECT] 🔍 Starting transport detection and WordPress API initialization...
+2025-11-29T13:54:07.290Z [INFO] [TRANSPORT_DETECT] 📋 Added proxy information to clientInfo
+{
+  "originalClient": "Kilo Code",
+  "proxyName": "@automattic/mcp-wordpress-remote",
+  "proxyVersion": "0.2.18"
+}
+2025-11-29T13:54:07.290Z [INFO] [TRANSPORT_DETECT] 📡 Attempting JSON-RPC transport...
+2025-11-29T13:54:07.291Z [DEBUG] [SESSION] MCP JSON-RPC message being sent to WordPress:
+{
+  "jsonrpc": "2.0",
+  "method": "initialize",
+  "id": 1,
+  "original_mcp_id": "none",
+  "session_id": "not-yet-obtained"
+}
+2025-11-29T13:54:07.291Z [INFO] [TRANSPORT_DETECT] Sending initialization message via JSON-RPC:
+{
+  "method": "initialize",
+  "id": 1,
+  "jsonrpc": "2.0",
+  "hasParams": true
+}
+2025-11-29T13:54:07.292Z [DEBUG] [TRANSPORT_DETECT] Complete JSON-RPC init message:
+{
+  "jsonrpc": "2.0",
+  "method": "initialize",
+  "id": 1,
+  "params": {
+    "protocolVersion": "2025-06-18",
+    "capabilities": {},
+    "clientInfo": {
+      "name": "Kilo Code",
+      "version": "4.125.0",
+      "proxied": {
+        "name": "@automattic/mcp-wordpress-remote",
+        "version": "0.2.18"
+      }
+    },
+    "_proxy_request_id": 1
+  }
+}
+2025-11-29T13:54:07.293Z [INFO] [API] Request method: initialize (JSON-RPC)
+2025-11-29T13:54:07.293Z [DEBUG] [API] JSON-RPC message: {"jsonrpc":"2.0","method":"initialize","id":1,"params":{"protocolVersion":"2025-06-18","capabilities":{},"clientInfo":{"name":"Kilo Code","version":"4.125.0","proxied":{"name":"@automattic/mcp-wordpress-remote","version":"0.2.18"}},"_proxy_request_id":1}}
+2025-11-29T13:54:07.294Z [INFO] [AUTH] Using JWT token authentication
+2025-11-29T13:54:07.294Z [DEBUG] [AUTH] Token length: 19
+2025-11-29T13:54:07.294Z [DEBUG] [API] Environment: development
+2025-11-29T13:54:07.295Z [DEBUG] [API] Base API URL: https://your-site.com/
+2025-11-29T13:54:07.295Z [DEBUG] [API] Final requesting URL: https://your-site.com/?rest_route=/wp/v2/wpmcp
+2025-11-29T13:54:07.296Z [DEBUG] [API] Using Authorization header for authentication
+2025-11-29T13:54:07.296Z [INFO] [API] Sending request to WordPress API...
+2025-11-29T13:54:07.296Z [DEBUG] [API] Request URL: https://your-site.com/?rest_route=/wp/v2/wpmcp
+2025-11-29T13:54:07.296Z [DEBUG] [API] Request method: POST
+2025-11-29T13:54:08.445Z [DEBUG] [API] Response status: 200
+2025-11-29T13:54:08.450Z [ERROR] [API] Error in wpRequest: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+2025-11-29T13:54:08.450Z [WARN] [TRANSPORT_DETECT] ⚠️  JSON-RPC transport failed, trying simple transport...
+2025-11-29T13:54:08.451Z [DEBUG] [TRANSPORT_DETECT] JSON-RPC error details:
+{
+  "name": "APIError",
+  "statusCode": 0,
+  "endpoint": "https://your-site.com/?rest_route=/wp/v2/wpmcp"
+}
+2025-11-29T13:54:08.451Z [INFO] [TRANSPORT_DETECT] Sending initialization message via Simple transport:
+{
+  "method": "initialize",
+  "hasParams": true
+}
+2025-11-29T13:54:08.451Z [DEBUG] [TRANSPORT_DETECT] Complete Simple init message:
+{
+  "method": "initialize",
+  "protocolVersion": "2025-06-18",
+  "capabilities": {},
+  "clientInfo": {
+    "name": "Kilo Code",
+    "version": "4.125.0",
+    "proxied": {
+      "name": "@automattic/mcp-wordpress-remote",
+      "version": "0.2.18"
+    }
+  }
+}
+2025-11-29T13:54:08.452Z [INFO] [API] Request method: initialize (Simple)
+2025-11-29T13:54:08.452Z [DEBUG] [API] Simple request: {"method":"initialize","protocolVersion":"2025-06-18","capabilities":{},"clientInfo":{"name":"Kilo Code","version":"4.125.0","proxied":{"name":"@automattic/mcp-wordpress-remote","version":"0.2.18"}}}
+2025-11-29T13:54:08.453Z [INFO] [AUTH] Using JWT token authentication
+2025-11-29T13:54:08.453Z [DEBUG] [AUTH] Token length: 19
+2025-11-29T13:54:08.453Z [DEBUG] [API] Environment: development
+2025-11-29T13:54:08.454Z [DEBUG] [API] Base API URL: https://your-site.com/
+2025-11-29T13:54:08.454Z [DEBUG] [API] Final requesting URL: https://your-site.com/?rest_route=/wp/v2/wpmcp
+2025-11-29T13:54:08.455Z [DEBUG] [API] Using Authorization header for authentication
+2025-11-29T13:54:08.455Z [INFO] [API] Sending request to WordPress API...
+2025-11-29T13:54:08.455Z [DEBUG] [API] Request URL: https://your-site.com/?rest_route=/wp/v2/wpmcp
+2025-11-29T13:54:08.456Z [DEBUG] [API] Request method: POST
+2025-11-29T13:54:08.671Z [DEBUG] [API] Response status: 200
+2025-11-29T13:54:08.673Z [ERROR] [API] Error in wpRequest: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+2025-11-29T13:54:08.673Z [ERROR] [TRANSPORT_DETECT] ❌ Both JSON-RPC and simple transports failed
+{
+  "name": "APIError",
+  "statusCode": 0,
+  "endpoint": "https://your-site.com/?rest_route=/wp/v2/wpmcp"
+}
+2025-11-29T13:54:08.673Z [ERROR] [INIT] ❌ Failed to initialize WordPress connection with client parameters
+{}
+2025-11-29T13:54:08.674Z [WARN] [INIT] ⚠️ Using fallback initialize response
+2025-11-29T13:54:08.680Z [INFO] [CLIENT] 📩 Client Message: ListTools
+2025-11-29T13:54:08.681Z [INFO] [CLIENT] Request ID: none | Method: tools/list
+2025-11-29T13:54:08.681Z [INFO] [CLIENT] No request parameters
+2025-11-29T13:54:08.682Z [DEBUG] [CLIENT] Session context - ID: none, Transport: detecting, Counter: 1
+2025-11-29T13:54:08.682Z [DEBUG] [CLIENT] Complete client request object:
+{
+  "method": "tools/list"
+}
+2025-11-29T13:54:08.683Z [DEBUG] [MCP] Processing ListToolsRequest
+2025-11-29T13:54:08.683Z [INFO] [API] Request method: tools/list (Simple)
+2025-11-29T13:54:08.683Z [DEBUG] [API] Simple request: {"method":"tools/list"}
+2025-11-29T13:54:08.684Z [INFO] [AUTH] Using JWT token authentication
+2025-11-29T13:54:08.684Z [DEBUG] [AUTH] Token length: 19
+2025-11-29T13:54:08.684Z [DEBUG] [API] Environment: development
+2025-11-29T13:54:08.685Z [DEBUG] [API] Base API URL: https://your-site.com/
+2025-11-29T13:54:08.685Z [DEBUG] [API] Final requesting URL: https://your-site.com/?rest_route=/wp/v2/wpmcp
+2025-11-29T13:54:08.686Z [DEBUG] [API] Using Authorization header for authentication
+2025-11-29T13:54:08.686Z [INFO] [API] Sending request to WordPress API...
+2025-11-29T13:54:08.686Z [DEBUG] [API] Request URL: https://your-site.com/?rest_route=/wp/v2/wpmcp
+2025-11-29T13:54:08.687Z [DEBUG] [API] Request method: POST
+2025-11-29T13:54:08.901Z [DEBUG] [API] Response status: 200
+2025-11-29T13:54:08.904Z [ERROR] [API] Error in wpRequest: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+2025-11-29T13:54:08.904Z [ERROR] [CLIENT] ❌ Client Error: ListTools failed after 222ms
+{
+  "error": "Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON"
+}
+2025-11-29T13:54:08.907Z [INFO] [CLIENT] 📩 Client Message: ListResources
+2025-11-29T13:54:08.907Z [INFO] [CLIENT] Request ID: none | Method: resources/list
+2025-11-29T13:54:08.908Z [INFO] [CLIENT] No request parameters
+2025-11-29T13:54:08.908Z [DEBUG] [CLIENT] Session context - ID: none, Transport: detecting, Counter: 1
+2025-11-29T13:54:08.908Z [DEBUG] [CLIENT] Complete client request object:
+{
+  "method": "resources/list"
+}
+2025-11-29T13:54:08.909Z [DEBUG] [MCP] Processing ListResourcesRequest
+2025-11-29T13:54:08.909Z [INFO] [API] Request method: resources/list (Simple)
+2025-11-29T13:54:08.909Z [DEBUG] [API] Simple request: {"method":"resources/list"}
+2025-11-29T13:54:08.910Z [INFO] [AUTH] Using JWT token authentication
+2025-11-29T13:54:08.910Z [DEBUG] [AUTH] Token length: 19
+2025-11-29T13:54:08.910Z [DEBUG] [API] Environment: development
+2025-11-29T13:54:08.911Z [DEBUG] [API] Base API URL: https://your-site.com/
+2025-11-29T13:54:08.911Z [DEBUG] [API] Final requesting URL: https://your-site.com/?rest_route=/wp/v2/wpmcp
+2025-11-29T13:54:08.911Z [DEBUG] [API] Using Authorization header for authentication
+2025-11-29T13:54:08.911Z [INFO] [API] Sending request to WordPress API...
+2025-11-29T13:54:08.912Z [DEBUG] [API] Request URL: https://your-site.com/?rest_route=/wp/v2/wpmcp
+2025-11-29T13:54:08.912Z [DEBUG] [API] Request method: POST
+2025-11-29T13:54:09.123Z [DEBUG] [API] Response status: 200
+2025-11-29T13:54:09.125Z [ERROR] [API] Error in wpRequest: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+2025-11-29T13:54:09.126Z [ERROR] [CLIENT] ❌ Client Error: ListResources failed after 217ms
+{
+  "error": "Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON"
+}
+2025-11-29T13:54:09.128Z [INFO] [CLIENT] 📩 Client Message: ListResourceTemplates
+2025-11-29T13:54:09.128Z [INFO] [CLIENT] Request ID: none | Method: resources/templates/list
+2025-11-29T13:54:09.128Z [INFO] [CLIENT] No request parameters
+2025-11-29T13:54:09.129Z [DEBUG] [CLIENT] Session context - ID: none, Transport: detecting, Counter: 1
+2025-11-29T13:54:09.129Z [DEBUG] [CLIENT] Complete client request object:
+{
+  "method": "resources/templates/list"
+}
+2025-11-29T13:54:09.130Z [DEBUG] [MCP] Processing ListResourceTemplatesRequest
+2025-11-29T13:54:09.130Z [INFO] [API] Request method: resources/templates/list (Simple)
+2025-11-29T13:54:09.130Z [DEBUG] [API] Simple request: {"method":"resources/templates/list"}
+2025-11-29T13:54:09.131Z [INFO] [AUTH] Using JWT token authentication
+2025-11-29T13:54:09.131Z [DEBUG] [AUTH] Token length: 19
+2025-11-29T13:54:09.131Z [DEBUG] [API] Environment: development
+2025-11-29T13:54:09.131Z [DEBUG] [API] Base API URL: https://your-site.com/
+2025-11-29T13:54:09.132Z [DEBUG] [API] Final requesting URL: https://your-site.com/?rest_route=/wp/v2/wpmcp
+2025-11-29T13:54:09.132Z [DEBUG] [API] Using Authorization header for authentication
+2025-11-29T13:54:09.132Z [INFO] [API] Sending request to WordPress API...
+2025-11-29T13:54:09.133Z [DEBUG] [API] Request URL: https://your-site.com/?rest_route=/wp/v2/wpmcp
+2025-11-29T13:54:09.133Z [DEBUG] [API] Request method: POST
+2025-11-29T13:54:09.346Z [DEBUG] [API] Response status: 200
+2025-11-29T13:54:09.348Z [ERROR] [API] Error in wpRequest: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+2025-11-29T13:54:09.349Z [ERROR] [CLIENT] ❌ Client Error: ListResourceTemplates failed after 219ms
+{
+  "error": "Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON"
+}

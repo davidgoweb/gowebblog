@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protection against malicious open source packages - Open-source Projects</title>
+    <style>
+        /* --- RESET & VARIABLES (Same as Homepage) --- */
+        :root {
+            --bg-body: #09090b;
+            --bg-card: #18181b;
+            --bg-card-hover: #27272a;
+            --text-main: #e4e4e7;
+            --text-muted: #a1a1aa;
+            --accent-color: #3b82f6;
+            --border-color: #27272a;
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+        }
+
+        a { text-decoration: none; color: inherit; transition: color 0.2s; }
+        a:hover { color: var(--accent-color); }
+
+        /* --- UTILITIES --- */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+            gap: 8px;
+        }
+        .btn-primary { background-color: var(--text-main); color: var(--bg-body); }
+        .btn-primary:hover { background-color: #fff; }
+        
+        .tag {
+            font-size: 0.75rem;
+            padding: 4px 10px;
+            border-radius: 4px;
+            background: #27272a;
+            color: var(--text-muted);
+            border: 1px solid var(--border-color);
+            display: inline-block;
+        }
+
+        /* --- HEADER --- */
+        header {
+            border-bottom: 1px solid var(--border-color);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            background: rgba(9, 9, 11, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+        }
+        .nav-inner { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-weight: 700; font-size: 1.2rem; display: flex; align-items: center; gap: 10px; }
+        .nav-links { display: flex; gap: 20px; font-size: 0.95rem; }
+        .nav-links a { color: var(--text-muted); }
+        .nav-links a:hover { color: var(--text-main); }
+
+        /* --- ARTICLE SPECIFIC STYLES --- */
+        
+        /* Breadcrumb */
+        .breadcrumb {
+            margin-top: 40px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+        .breadcrumb a:hover { text-decoration: underline; }
+
+        /* Article Container */
+        .article-container {
+            max-width: 800px; /* Reading width */
+            margin: 0 auto;
+        }
+
+        /* Hero Image */
+        .article-hero-img {
+            width: 100%;
+            height: 400px;
+            background-color: #18181b;
+            background-image: linear-gradient(45deg, #18181b 25%, #27272a 25%, #27272a 50%, #18181b 50%, #18181b 75%, #27272a 75%, #27272a 100%);
+            background-size: 40px 40px; /* Placeholder pattern */
+            border-radius: 12px;
+            margin-bottom: 40px;
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            font-size: 1.2rem;
+        }
+
+        /* Header Section */
+        .article-header { margin-bottom: 40px; }
+        .article-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+        
+        .article-meta {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 15px;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 30px;
+            margin-bottom: 40px;
+        }
+        .author-info { display: flex; align-items: center; gap: 8px; color: var(--text-main); font-weight: 500; }
+        .avatar { width: 28px; height: 28px; background: #52525b; border-radius: 50%; }
+        .dot { width: 4px; height: 4px; background: #52525b; border-radius: 50%; }
+
+        /* Content Typography (Markdown Styling) */
+        .article-content { font-size: 1.125rem; color: #d4d4d8; }
+        .article-content h2 {
+            font-size: 1.75rem;
+            color: #fff;
+            margin-top: 50px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        .article-content h3 {
+            font-size: 1.4rem;
+            color: #fff;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+        .article-content p { margin-bottom: 24px; line-height: 1.7; }
+        
+        .article-content code {
+            background: #27272a;
+            color: #e4e4e7;
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-family: var(--font-mono);
+            font-size: 0.9em;
+        }
+        
+        .article-content pre {
+            background: #111;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            overflow-x: auto;
+            margin-bottom: 30px;
+        }
+        .article-content pre code {
+            background: transparent;
+            padding: 0;
+            color: #a1a1aa;
+        }
+
+        .article-content a {
+            color: var(--accent-color);
+            text-decoration: underline;
+            text-underline-offset: 4px;
+        }
+
+        /* Sidebar/CTA Area within Article */
+        .project-links {
+            margin: 40px 0;
+            padding: 20px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        /* Newsletter Section (Bottom) */
+        .newsletter-box {
+            background: #18181b;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 40px;
+            text-align: center;
+            margin-top: 80px;
+        }
+        .newsletter-box h3 { font-size: 1.5rem; margin-bottom: 10px; color: #fff; }
+        .newsletter-box p { color: var(--text-muted); margin-bottom: 20px; }
+        .input-group {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        .input-group input {
+            flex: 1;
+            padding: 10px 15px;
+            border-radius: 6px;
+            background: #09090b;
+            border: 1px solid var(--border-color);
+            color: #fff;
+        }
+
+        /* --- FOOTER (Same as Home) --- */
+        footer {
+            border-top: 1px solid var(--border-color);
+            padding: 60px 0;
+            margin-top: 80px;
+        }
+        .footer-content { display: flex; justify-content: space-between; }
+        .copyright { margin-top: 40px; text-align: center; color: #52525b; font-size: 0.9rem; }
+
+        @media (max-width: 768px) {
+            .article-title { font-size: 2rem; }
+            .project-links { flex-direction: column; gap: 15px; text-align: center; }
+            .footer-content { flex-direction: column; gap: 30px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container nav-inner">
+            <a href="index.html" class="logo">
+                <div style="width:24px;height:24px;background:#fff;border-radius:4px;"></div>
+                Open-source Projects
+            </a>
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="#">Bookmarks</a>
+                <a href="#">Sponsors</a>
+            </nav>
+            <a href="#" class="btn btn-primary" style="padding: 6px 16px; font-size: 0.8rem;">Newsletter</a>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <div class="breadcrumb">
+            <a href="index.html">Home</a> / <span style="color: #fff;">Project Details</span>
+        </div>
+
+        <article class="article-container">
+            
+            <header class="article-header">
+                <div class="tag" style="margin-bottom: 15px; color: var(--accent-color); border-color: rgba(59,130,246,0.2);">Security</div>
+                <h1 class="article-title">Protection against malicious open source packages</h1>
+                
+                <div class="article-meta">
+                    <div class="author-info">
+                        <div class="avatar"></div>
+                        <span>@the_osps</span>
+                    </div>
+                    <span class="dot"></span>
+                    <span>November 28, 2025</span>
+                    <span class="dot"></span>
+                    <span>79 Impressions</span>
+                </div>
+            </header>
+
+            <div class="article-hero-img">
+                Project Cover Image
+            </div>
+
+            <div class="project-links">
+                <div>
+                    <h4 style="color:#fff; margin-bottom:4px;">Ready to try it?</h4>
+                    <p style="color:var(--text-muted); font-size:0.9rem;">Check out the source code and documentation.</p>
+                </div>
+                <a href="#" class="btn btn-primary">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    View on GitHub
+                </a>
+            </div>
+
+            <div class="article-content">
+                <p>
+                    We all love open source. It powers our projects, speeds up development and lets us stand on the shoulders of giants. But lately, there's been a growing concern in the back of every developer's mind: what if one of those dependencies we blindly trust turns out to be malicious?
+                </p>
+                <p>
+                    It's not just theoretical anymore. We've seen supply chain attacks become more sophisticated, with attackers deliberately publishing packages that look legitimate but contain backdoors, data stealers, or other nasty surprises. Enter <code>vet</code> - a tool that acts like a security guard for your dependencies.
+                </p>
+
+                <h2>What It Does</h2>
+                <p>
+                    <code>vet</code> is a command-line tool that scans your project's dependencies for known malicious packages. It analyzes your dependency tree (whether you're using npm, PyPI, Maven, or other package managers) and checks each package against security databases and threat intelligence feeds to flag anything suspicious before it ends up in your production environment.
+                </p>
+                <p>
+                    Think of it as a continuous security audit for your third-party code. Instead of waiting for a vulnerability announcement or hoping your security team catches something, you can proactively check every time you add a new dependency.
+                </p>
+
+                <h2>Why It's Cool</h2>
+                <p>
+                    The clever part about <code>vet</code> is how it approaches the problem. Rather than just checking for known vulnerabilities (which other tools already do), it specifically looks for malicious intent - packages designed from the ground up to cause harm.
+                </p>
+                <p>
+                    It works across multiple ecosystems, which is huge if you're working in a polyglot environment. The same tool can protect your JavaScript frontend, your Python data processing scripts, and your Java backend services.
+                </p>
+                <p>
+                    The implementation is straightforward - it hooks into your existing development workflow without requiring major changes. You can run it manually, add it to your CI pipeline, or even set up pre-commit hooks. The tool provides clear, actionable output that tells you exactly which packages are problematic and why.
+                </p>
+
+                <h2>How to Try It</h2>
+                <p>
+                    Getting started with <code>vet</code> is pretty simple. Head over to the <a href="#">GitHub repository</a> and check out the installation options. You can grab pre-built binaries or build from source if you prefer.
+                </p>
+                <pre><code>$ vet scan</code></pre>
+                <p>
+                    Once installed, navigating to your project directory and running <code>vet scan</code> will give you an immediate assessment of your current dependencies. The tool automatically detects which package managers you're using and scans accordingly.
+                </p>
+
+                <h2>Final Thoughts</h2>
+                <p>
+                    In today's development landscape, trusting open source packages isn't just about code quality anymore - it's about security. Tools like <code>vet</code> give developers an extra layer of defense without adding significant overhead to our workflows.
+                </p>
+                <p>
+                    I can see this becoming part of the standard toolkit, right alongside linters and vulnerability scanners. The peace of mind knowing that you've proactively checked your dependencies for malicious code is worth the few minutes it takes to set up.
+                </p>
+                <p>What do you think - is this something you'd add to your development workflow?</p>
+            </div>
+
+            <div class="newsletter-box">
+                <h3>Did you like this read?</h3>
+                <p>Join our newsletter and you will get weekly top stories like this delivered to your inbox.</p>
+                <div class="input-group">
+                    <input type="email" placeholder="Enter your email...">
+                    <button class="btn btn-primary">Subscribe</button>
+                </div>
+            </div>
+
+        </article>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-left">
+                    <h4>Open-source Projects</h4>
+                    <p style="color:var(--text-muted); max-width:300px; margin-top:15px;">
+                        Discovering and showcasing the best open-source projects and hidden gems in the developer community.
+                    </p>
+                </div>
+                <div class="footer-right">
+                    <h4>Legal</h4>
+                    <div class="nav-links" style="flex-direction: column; gap: 10px; margin-top:15px;">
+                        <a href="#">About Us</a>
+                        <a href="#">Privacy Policy</a>
+                        <a href="#">Cookie Policy</a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                © 2025 Open-source Projects. Built for the community.
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
