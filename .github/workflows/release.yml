@@ -1,0 +1,118 @@
+name: Auto Release WordPress Theme
+
+on:
+  push:
+    branches: [ wp-theme, main ]
+    # Trigger only when commit message contains "release version"
+    # Case insensitive to match "Release Version", "release version", etc.
+    if: contains(github.event.head_commit.message, 'release version')
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        cache-dependency-path: './Gowebblog_Theme/package.json'
+        
+    - name: Install dependencies
+      run: |
+        cd Gowebblog_Theme
+        npm ci
+        
+    - name: Build CSS
+      run: |
+        cd Gowebblog_Theme
+        npm run build
+        
+    - name: Extract version from commit message
+      id: extract_version
+      run: |
+        # Look for version pattern in commit message (e.g., "release version 1.2.3")
+        VERSION=$(echo "${{ github.event.head_commit.message }}" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' | head -1)
+        if [ -z "$VERSION" ]; then
+          # If no version found, use current date
+          VERSION="$(date +'%Y.%m.%d')"
+        fi
+        echo "VERSION=$VERSION" >> $GITHUB_ENV
+        echo "version=$VERSION" >> $GITHUB_OUTPUT
+        
+    - name: Update theme version in style.css
+      run: |
+        cd Gowebblog_Theme
+        # Update version in style.css
+        sed -i "s/Version: .*/Version: ${{ steps.extract_version.outputs.version }}/" style.css
+        
+        # Update version in package.json
+        npm version ${{ steps.extract_version.outputs.version }} --no-git-tag-version
+        
+    - name: Create release zip
+      run: |
+        cd Gowebblog_Theme
+        # Create a temporary directory for the theme
+        mkdir -p ../gowebblog-theme-release
+        
+        # Copy all theme files except development files
+        rsync -av --exclude-from=.gitignore \
+          --exclude='node_modules' \
+          --exclude='src' \
+          --exclude='package.json' \
+          --exclude='package-lock.json' \
+          --exclude='tailwind.config.js' \
+          --exclude='postcss.config.js' \
+          --exclude='.gitignore' \
+          --exclude='README.md' \
+          . ../gowebblog-theme-release/
+          
+        # Create zip file
+        cd ..
+        zip -r gowebblog-theme-${{ steps.extract_version.outputs.version }}.zip gowebblog-theme-release/
+        
+    - name: Create GitHub Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: v${{ steps.extract_version.outputs.version }}
+        release_name: Gowebblog Theme v${{ steps.extract_version.outputs.version }}
+        body: |
+          ## Gowebblog Theme v${{ steps.extract_version.outputs.version }}
+          
+          Changes in this release:
+          ${{ github.event.head_commit.message }}
+          
+          ### Installation
+          1. Download the `gowebblog-theme-${{ steps.extract_version.outputs.version }}.zip` file below
+          2. In your WordPress admin, go to Appearance > Themes > Add New
+          3. Click "Upload Theme" and select the zip file
+          4. Activate the theme
+          
+        draft: false
+        prerelease: false
+        
+    - name: Upload Release Asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./gowebblog-theme-${{ steps.extract_version.outputs.version }}.zip
+        asset_name: gowebblog-theme-${{ steps.extract_version.outputs.version }}.zip
+        asset_content_type: application/zip
+        
+    - name: Commit version updates
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add Gowebblog_Theme/style.css
+        git add Gowebblog_Theme/package.json
+        git commit -m "Bump version to ${{ steps.extract_version.outputs.version }} [skip ci]"
+        git push

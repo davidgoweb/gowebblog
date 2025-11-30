@@ -1,0 +1,43 @@
+# Logs
+*.log
+*.cache
+
+# Node dependencies
+/node_modules
+package-lock.json
+
+# Composer dependencies
+/vendor
+composer.lock
+
+# WordPress configuration
+/wp-config.php
+/.htaccess
+
+# Source files (keep compiled CSS)
+/src/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE files
+.kilocode
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Temporary files
+*.tmp
+*.temp
+
+# Build artifacts
+dist/
+build/
