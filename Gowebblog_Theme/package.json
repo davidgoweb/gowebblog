@@ -1,6 +1,6 @@
 {
   "name": "gowebblog-theme",
-  "version": "2025.11.30",
+  "version": "1.0.1",
   "description": "A clean, modern, and performant WordPress blog theme built with Tailwind CSS.",
   "main": "index.js",
   "scripts": {
