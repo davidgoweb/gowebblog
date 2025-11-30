@@ -25,7 +25,7 @@ jobs:
     - name: Install dependencies
       run: |
         cd Gowebblog_Theme
-        npm ci
+        npm install
         
     - name: Build CSS
       run: |

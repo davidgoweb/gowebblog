@@ -13,8 +13,9 @@ set VERSION=%~1
 set MESSAGE=%~2
 if "%MESSAGE%"=="" set MESSAGE=Release version %VERSION%
 
-echo Building theme...
+echo Installing dependencies and building theme...
 cd Gowebblog_Theme
+call npm install
 call npm run build
 
 echo Updating version in style.css...

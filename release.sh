@@ -13,9 +13,10 @@ fi
 VERSION=$1
 MESSAGE=${2:-"Release version $VERSION"}
 
-# Build the theme
-echo "Building theme..."
+# Install dependencies and build the theme
+echo "Installing dependencies and building theme..."
 cd Gowebblog_Theme
+npm install
 npm run build
 
 # Update version in style.css

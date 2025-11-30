@@ -1,0 +1,9 @@
+{"mcpServers":{"wordpress-mcp": {
+			"command": "npx",
+			"args": [ "-y", "@automattic/mcp-wordpress-remote@latest" ],
+			"env": {
+				"WP_API_URL": "https://your-site.com/",
+				"JWT_TOKEN": "your-jwt-token-here",
+				"LOG_FILE": "optional-path-to-log-file"
+			}
+		},"git-mcp":{"command":"npx","args":["-y","mcp-remote@0.1.29","https://gitmcp.io/WordPress/WordPress"],"alwaysAllow":["fetch_WordPress_documentation","search_WordPress_documentation","search_WordPress_code","fetch_generic_url_content"]},"context7":{"command":"npx","args":["-y","@upstash/context7-mcp"],"env":{"DEFAULT_MINIMUM_TOKENS":""}}}}
