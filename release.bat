@@ -19,10 +19,13 @@ call npm install
 call npm run build
 
 echo Updating version in style.css...
-powershell -Command "(Get-Content style.css) -replace 'Version: .*', 'Version: %VERSION%' | Set-Content style.css"
+powershell -Command "(Get-Content style.css) -replace 'Version: .*', 'Version: %VERSION%' | Set-Content style.css -Encoding UTF8"
 
 echo Updating version in package.json...
 call npm version %VERSION% --no-git-tag-version
+
+echo Rebuilding CSS with new version...
+call npm run build
 
 REM Go back to root directory
 cd ..

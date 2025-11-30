@@ -42,8 +42,17 @@ jobs:
         # Look for version pattern in commit message (e.g., "release version 1.2.3")
         VERSION=$(echo "${{ github.event.head_commit.message }}" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' | head -1)
         if [ -z "$VERSION" ]; then
-          # If no version found, use current date
-          VERSION="$(date +'%Y.%m.%d')"
+          # If no version found, increment patch version
+          CURRENT_VERSION=$(grep '"version"' Gowebblog_Theme/package.json | sed 's/.*"version": "\([^"]*\)".*/\1/')
+          if [ -z "$CURRENT_VERSION" ]; then
+            CURRENT_VERSION="1.0.0"
+          fi
+          # Increment patch version (e.g., 1.0.3 -> 1.0.4)
+          MAJOR=$(echo $CURRENT_VERSION | cut -d. -f1)
+          MINOR=$(echo $CURRENT_VERSION | cut -d. -f2)
+          PATCH=$(echo $CURRENT_VERSION | cut -d. -f3)
+          PATCH=$((PATCH + 1))
+          VERSION="$MAJOR.$MINOR.$PATCH"
         fi
         echo "VERSION=$VERSION" >> $GITHUB_ENV
         echo "version=$VERSION" >> $GITHUB_OUTPUT
@@ -55,7 +64,12 @@ jobs:
         sed -i "s/Version: .*/Version: ${{ steps.extract_version.outputs.version }}/" style.css
         
         # Update version in package.json
-        npm version ${{ steps.extract_version.outputs.version }} --no-git-tag-version
+        npm version ${{ steps.extract_version.outputs.version }} --no-git-tag-version --allow-same-version
+        
+    - name: Rebuild CSS after version update
+      run: |
+        cd Gowebblog_Theme
+        npm run build
         
     - name: Create release zip
       run: |
