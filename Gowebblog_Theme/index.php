@@ -23,7 +23,7 @@ get_header(); ?>
 		<div class="max-w-7xl mx-auto px-6 w-full grid lg:grid-cols-2 gap-12 items-center">
 			<!-- Text Content -->
 			<div class="order-2 lg:order-1 fade-in-section">
-				<h4 class="text-secondary text-lg mb-4 font-medium tracking-wide"><?php esc_html_e( 'Hello, I\'m', 'gowebblog' ); ?></h4>
+				<h4 class="text-secondary text-lg mb-4 font-medium tracking-wide"><?php esc_html_e( 'Hello, this is', 'gowebblog' ); ?></h4>
 				<h1 class="font-heading text-6xl md:text-6xl font-bold mb-6 leading-none">
 					<?php bloginfo( 'name' ); ?> <br> <span class="text-secondary"><?php esc_html_e( 'Portal', 'gowebblog' ); ?></span>
 				</h1>

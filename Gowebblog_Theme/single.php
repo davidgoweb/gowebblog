@@ -17,7 +17,7 @@ get_header(); ?>
 		<div class="max-w-7xl mx-auto px-6">
 			<a href="<?php echo esc_url( get_permalink( get_option( 'page_for_posts' ) ) ); ?>" class="inline-flex items-center text-secondary hover:text-white transition-colors">
 				<i class="fa-solid fa-arrow-left mr-2"></i>
-				<?php esc_html_e( 'Back to Blog', 'gowebblog' ); ?>
+				<?php esc_html_e( 'Back', 'gowebblog' ); ?>
 			</a>
 		</div>
 	</section>
