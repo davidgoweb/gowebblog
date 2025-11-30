@@ -255,3 +255,105 @@ function gowebblog_customize_register_social( $wp_customize ) {
 	}
 }
 add_action( 'customize_register', 'gowebblog_customize_register_social' );
+
+/**
+ * Get project repository URL
+ *
+ * @param int $post_id The post ID.
+ * @return string The repository URL or empty string.
+ */
+function gowebblog_get_project_repo_url( $post_id = 0 ) {
+	$post_id = $post_id ? $post_id : get_the_ID();
+	return get_post_meta( $post_id, '_project_repo_url', true );
+}
+
+/**
+ * Get project demo URL
+ *
+ * @param int $post_id The post ID.
+ * @return string The demo URL or empty string.
+ */
+function gowebblog_get_project_demo_url( $post_id = 0 ) {
+	$post_id = $post_id ? $post_id : get_the_ID();
+	return get_post_meta( $post_id, '_project_demo_url', true );
+}
+
+/**
+ * Display project repository link
+ *
+ * @param int $post_id The post ID.
+ * @param string $text The link text.
+ * @param string $class Additional CSS classes.
+ */
+function gowebblog_the_project_repo_link( $post_id = 0, $text = '', $class = '' ) {
+	$repo_url = gowebblog_get_project_repo_url( $post_id );
+	
+	if ( ! $repo_url ) {
+		return;
+	}
+	
+	$text = $text ? $text : __( 'View Repository', 'gowebblog' );
+	$class = $class ? ' ' . $class : '';
+	
+	printf(
+		'<a href="%s" target="_blank" rel="noopener noreferrer" class="project-repo-link%s"><i class="fab fa-github"></i> %s</a>',
+		esc_url( $repo_url ),
+		esc_attr( $class ),
+		esc_html( $text )
+	);
+}
+
+/**
+ * Display project demo link
+ *
+ * @param int $post_id The post ID.
+ * @param string $text The link text.
+ * @param string $class Additional CSS classes.
+ */
+function gowebblog_the_project_demo_link( $post_id = 0, $text = '', $class = '' ) {
+	$demo_url = gowebblog_get_project_demo_url( $post_id );
+	
+	if ( ! $demo_url ) {
+		return;
+	}
+	
+	$text = $text ? $text : __( 'Live Demo', 'gowebblog' );
+	$class = $class ? ' ' . $class : '';
+	
+	printf(
+		'<a href="%s" target="_blank" rel="noopener noreferrer" class="project-demo-link%s"><i class="fas fa-external-link-alt"></i> %s</a>',
+		esc_url( $demo_url ),
+		esc_attr( $class ),
+		esc_html( $text )
+	);
+}
+
+/**
+ * Get all projects
+ *
+ * @param array $args Additional query arguments.
+ * @return WP_Query The projects query.
+ */
+function gowebblog_get_projects( $args = array() ) {
+	$defaults = array(
+		'post_type'      => 'project',
+		'posts_per_page' => -1,
+		'post_status'    => 'publish',
+		'orderby'        => 'date',
+		'order'          => 'DESC',
+	);
+	
+	return new WP_Query( array_merge( $defaults, $args ) );
+}
+
+/**
+ * Get featured projects
+ *
+ * @param int $count Number of projects to return.
+ * @return WP_Query The featured projects query.
+ */
+function gowebblog_get_featured_projects( $count = 6 ) {
+	return gowebblog_get_projects( array(
+		'posts_per_page' => $count,
+	) );
+}

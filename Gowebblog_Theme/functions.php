@@ -313,6 +313,11 @@ if ( defined( 'JETPACK__VERSION' ) ) {
 }
 
 /**
+ * Load Custom Post Types
+ */
+require get_template_directory() . '/inc/post-types.php';
+
+/**
  * Add IDs to heading tags for table of contents
  *
  * @param string $content The post content.

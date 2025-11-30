@@ -1,13 +1,15 @@
 <?php
 /**
- * Template Name: Portfolio Template
+ * The template for displaying archive of projects
+ *
+ * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
  *
  * @package Gowebblog
  */
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
-    exit;
+	exit;
 }
 
 get_header(); ?>
@@ -15,43 +17,19 @@ get_header(); ?>
     <div id="primary" class="content-area">
         <main id="main" class="site-main py-16">
             <div class="max-w-6xl mx-auto px-6">
-                <?php
-                // Get page content if this is a page with portfolio template
-                if ( have_posts() ) :
-                    while ( have_posts() ) :
-                        the_post();
-                        ?>
-                        <header class="page-header mb-12">
-                            <?php the_title( '<h1 class="page-title font-heading text-4xl md:text-5xl font-bold mb-8 leading-tight">', '</h1>' ); ?>
-                            
-                            <?php if ( has_post_thumbnail() ) : ?>
-                                <div class="rounded-2xl overflow-hidden mb-12">
-                                    <?php the_post_thumbnail( 'large', array( 'class' => 'w-full h-auto' ) ); ?>
-                                </div>
-                            <?php endif; ?>
-                            
-                            <div class="page-content text-lg text-gray-300 mb-12">
-                                <?php the_content(); ?>
-                            </div>
-                        </header>
+                <?php if ( have_posts() ) : ?>
+                    <header class="page-header mb-12">
                         <?php
-                    endwhile;
-                endif;
-                
-                // Query projects
-                $projects_query = new WP_Query( array(
-                    'post_type'      => 'project',
-                    'posts_per_page' => -1,
-                    'post_status'    => 'publish',
-                    'orderby'        => 'date',
-                    'order'          => 'DESC',
-                ) );
-                
-                if ( $projects_query->have_posts() ) : ?>
+                        the_archive_title( '<h1 class="page-title font-heading text-4xl md:text-5xl font-bold mb-4">', '</h1>' );
+                        the_archive_description( '<div class="archive-description text-lg text-gray-400">', '</div>' );
+                        ?>
+                    </header>
+
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         <?php
-                        while ( $projects_query->have_posts() ) :
-                            $projects_query->the_post();
+                        // Start the Loop.
+                        while ( have_posts() ) :
+                            the_post();
                             ?>
                             <article id="post-<?php the_ID(); ?>" <?php post_class( 'project-card bg-card-color rounded-xl overflow-hidden border border-white/10 hover:border-white/20 transition-all duration-300 fade-in-section' ); ?>>
                                 <?php if ( has_post_thumbnail() ) : ?>
@@ -112,13 +90,23 @@ get_header(); ?>
                             </article>
                         <?php endwhile; ?>
                     </div>
+
+                    <?php
+                    // Previous/next page navigation.
+                    the_posts_pagination(
+                        array(
+                            'mid_size'           => 2,
+                            'prev_text'          => __( 'Previous', 'gowebblog' ),
+                            'next_text'          => __( 'Next', 'gowebblog' ),
+                            'before_page_number' => '<span class="screen-reader-text">' . __( 'Page', 'gowebblog' ) . ' </span>',
+                            'class'              => 'pagination flex justify-center gap-2 mt-12',
+                        )
+                    );
+                    ?>
+
                 <?php else : ?>
-                    <div class="text-center py-12">
-                        <p class="text-xl text-gray-400"><?php esc_html_e( 'No projects found.', 'gowebblog' ); ?></p>
-                    </div>
+                    <?php get_template_part( 'template-parts/content', 'none' ); ?>
                 <?php endif; ?>
-                
-                <?php wp_reset_postdata(); ?>
             </div>
         </main>
     </div>
