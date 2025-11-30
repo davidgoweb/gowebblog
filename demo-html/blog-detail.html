@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Art of Coffee Making for Designers - Davidgoweb Portal</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        heading: ['"Syne"', 'sans-serif'],
+                    },
+                    colors: {
+                        dark: '#121212',
+                        darker: '#0a0a0a',
+                        card: '#1c1c1c',
+                        primary: '#ffffff',
+                        secondary: '#999999',
+                        accent: '#d1d5db',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        /* Image Hover Zoom Effect */
+        .img-zoom-container {
+            overflow: hidden;
+        }
+        .img-zoom {
+            transition: transform 0.5s ease;
+        }
+        .group:hover .img-zoom {
+            transform: scale(1.1);
+        }
+        
+        /* Fade In Animation classes */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            will-change: opacity, visibility;
+        }
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: none;
+        }
+        .blog-content{
+            h2,h3,h4,h5,h6{
+                margin-top:30px;
+                margin-bottom:15px
+            }
+            p{margin-bottom:15px}
+            pre{margin-bottom:15px;padding:25px; background-color:#555}
+        }
+        /* Blog Content Typography */
+        .blog-content h1 {
+            font-size: 2.5rem; /* 40px - Standard h1 size */
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            @apply font-bold mt-8 mb-6 font-heading text-white;
+        }
+        
+        .blog-content h2 {
+            font-size: 2rem; /* 32px - Standard h2 size */
+            line-height: 1.3;
+            letter-spacing: -0.01em;
+            @apply font-bold mt-12 mb-6 font-heading text-white;
+            position: relative;
+            padding-bottom: 16px;
+        }
+        
+        .blog-content h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, #ffffff, transparent);
+            border-radius: 2px;
+        }
+        
+        .blog-content h3 {
+            font-size: 1.5rem; /* 24px - Standard h3 size */
+            line-height: 1.3;
+            letter-spacing: -0.01em;
+            @apply font-bold mt-10 mb-5 font-heading text-white;
+            position: relative;
+            padding-left: 20px;
+        }
+        
+        .blog-content h3::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 6px;
+            bottom: 6px;
+            width: 4px;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 2px;
+        }
+        
+        .blog-content h4 {
+            font-size: 1.25rem; /* 20px - Standard h4 size */
+            line-height: 1.4;
+            @apply font-semibold mt-8 mb-4 font-heading text-white;
+            position: relative;
+            padding-left: 16px;
+        }
+        
+        .blog-content h4::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 3px;
+            height: 16px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 2px;
+        }
+        
+        .blog-content h5 {
+            font-size: 1.125rem; /* 18px - Standard h5 size */
+            line-height: 1.4;
+            @apply font-semibold mt-6 mb-3 font-heading text-white;
+            color: rgba(255, 255, 255, 0.95);
+        }
+        
+        .blog-content h6 {
+            font-size: 1rem; /* 16px - Standard h6 size */
+            line-height: 1.5;
+            @apply font-medium mt-5 mb-3 font-heading text-white;
+            color: rgba(255, 255, 255, 0.9);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        /* Responsive adjustments for headings */
+        @media (max-width: 768px) {
+            .blog-content h1 {
+                font-size: 2rem; /* 32px */
+            }
+            
+            .blog-content h2 {
+                font-size: 1.75rem; /* 28px */
+            }
+            
+            .blog-content h3 {
+                font-size: 1.375rem; /* 22px */
+            }
+            
+            .blog-content h4 {
+                font-size: 1.125rem; /* 18px */
+            }
+            
+            .blog-content h5 {
+                font-size: 1rem; /* 16px */
+            }
+            
+            .blog-content h6 {
+                font-size: 0.875rem; /* 14px */
+            }
+        }
+        
+        .blog-content p {
+            @apply text-secondary leading-relaxed mb-6;
+            font-size: 1.05rem;
+            line-height: 1.7;
+            max-width: none;
+        }
+        
+        .blog-content ul, .blog-content ol {
+            @apply text-secondary leading-relaxed mb-8;
+            padding-left: 28px;
+            line-height: 1.7;
+        }
+        
+        .blog-content ul li {
+            @apply mb-4 relative;
+            padding-left: 16px;
+        }
+        
+        .blog-content ul li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: rgba(255, 255, 255, 0.6);
+            font-weight: bold;
+            font-size: 1.2em;
+            line-height: 1.4;
+        }
+        
+        .blog-content ol li {
+            @apply mb-4;
+            padding-left: 12px;
+            line-height: 1.7;
+        }
+        
+        .blog-content blockquote {
+            @apply border-l-4 border-white/20 pl-8 pr-4 py-6 my-10 text-secondary italic bg-card/30 rounded-r-lg;
+            font-size: 1.15rem;
+            line-height: 1.7;
+            position: relative;
+            margin-left: 0;
+            margin-right: 0;
+        }
+        
+        .blog-content blockquote::before {
+            content: '"';
+            position: absolute;
+            left: 20px;
+            top: 12px;
+            font-size: 3.5rem;
+            color: rgba(255, 255, 255, 0.15);
+            font-family: Georgia, serif;
+            line-height: 1;
+        }
+        
+        .blog-content blockquote p {
+            @apply mb-0;
+            font-size: inherit;
+            line-height: inherit;
+        }
+        
+        .blog-content img {
+            @apply rounded-xl my-10 shadow-lg;
+            transition: transform 0.3s ease;
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .blog-content img:hover {
+            transform: scale(1.02);
+        }
+        
+        .blog-content code {
+            @apply bg-card px-3 py-1.5 rounded text-sm text-pink-300 font-mono;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            font-size: 0.9em;
+        }
+        
+        .blog-content pre {
+            @apply bg-card p-6 rounded-xl overflow-x-auto my-8 border border-white/10;
+            position: relative;
+            margin-left: -24px;
+            margin-right: -24px;
+        }
+        
+        .blog-content pre::before {
+            content: 'Code';
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+        
+        .blog-content pre code {
+            @apply bg-transparent p-0 text-sm text-white;
+            border: none;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        
+        .blog-content a {
+            @apply text-white hover:text-pink-300 transition-colors relative;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .blog-content a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #ec4899, transparent);
+            transition: width 0.3s ease;
+            border-radius: 1px;
+        }
+        
+        .blog-content a:hover::after {
+            width: 100%;
+        }
+        
+        /* Table styling */
+        .blog-content table {
+            @apply w-full my-10 border-collapse rounded-xl overflow-hidden;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .blog-content thead {
+            @apply bg-card/60;
+        }
+        
+        .blog-content th {
+            @apply px-6 py-4 text-left font-semibold text-white border-b border-white/10;
+            font-size: 0.95rem;
+            letter-spacing: 0.025em;
+            text-transform: uppercase;
+        }
+        
+        .blog-content td {
+            @apply px-6 py-4 text-left border-b border-white/5 text-secondary;
+            line-height: 1.6;
+        }
+        
+        .blog-content tbody tr:last-child td {
+            @apply border-b-0;
+        }
+        
+        .blog-content tr:nth-child(even) {
+            @apply bg-white/3;
+        }
+        
+        .blog-content tr:hover {
+            @apply bg-white/5;
+            transition: background-color 0.2s ease;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .blog-content pre {
+                margin-left: -16px;
+                margin-right: -16px;
+                border-radius: 0;
+            }
+            
+            .blog-content table {
+                font-size: 0.9rem;
+            }
+            
+            .blog-content th, .blog-content td {
+                @apply px-4 py-3;
+            }
+        }
+    </style>
+</head>
+<body class="bg-darker text-primary font-sans antialiased selection:bg-white selection:text-black">
+
+    <!-- Navbar -->
+    <header class="fixed w-full top-0 z-50 bg-darker/80 backdrop-blur-md border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <!-- Logo -->
+            <a href="index.html" class="font-heading text-3xl font-bold tracking-tighter">Davidgoweb.</a>
+
+            <!-- Desktop Menu -->
+            <nav class="hidden md:flex gap-8 items-center text-sm font-medium uppercase tracking-wider text-secondary">
+                <a href="index.html#about" class="hover:text-white transition-colors">About</a>
+                <a href="index.html#services" class="hover:text-white transition-colors">Services</a>
+                <a href="index.html#portfolio" class="hover:text-white transition-colors">Portfolio</a>
+                <a href="index.html#blog" class="hover:text-white transition-colors">Blog</a>
+            </nav>
+
+            <!-- CTA & Mobile Toggle -->
+            <div class="flex items-center gap-4">
+                <a href="index.html#contact" class="hidden sm:inline-block px-6 py-2.5 border border-white/20 rounded-full text-sm font-semibold hover:bg-white hover:text-black transition-all duration-300">
+                    Let's Talk
+                </a>
+                <button id="mobile-menu-btn" class="md:hidden text-2xl p-2 focus:outline-none">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 bg-darker z-40 transform translate-x-full transition-transform duration-300 flex flex-col items-center justify-center space-y-8 text-2xl font-heading font-bold md:hidden">
+        <button id="close-menu-btn" class="absolute top-6 right-6 text-3xl text-secondary hover:text-white">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+        <a href="index.html#about" class="mobile-link hover:text-secondary">About</a>
+        <a href="index.html#services" class="mobile-link hover:text-secondary">Services</a>
+        <a href="index.html#portfolio" class="mobile-link hover:text-secondary">Portfolio</a>
+        <a href="index.html#blog" class="mobile-link hover:text-secondary">Blog</a>
+        <a href="index.html#contact" class="mobile-link hover:text-secondary">Contact</a>
+    </div>
+
+    <main class="pt-20">
+        
+        <!-- Back to Blog -->
+        <section class="py-8">
+            <div class="max-w-4xl mx-auto px-6">
+                <a href="index.html#blog" class="inline-flex items-center text-secondary hover:text-white transition-colors">
+                    <i class="fa-solid fa-arrow-left mr-2"></i>
+                    Back to Blog
+                </a>
+            </div>
+        </section>
+
+        <!-- Blog Hero Section -->
+        <section class="py-12">
+            <div class="max-w-4xl mx-auto px-6">
+                <!-- Category Badge -->
+                <div class="mb-6 fade-in-section">
+                    <span class="bg-white text-black text-xs font-bold px-3 py-1 uppercase rounded">Design</span>
+                </div>
+                
+                <!-- Blog Title -->
+                <h1 class="font-heading text-4xl md:text-5xl lg:text-6xl font-bold mb-8 leading-tight fade-in-section">
+                    The Art of Coffee Making for Designers
+                </h1>
+                
+                <!-- Author & Date -->
+                <div class="flex flex-wrap items-center gap-6 mb-10 text-secondary fade-in-section">
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center">
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm text-white/60">Author</p>
+                            <p class="font-medium">Admin</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center">
+                            <i class="fa-regular fa-calendar"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm text-white/60">Published</p>
+                            <p class="font-medium">October 8, 2024</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center">
+                            <i class="fa-regular fa-clock"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm text-white/60">Reading Time</p>
+                            <p class="font-medium">5 min</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Featured Image -->
+                <div class="rounded-2xl overflow-hidden mb-12 fade-in-section">
+                    <img src="https://dummyimage.com/1200x600/222/fff?text=Coffee+Art" alt="The Art of Coffee Making for Designers" class="w-full h-auto">
+                </div>
+            </div>
+        </section>
+
+        <!-- Blog Content -->
+        <section class="pb-24">
+            <div class="max-w-4xl mx-auto px-6">
+                <div class="blog-content fade-in-section">
+                    <p class="text-lg text-secondary leading-relaxed mb-8">
+                        As designers, we're constantly seeking inspiration in the world around us. One of the most overlooked sources of creative fuel is right in our cups – coffee. The ritual of coffee making is not just about caffeine; it's a process that mirrors our design thinking in many ways.
+                    </p>
+                    
+                    <h2>The Parallel Between Coffee and Design</h2>
+                    <p>
+                        Both coffee making and design require attention to detail, an understanding of materials, and a balance between art and science. Just as we consider the user experience in our designs, a barista considers the entire coffee journey from bean to cup.
+                    </p>
+                    
+                    <h3>Understanding Your Materials</h3>
+                    <p>
+                        In design, we work with colors, typography, and layout. In coffee, baristas work with beans, water temperature, and extraction time. Both require deep knowledge of how elements interact and influence the final result.
+                    </p>
+                    
+                    <blockquote>
+                        "The best coffee, like the best design, comes from understanding the fundamentals while having the courage to experiment."
+                    </blockquote>
+                    
+                    <h3>The Process Matters</h3>
+                    <p>
+                        Whether you're using a French press, pour-over, or espresso machine, each method produces different results. Similarly, in design, our choice of tools and processes significantly impacts the outcome. The key is to understand which method works best for your specific goals.
+                    </p>
+                    
+                    <ul>
+                        <li><strong>French Press:</strong> Bold, full-bodied – like a robust design system</li>
+                        <li><strong>Pour-over:</strong> Clean, nuanced – like minimalist design</li>
+                        <li><strong>Espresso:</strong> Intense, concentrated – like a focused microinteraction</li>
+                        <li><strong>Cold Brew:</strong> Smooth, refreshing – like a well-designed user interface</li>
+                        <li><strong>Aeropress:</strong> Versatile, experimental – like rapid prototyping</li>
+                    </ul>
+                    
+                    <h3>Creating Rituals</h3>
+                    <p>
+                        The morning coffee ritual can be a powerful creative practice. It's a moment of mindfulness before diving into the day's work. Many designers find that this ritual helps clear the mind and prepare for creative challenges.
+                    </p>
+                    
+                    <img src="https://dummyimage.com/800x400/333/fff?text=Coffee+Ritual" alt="Coffee making ritual">
+                    
+                    <h3>Experimentation and Iteration</h3>
+                    <p>
+                        Just as we iterate on designs, coffee enthusiasts experiment with different beans, ratios, and techniques. This willingness to experiment is crucial for growth in both disciplines. Don't be afraid to try new approaches – that's how innovation happens.
+                    </p>
+                    
+                    <h2>Practical Tips for Designers Who Love Coffee</h2>
+                    
+                    <ol>
+                        <li><strong>Start with Quality Beans:</strong> Like good design foundations, quality beans make a difference</li>
+                        <li><strong>Document Your Process:</strong> Keep notes on what works, just like design documentation</li>
+                        <li><strong>Create a Dedicated Space:</strong> Design your coffee station with the same care as your workspace</li>
+                        <li><strong>Share Your Creations:</strong> Coffee, like design, is better when shared with others</li>
+                        <li><strong>Stay Curious:</strong> Always be learning about new techniques and approaches</li>
+                        <li><strong>Embrace Constraints:</strong> Work with what you have, whether it's limited equipment or design tools</li>
+                        <li><strong>Iterate and Refine:</strong> Perfect your recipe over time, just like you would with a design</li>
+                    </ol>
+                    
+                    <h3>Technical Aspects of Coffee Making</h3>
+                    <p>
+                        Understanding the technical side of coffee can enhance your appreciation for the process, much like understanding code improves your design implementation. Here's a simple example of how temperature affects extraction:
+                    </p>
+                    
+                    <pre><code>// Coffee extraction formula
+function calculateExtraction(temperature, time, grindSize) {
+    const baseExtraction = 0.18; // 18% ideal extraction
+    const tempFactor = (temperature - 92) * 0.002; // Optimal at 92°C
+    const timeFactor = (time - 25) * 0.001; // Optimal at 25 seconds
+    const grindFactor = (grindSize - 5) * 0.003; // Medium grind is optimal
+    
+    return baseExtraction + tempFactor + timeFactor + grindFactor;
+}</code></pre>
+                    
+                    <p>
+                        Just like in design, small adjustments can have significant impacts on the final result. The key is finding the right balance of variables.
+                    </p>
+                    <h4>Coffee Variables That Impact Design Thinking</h4>
+                    <p>
+                        When we examine the variables in coffee making, we discover parallels to design principles that can enhance our creative process.
+                    </p>
+                    
+                    <h5>Temperature Control</h5>
+                    <p>
+                        Water temperature in coffee brewing is like color temperature in design. Both require precise control to achieve the desired emotional response and functional outcome.
+                    </p>
+                    
+                    <h6>Extraction Time</h6>
+                    <p>
+                        The duration of extraction affects flavor profile just as the time users spend with your design impacts their overall experience and perception.
+                    </p>
+                    
+                    
+                    <h3>Coffee and Design Communities</h3>
+                    <p>
+                        Both coffee and design have passionate communities that share knowledge and push boundaries. Whether it's online forums, local meetups, or international competitions, these communities provide valuable feedback and inspiration.
+                    </p>
+                    
+                    <h4>Community Engagement Models</h4>
+                    <p>
+                        The way coffee enthusiasts and designers organize themselves reveals interesting patterns of collaboration and knowledge sharing.
+                    </p>
+                    
+                    <h5>Knowledge Transfer Methods</h5>
+                    <p>
+                        From apprenticeship to online tutorials, both fields have evolved their approaches to teaching and learning.
+                    </p>
+                    
+                    <h6>Specialized Terminology</h6>
+                    <p>
+                        Each community develops its own language that creates identity and facilitates precise communication among practitioners.
+                    </p>
+                    
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Aspect</th>
+                                <th>Coffee Community</th>
+                                <th>Design Community</th>
+                                <th>Shared Principles</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Events</td>
+                                <td>Barista championships</td>
+                                <td>Design conferences</td>
+                                <td>Competition drives innovation</td>
+                            </tr>
+                            <tr>
+                                <td>Learning</td>
+                                <td>Cupping sessions</td>
+                                <td>Design critiques</td>
+                                <td>Peer feedback improves quality</td>
+                            </tr>
+                            <tr>
+                                <td>Tools</td>
+                                <td>Specialized equipment</td>
+                                <td>Design software</td>
+                                <td>Tools enable creativity</td>
+                            </tr>
+                            <tr>
+                                <td>Certification</td>
+                                <td>SCA certifications</td>
+                                <td>Design degrees</td>
+                                <td>Formal recognition of expertise</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <h3>Conclusion</h3>
+                    <p>
+                        The art of coffee making offers more than just a morning pick-me-up. It provides a framework for thinking about process, attention to detail, and the balance between consistency and creativity. By embracing coffee as a creative practice, designers can find new sources of inspiration and approach their work with renewed perspective.
+                    </p>
+                    
+                    <p>
+                        Next time you're feeling stuck on a design problem, perhaps the solution isn't at your desk, but at your coffee machine. The ritual might just unlock the creativity you're seeking.
+                    </p>
+                </div>
+                
+                <!-- Tags -->
+                <div class="mt-16 pt-8 border-t border-white/10 fade-in-section">
+                    <div class="flex flex-wrap gap-3 mb-8">
+                        <span class="px-4 py-2 bg-card rounded-full text-sm text-secondary border border-white/5">Coffee</span>
+                        <span class="px-4 py-2 bg-card rounded-full text-sm text-secondary border border-white/5">Design</span>
+                        <span class="px-4 py-2 bg-card rounded-full text-sm text-secondary border border-white/5">Creativity</span>
+                        <span class="px-4 py-2 bg-card rounded-full text-sm text-secondary border border-white/5">Inspiration</span>
+                    </div>
+                    
+                    <!-- Share -->
+                    <div class="flex items-center gap-4 mb-8">
+                        <p class="text-secondary text-sm">Share this article:</p>
+                        <div class="flex gap-3">
+                            <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
+                                <i class="fa-brands fa-twitter"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
+                                <i class="fa-brands fa-linkedin"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
+                                <i class="fa-solid fa-link"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="py-16 border-t border-white/5 bg-darker">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-3 gap-12 mb-12">
+                <!-- Brand -->
+                <div>
+                    <a href="index.html" class="font-heading text-3xl font-bold tracking-tighter mb-6 block">Davidgoweb.</a>
+                    <p class="text-secondary text-sm leading-relaxed">
+                        Tech enthusiast and architecture-minded builder based in Jakarta. I blend market insight with solid technical structure to help brands turn ideas into high-quality, scalable products.
+                    </p>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h5 class="text-lg font-bold mb-6">Quick Links</h5>
+                    <ul class="space-y-3">
+                        <li><a href="index.html#about" class="text-secondary hover:text-white transition-colors text-sm">About</a></li>
+                        <li><a href="index.html#services" class="text-secondary hover:text-white transition-colors text-sm">Services</a></li>
+                        <li><a href="index.html#portfolio" class="text-secondary hover:text-white transition-colors text-sm">Portfolio</a></li>
+                        <li><a href="index.html#blog" class="text-secondary hover:text-white transition-colors text-sm">Blog</a></li>
+                        <li><a href="index.html#contact" class="text-secondary hover:text-white transition-colors text-sm">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Social Links -->
+                <div>
+                    <h5 class="text-lg font-bold mb-6">Connect</h5>
+                    <div class="space-y-6">
+                            <div class="flex items-start gap-4">
+                                <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-xl shrink-0">
+                                    <i class="fa-regular fa-envelope"></i>
+                                </div>
+                                <div>
+                                    <h5 class="text-lg font-bold mb-1">Email Me</h5>
+                                    <p class="text-secondary"><a href="mailto:davidgoweb@gmail.com">davidgoweb@gmail.com</a></p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start gap-4">
+                                <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-xl shrink-0">
+                                    <i class="fa-brands fa-linkedin"></i>
+                                </div>
+                                <div>
+                                    <h5 class="text-lg font-bold mb-1">Linkedin</h5>
+                                    <p class="text-secondary"><a href="https://www.linkedin.com/in/maykhel-david/">Maykhel David</a></p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-xl shrink-0">
+                                    <i class="fa-brands fa-github"></i>
+                                </div>
+                                <div>
+                                    <h5 class="text-lg font-bold mb-1">Github</h5>
+                                    <p class="text-secondary"><a href="https://github.com/davidgoweb">Davidgoweb</a></p>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-secondary text-sm mb-4 md:mb-0">&copy; 2025 Davidgoweb Portal. All Rights Reserved.</p>
+                <p class="text-secondary text-sm">Designed with ❤️ by Davidgoweb</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Interactivity -->
+    <script>
+        // Mobile Menu Toggle
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const closeMenuBtn = document.getElementById('close-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        function toggleMenu() {
+            mobileMenu.classList.toggle('translate-x-full');
+            document.body.classList.toggle('overflow-hidden');
+        }
+
+        menuBtn.addEventListener('click', toggleMenu);
+        closeMenuBtn.addEventListener('click', toggleMenu);
+        
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', toggleMenu);
+        });
+
+        // Intersection Observer for Scroll Animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in-section').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
