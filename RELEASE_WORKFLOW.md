@@ -2,6 +2,18 @@
 
 This GitHub Actions workflow automatically builds and releases your WordPress theme when you push commits containing "release version" in the commit message.
 
+## Important: Repository Permissions
+
+For this workflow to work properly, ensure that your repository has the correct permissions:
+
+1. Go to your repository on GitHub
+2. Click on **Settings** → **Actions** → **General**
+3. Under "Workflow permissions", select **Read and write permissions**
+4. Check the box for **Allow GitHub Actions to create and approve pull requests**
+5. Click **Save**
+
+The workflow file already includes the necessary permissions (`contents: write` and `releases: write`), but the repository settings must allow these permissions.
+
 ## How It Works
 
 1. **Trigger**: The workflow triggers on pushes to the main/master branch when the commit message contains "release version"
