@@ -16,6 +16,49 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 get_header(); ?>
 
+<?php if ( is_paged() ) : ?>
+	<!-- Paginated Blog Posts Only -->
+	<section id="blog" class="py-24">
+		<div class="max-w-7xl mx-auto px-6">
+			<div class="mb-16 text-center fade-in-section">
+				<h2 class="text-secondary uppercase tracking-widest text-sm font-semibold"><?php esc_html_e( 'Journal', 'gowebblog' ); ?></h2>
+				<p class="font-heading text-4xl md:text-5xl font-bold mt-2"><?php esc_html_e( 'Latest News', 'gowebblog' ); ?></p>
+			</div>
+
+			<?php if ( have_posts() ) : ?>
+				<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+					<?php
+					// Start the Loop.
+					while ( have_posts() ) :
+						the_post();
+						get_template_part( 'template-parts/content-home' );
+					endwhile;
+					?>
+				</div>
+
+				<!-- Pagination -->
+				<div class="mt-16 flex justify-center">
+					<?php
+					the_posts_pagination(
+						array(
+							'mid_size'           => 2,
+							'prev_text'          => __( '<i class="fa-solid fa-arrow-left"></i> Previous', 'gowebblog' ),
+							'next_text'          => __( 'Next <i class="fa-solid fa-arrow-right"></i>', 'gowebblog' ),
+							'screen_reader_text' => __( 'Posts navigation', 'gowebblog' ),
+							'class'              => 'flex gap-2 text-sm font-medium',
+						)
+					);
+					?>
+				</div>
+
+			<?php else : ?>
+				<?php get_template_part( 'template-parts/content', 'none' ); ?>
+			<?php endif; ?>
+		</div>
+	</section>
+
+<?php else : ?>
+	<!-- Full Home Page (only on page 1) -->
 	<!-- Hero Section -->
 	<section id="about" class="min-h-screen flex items-center py-20 relative overflow-hidden">
 		<div class="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-white/5 to-transparent pointer-events-none"></div>
@@ -23,7 +66,7 @@ get_header(); ?>
 		<div class="max-w-7xl mx-auto px-6 w-full grid lg:grid-cols-2 gap-12 items-center">
 			<!-- Text Content -->
 			<div class="order-2 lg:order-1 fade-in-section">
-				<h4 class="text-secondary text-lg mb-4 font-medium tracking-wide"><?php esc_html_e( 'Hello, this is', 'gowebblog' ); ?></h4>
+				<h4 class="text-secondary text-lg mb-4 font-medium tracking-wide"><?php esc_html_e( 'Hello, I\'m', 'gowebblog' ); ?></h4>
 				<h1 class="font-heading text-6xl md:text-6xl font-bold mb-6 leading-none">
 					<?php bloginfo( 'name' ); ?> <br> <span class="text-secondary"><?php esc_html_e( 'Portal', 'gowebblog' ); ?></span>
 				</h1>
@@ -211,6 +254,7 @@ get_header(); ?>
 			<?php endif; ?>
 		</div>
 	</section>
+<?php endif; ?>
 
 <?php
 get_footer();
