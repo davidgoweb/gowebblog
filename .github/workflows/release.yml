@@ -3,7 +3,6 @@ name: Auto Release WordPress Theme
 # Set permissions for the workflow
 permissions:
   contents: write
-  releases: write
 
 on:
   push:
