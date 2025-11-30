@@ -213,19 +213,6 @@ function gowebblog_post_classes( $classes ) {
 }
 add_filter( 'post_class', 'gowebblog_post_classes' );
 
-/**
- * Add customizer preview styles
- */
-function gowebblog_customize_preview_js() {
-	wp_enqueue_script(
-		'gowebblog-customizer',
-		get_template_directory_uri() . '/assets/js/customizer.js',
-		array( 'customize-preview' ),
-		'',
-		true
-	);
-}
-add_action( 'customize_preview_init', 'gowebblog_customize_preview_js' );
 
 /**
  * Add customizer settings

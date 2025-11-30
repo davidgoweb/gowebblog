@@ -313,52 +313,47 @@ if ( defined( 'JETPACK__VERSION' ) ) {
 }
 
 /**
- * Add customizer settings for theme colors and typography.
+ * Add IDs to heading tags for table of contents
+ *
+ * @param string $content The post content.
+ * @return string Modified content with IDs added to headings.
  */
-function gowebblog_customize_register( $wp_customize ) {
-	// Add theme color settings section.
-	$wp_customize->add_section(
-		'gowebblog_colors',
-		array(
-			'title'    => __( 'Theme Colors', 'gowebblog' ),
-			'priority' => 30,
-		)
-	);
-
-	// Add color settings.
-	$colors = array(
-		'primary_color'   => '#ffffff',
-		'secondary_color' => '#999999',
-		'accent_color'    => '#d1d5db',
-		'dark_color'      => '#121212',
-		'darker_color'    => '#0a0a0a',
-		'card_color'      => '#1c1c1c',
-	);
-
-	foreach ( $colors as $key => $default ) {
-		$wp_customize->add_setting(
-			$key,
-			array(
-				'default'           => $default,
-				'sanitize_callback' => 'sanitize_hex_color',
-				'transport'         => 'postMessage',
-			)
-		);
-
-		$wp_customize->add_control(
-			new WP_Customize_Color_Control(
-				$wp_customize,
-				$key,
-				array(
-					'label'   => ucwords( str_replace( '_', ' ', $key ) ),
-					'section' => 'gowebblog_colors',
-					'settings' => $key,
-				)
-			)
-		);
-	}
+function gowebblog_add_heading_ids( $content ) {
+	// Pattern to match h2, h3, h4, h5, h6 tags without ID attribute
+	$pattern = '/<(h[2-6])([^>]*)>(.*?)<\/h[2-6]>/i';
+	
+	$content = preg_replace_callback( $pattern, function( $matches ) {
+		$tag = $matches[1]; // h2, h3, etc.
+		$attributes = $matches[2]; // existing attributes
+		$text = $matches[3]; // heading text
+		
+		// Check if ID already exists
+		if ( preg_match( '/id\s*=\s*["\'][^"\']*["\']/', $attributes ) ) {
+			return $matches[0]; // Return unchanged if ID exists
+		}
+		
+		// Create ID from heading text
+		$id = sanitize_title( $text );
+		
+		// Ensure ID is unique
+		static $used_ids = array();
+		$original_id = $id;
+		$counter = 1;
+		
+		while ( in_array( $id, $used_ids ) ) {
+			$id = $original_id . '-' . $counter;
+			$counter++;
+		}
+		
+		$used_ids[] = $id;
+		
+		// Return heading with ID added
+		return '<' . $tag . $attributes . ' id="' . esc_attr( $id ) . '">' . $text . '</' . $tag . '>';
+	}, $content );
+	
+	return $content;
 }
-add_action( 'customize_register', 'gowebblog_customize_register' );
+add_filter( 'the_content', 'gowebblog_add_heading_ids' );
 
 /**
  * Output custom CSS from customizer settings.

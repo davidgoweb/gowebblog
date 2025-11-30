@@ -36,11 +36,10 @@ function gowebblog_has_headings( $post_id = 0 ) {
 	$post_id = $post_id ? $post_id : get_the_ID();
 	$post    = get_post( $post_id );
 	
-	// Check for h2 and h3 tags in content
-	$has_h2 = preg_match( '/<h2[^>]*>/i', $post->post_content );
-	$has_h3 = preg_match( '/<h3[^>]*>/i', $post->post_content );
+	// Check for h2, h3, h4, h5, and h6 tags in content
+	$has_headings = preg_match( '/<h[2-6][^>]*>/i', $post->post_content );
 	
-	return apply_filters( 'gowebblog_has_headings', ( $has_h2 || $has_h3 ), $post_id );
+	return apply_filters( 'gowebblog_has_headings', $has_headings, $post_id );
 }
 
 /**
@@ -57,19 +56,40 @@ function gowebblog_get_table_of_contents( $post_id = 0 ) {
 		return '';
 	}
 	
-	// Extract headings from content
-	preg_match_all( '/<h([2-6])[^>]*id="([^"]*)"[^>]*>(.*?)<\/h[2-6]>/i', $post->post_content, $matches );
+	// Extract headings from content (with or without ID)
+	preg_match_all( '/<h([2-6])[^>]*>(.*?)<\/h[2-6]>/i', $post->post_content, $matches );
 	
 	if ( empty( $matches[0] ) ) {
 		return '';
 	}
 	
+	// Process each heading to ensure it has an ID
+	$processed_headings = array();
+	foreach ( $matches[0] as $index => $heading ) {
+		$level = $matches[1][ $index ];
+		$title = strip_tags( $matches[2][ $index ] );
+		
+		// Check if heading already has an ID
+		if ( preg_match( '/id="([^"]*)"/i', $heading, $id_match ) ) {
+			$id = $id_match[1];
+		} else {
+			// Generate ID from title
+			$id = sanitize_title( $title );
+		}
+		
+		$processed_headings[] = array(
+			'level' => $level,
+			'id'    => $id,
+			'title' => $title,
+		);
+	}
+	
 	$toc = '<ul class="space-y-3">';
 	
-	foreach ( $matches[0] as $index => $heading ) {
-		$level   = $matches[1][ $index ];
-		$id      = $matches[2][ $index ];
-		$title   = strip_tags( $matches[3][ $index ] );
+	foreach ( $processed_headings as $heading ) {
+		$level   = $heading['level'];
+		$id      = $heading['id'];
+		$title   = $heading['title'];
 		$padding = ( $level - 2 ) * 4; // h2 = 0, h3 = 4, h4 = 8, etc.
 		
 		$toc .= sprintf(
