@@ -373,6 +373,34 @@
                 @apply px-4 py-3;
             }
         }
+        
+        /* Sidebar specific styles */
+        .line-clamp-2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        /* Sticky sidebar behavior */
+        @media (min-width: 1024px) {
+            .sticky {
+                position: sticky;
+                top: 6rem; /* Adjust based on header height */
+            }
+        }
+        
+        /* Smooth scroll for anchor links */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Active state for TOC links */
+        .toc-active {
+            color: white !important;
+            border-left-color: white !important;
+            background: linear-gradient(90deg, rgba(255,255,255,0.1), transparent);
+        }
     </style>
 </head>
 <body class="bg-darker text-primary font-sans antialiased selection:bg-white selection:text-black">
@@ -419,7 +447,7 @@
         
         <!-- Back to Blog -->
         <section class="py-8">
-            <div class="max-w-4xl mx-auto px-6">
+            <div class="max-w-7xl mx-auto px-6">
                 <a href="index.html#blog" class="inline-flex items-center text-secondary hover:text-white transition-colors">
                     <i class="fa-solid fa-arrow-left mr-2"></i>
                     Back to Blog
@@ -429,7 +457,7 @@
 
         <!-- Blog Hero Section -->
         <section class="py-12">
-            <div class="max-w-4xl mx-auto px-6">
+            <div class="max-w-7xl mx-auto px-6">
                 <!-- Category Badge -->
                 <div class="mb-6 fade-in-section">
                     <span class="bg-white text-black text-xs font-bold px-3 py-1 uppercase rounded">Design</span>
@@ -478,20 +506,23 @@
             </div>
         </section>
 
-        <!-- Blog Content -->
+        <!-- Blog Content with Sidebar -->
         <section class="pb-24">
-            <div class="max-w-4xl mx-auto px-6">
-                <div class="blog-content fade-in-section">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                    <!-- Main Content -->
+                    <div class="lg:col-span-2">
+                        <div class="blog-content fade-in-section">
                     <p class="text-lg text-secondary leading-relaxed mb-8">
                         As designers, we're constantly seeking inspiration in the world around us. One of the most overlooked sources of creative fuel is right in our cups – coffee. The ritual of coffee making is not just about caffeine; it's a process that mirrors our design thinking in many ways.
                     </p>
                     
-                    <h2>The Parallel Between Coffee and Design</h2>
+                    <h2 id="parallel">The Parallel Between Coffee and Design</h2>
                     <p>
                         Both coffee making and design require attention to detail, an understanding of materials, and a balance between art and science. Just as we consider the user experience in our designs, a barista considers the entire coffee journey from bean to cup.
                     </p>
                     
-                    <h3>Understanding Your Materials</h3>
+                    <h3 id="materials">Understanding Your Materials</h3>
                     <p>
                         In design, we work with colors, typography, and layout. In coffee, baristas work with beans, water temperature, and extraction time. Both require deep knowledge of how elements interact and influence the final result.
                     </p>
@@ -500,7 +531,7 @@
                         "The best coffee, like the best design, comes from understanding the fundamentals while having the courage to experiment."
                     </blockquote>
                     
-                    <h3>The Process Matters</h3>
+                    <h3 id="process">The Process Matters</h3>
                     <p>
                         Whether you're using a French press, pour-over, or espresso machine, each method produces different results. Similarly, in design, our choice of tools and processes significantly impacts the outcome. The key is to understand which method works best for your specific goals.
                     </p>
@@ -513,7 +544,7 @@
                         <li><strong>Aeropress:</strong> Versatile, experimental – like rapid prototyping</li>
                     </ul>
                     
-                    <h3>Creating Rituals</h3>
+                    <h3 id="rituals">Creating Rituals</h3>
                     <p>
                         The morning coffee ritual can be a powerful creative practice. It's a moment of mindfulness before diving into the day's work. Many designers find that this ritual helps clear the mind and prepare for creative challenges.
                     </p>
@@ -525,7 +556,7 @@
                         Just as we iterate on designs, coffee enthusiasts experiment with different beans, ratios, and techniques. This willingness to experiment is crucial for growth in both disciplines. Don't be afraid to try new approaches – that's how innovation happens.
                     </p>
                     
-                    <h2>Practical Tips for Designers Who Love Coffee</h2>
+                    <h2 id="tips">Practical Tips for Designers Who Love Coffee</h2>
                     
                     <ol>
                         <li><strong>Start with Quality Beans:</strong> Like good design foundations, quality beans make a difference</li>
@@ -537,7 +568,7 @@
                         <li><strong>Iterate and Refine:</strong> Perfect your recipe over time, just like you would with a design</li>
                     </ol>
                     
-                    <h3>Technical Aspects of Coffee Making</h3>
+                    <h3 id="technical">Technical Aspects of Coffee Making</h3>
                     <p>
                         Understanding the technical side of coffee can enhance your appreciation for the process, much like understanding code improves your design implementation. Here's a simple example of how temperature affects extraction:
                     </p>
@@ -628,7 +659,7 @@ function calculateExtraction(temperature, time, grindSize) {
                         </tbody>
                     </table>
                     
-                    <h3>Conclusion</h3>
+                    <h3 id="conclusion">Conclusion</h3>
                     <p>
                         The art of coffee making offers more than just a morning pick-me-up. It provides a framework for thinking about process, attention to detail, and the balance between consistency and creativity. By embracing coffee as a creative practice, designers can find new sources of inspiration and approach their work with renewed perspective.
                     </p>
@@ -638,28 +669,167 @@ function calculateExtraction(temperature, time, grindSize) {
                     </p>
                 </div>
                 
-                <!-- Tags -->
-                <div class="mt-16 pt-8 border-t border-white/10 fade-in-section">
-                    <div class="flex flex-wrap gap-3 mb-8">
-                        <span class="px-4 py-2 bg-card rounded-full text-sm text-secondary border border-white/5">Coffee</span>
-                        <span class="px-4 py-2 bg-card rounded-full text-sm text-secondary border border-white/5">Design</span>
-                        <span class="px-4 py-2 bg-card rounded-full text-sm text-secondary border border-white/5">Creativity</span>
-                        <span class="px-4 py-2 bg-card rounded-full text-sm text-secondary border border-white/5">Inspiration</span>
+                        
+                        <!-- Tags and Share -->
+                        <div class="mt-16 pt-8 border-t border-white/10 fade-in-section">
+                            <div class="flex flex-wrap gap-3 mb-8">
+                                <span class="px-4 py-2 bg-card rounded-full text-sm text-secondary border border-white/5">Coffee</span>
+                                <span class="px-4 py-2 bg-card rounded-full text-sm text-secondary border border-white/5">Design</span>
+                                <span class="px-4 py-2 bg-card rounded-full text-sm text-secondary border border-white/5">Creativity</span>
+                                <span class="px-4 py-2 bg-card rounded-full text-sm text-secondary border border-white/5">Inspiration</span>
+                            </div>
+                            
+                            <!-- Share -->
+                            <div class="flex items-center gap-4 mb-8">
+                                <p class="text-secondary text-sm">Share this article:</p>
+                                <div class="flex gap-3">
+                                    <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
+                                        <i class="fa-brands fa-twitter"></i>
+                                    </a>
+                                    <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
+                                        <i class="fa-brands fa-linkedin"></i>
+                                    </a>
+                                    <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
+                                        <i class="fa-solid fa-link"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     
-                    <!-- Share -->
-                    <div class="flex items-center gap-4 mb-8">
-                        <p class="text-secondary text-sm">Share this article:</p>
-                        <div class="flex gap-3">
-                            <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
-                                <i class="fa-brands fa-twitter"></i>
-                            </a>
-                            <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
-                                <i class="fa-brands fa-linkedin"></i>
-                            </a>
-                            <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
-                                <i class="fa-solid fa-link"></i>
-                            </a>
+                    <!-- Sidebar -->
+                    <div class="lg:col-span-1">
+                        <div class="sticky top-24 space-y-8">
+                            <!-- Table of Contents -->
+                            <div class="bg-card/50 backdrop-blur-sm rounded-2xl p-6 border border-white/5 fade-in-section">
+                                <h3 class="font-heading text-xl font-bold mb-6 text-white flex items-center">
+                                    <i class="fa-solid fa-list-ul mr-3 text-white/60"></i>
+                                    Table of Contents
+                                </h3>
+                                <nav class="space-y-3">
+                                    <a href="#parallel" class="block text-sm text-secondary hover:text-white transition-colors py-2 border-l-2 border-transparent hover:border-white/20 pl-4">
+                                        The Parallel Between Coffee and Design
+                                    </a>
+                                    <a href="#materials" class="block text-sm text-secondary hover:text-white transition-colors py-2 border-l-2 border-transparent hover:border-white/20 pl-4">
+                                        Understanding Your Materials
+                                    </a>
+                                    <a href="#process" class="block text-sm text-secondary hover:text-white transition-colors py-2 border-l-2 border-transparent hover:border-white/20 pl-4">
+                                        The Process Matters
+                                    </a>
+                                    <a href="#rituals" class="block text-sm text-secondary hover:text-white transition-colors py-2 border-l-2 border-transparent hover:border-white/20 pl-4">
+                                        Creating Rituals
+                                    </a>
+                                    <a href="#tips" class="block text-sm text-secondary hover:text-white transition-colors py-2 border-l-2 border-transparent hover:border-white/20 pl-4">
+                                        Practical Tips for Designers
+                                    </a>
+                                    <a href="#technical" class="block text-sm text-secondary hover:text-white transition-colors py-2 border-l-2 border-transparent hover:border-white/20 pl-4">
+                                        Technical Aspects
+                                    </a>
+                                    <a href="#conclusion" class="block text-sm text-secondary hover:text-white transition-colors py-2 border-l-2 border-transparent hover:border-white/20 pl-4">
+                                        Conclusion
+                                    </a>
+                                </nav>
+                            </div>
+                            
+                            <!-- Author Info -->
+                            <div class="bg-card/50 backdrop-blur-sm rounded-2xl p-6 border border-white/5 fade-in-section">
+                                <h3 class="font-heading text-xl font-bold mb-6 text-white flex items-center">
+                                    <i class="fa-solid fa-user-pen mr-3 text-white/60"></i>
+                                    About Author
+                                </h3>
+                                <div class="flex items-center gap-4 mb-4">
+                                    <div class="w-16 h-16 rounded-full bg-white/10 flex items-center justify-center">
+                                        <i class="fa-solid fa-user text-2xl"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-white">Admin</h4>
+                                        <p class="text-sm text-secondary">Design Enthusiast</p>
+                                    </div>
+                                </div>
+                                <p class="text-sm text-secondary leading-relaxed mb-4">
+                                    Passionate about design, coffee, and the intersection of creativity and technology. Sharing insights from years of experience in the field.
+                                </p>
+                                <div class="flex gap-3">
+                                    <a href="#" class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors text-sm">
+                                        <i class="fa-brands fa-twitter"></i>
+                                    </a>
+                                    <a href="#" class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors text-sm">
+                                        <i class="fa-brands fa-linkedin"></i>
+                                    </a>
+                                    <a href="#" class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors text-sm">
+                                        <i class="fa-brands fa-github"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            <!-- Related Posts -->
+                            <div class="bg-card/50 backdrop-blur-sm rounded-2xl p-6 border border-white/5 fade-in-section">
+                                <h3 class="font-heading text-xl font-bold mb-6 text-white flex items-center">
+                                    <i class="fa-solid fa-bookmark mr-3 text-white/60"></i>
+                                    Related Posts
+                                </h3>
+                                <div class="space-y-4">
+                                    <a href="#" class="group block">
+                                        <div class="flex gap-3">
+                                            <div class="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0">
+                                                <img src="https://dummyimage.com/80x80/333/fff?text=Design" alt="Related post" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
+                                            </div>
+                                            <div>
+                                                <h4 class="font-medium text-white text-sm mb-1 group-hover:text-pink-300 transition-colors line-clamp-2">
+                                                    Minimalist Design Principles for Modern Apps
+                                                </h4>
+                                                <p class="text-xs text-secondary">3 min read</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a href="#" class="group block">
+                                        <div class="flex gap-3">
+                                            <div class="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0">
+                                                <img src="https://dummyimage.com/80x80/333/fff?text=UI" alt="Related post" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
+                                            </div>
+                                            <div>
+                                                <h4 class="font-medium text-white text-sm mb-1 group-hover:text-pink-300 transition-colors line-clamp-2">
+                                                    UI Trends That Will Define 2025
+                                                </h4>
+                                                <p class="text-xs text-secondary">5 min read</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a href="#" class="group block">
+                                        <div class="flex gap-3">
+                                            <div class="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0">
+                                                <img src="https://dummyimage.com/80x80/333/fff?text=UX" alt="Related post" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
+                                            </div>
+                                            <div>
+                                                <h4 class="font-medium text-white text-sm mb-1 group-hover:text-pink-300 transition-colors line-clamp-2">
+                                                    User Psychology in Design Decisions
+                                                </h4>
+                                                <p class="text-xs text-secondary">7 min read</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            <!-- Newsletter Signup -->
+                            <div class="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 fade-in-section">
+                                <h3 class="font-heading text-xl font-bold mb-4 text-white flex items-center">
+                                    <i class="fa-solid fa-envelope mr-3 text-white/60"></i>
+                                    Stay Updated
+                                </h3>
+                                <p class="text-sm text-secondary mb-6">
+                                    Get the latest design insights and articles delivered to your inbox.
+                                </p>
+                                <form class="space-y-4">
+                                    <input type="email" placeholder="Your email address" class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-white/40 focus:outline-none focus:border-white/20 transition-colors">
+                                    <button type="submit" class="w-full py-3 bg-white text-black font-semibold rounded-lg hover:bg-white/90 transition-colors">
+                                        Subscribe Now
+                                    </button>
+                                </form>
+                                <p class="text-xs text-secondary mt-4 text-center">
+                                    No spam. Unsubscribe anytime.
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -772,6 +942,82 @@ function calculateExtraction(temperature, time, grindSize) {
         document.querySelectorAll('.fade-in-section').forEach(section => {
             observer.observe(section);
         });
+
+        // Table of Contents Active State
+        const tocLinks = document.querySelectorAll('nav a[href^="#"]');
+        const sections = document.querySelectorAll('h2[id], h3[id]');
+        
+        function updateActiveTocLink() {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                
+                if (window.pageYOffset >= sectionTop - 100) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            tocLinks.forEach(link => {
+                link.classList.remove('toc-active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('toc-active');
+                }
+            });
+        }
+        
+        // Update active link on scroll
+        window.addEventListener('scroll', updateActiveTocLink);
+        
+        // Initial call to set active state
+        updateActiveTocLink();
+        
+        // Smooth scroll for TOC links
+        tocLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetSection = document.getElementById(targetId);
+                
+                if (targetSection) {
+                    const offsetTop = targetSection.offsetTop - 80; // Adjust for header
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Newsletter form submission
+        const newsletterForm = document.querySelector('form');
+        if (newsletterForm) {
+            newsletterForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const emailInput = this.querySelector('input[type="email"]');
+                const email = emailInput.value;
+                
+                if (email) {
+                    // Show success message
+                    const button = this.querySelector('button');
+                    const originalText = button.textContent;
+                    button.textContent = 'Subscribed!';
+                    button.classList.add('bg-green-500', 'hover:bg-green-600');
+                    button.classList.remove('bg-white', 'hover:bg-white/90', 'text-black');
+                    button.disabled = true;
+                    
+                    // Reset after 3 seconds
+                    setTimeout(() => {
+                        button.textContent = originalText;
+                        button.classList.remove('bg-green-500', 'hover:bg-green-600');
+                        button.classList.add('bg-white', 'hover:bg-white/90', 'text-black');
+                        button.disabled = false;
+                        emailInput.value = '';
+                    }, 3000);
+                }
+            });
+        }
     </script>
 </body>
 </html>
