@@ -138,26 +138,24 @@ get_header(); ?>
 		</div>
 	</section>
 
-	<!-- Portfolio Section -->
-	<section id="portfolio" class="py-24">
+	<!-- Toolbox Section -->
+	<section id="toolbox" class="py-24">
 		<div class="max-w-7xl mx-auto px-6">
 			<div class="flex flex-col md:flex-row md:items-end justify-between mb-16 fade-in-section">
 				<div>
-					<span class="text-secondary uppercase tracking-widest text-sm font-semibold"><?php esc_html_e( 'Portfolio', 'gowebblog' ); ?></span>
-					<h2 class="font-heading text-4xl md:text-5xl font-bold mt-2"><?php esc_html_e( 'Recent Works', 'gowebblog' ); ?></h2>
+					<h2 class="text-secondary uppercase tracking-widest text-sm font-semibold"><?php esc_html_e( 'Toolbox', 'gowebblog' ); ?></h2>
+					<span class="font-heading text-4xl md:text-5xl font-bold mt-2"><?php esc_html_e( 'Discoveries', 'gowebblog' ); ?></span>
 				</div>
 			</div>
 
 			<div class="grid md:grid-cols-2 gap-8">
 				<?php
-				// Display portfolio projects (could be custom post type or pages)
+				// Display portfolio projects from toolbox post type
 				$portfolio_args = array(
-					'post_type'      => 'page',
+					'post_type'      => 'toolbox',
 					'posts_per_page' => 4,
-					'meta_key'       => '_wp_page_template',
-					'meta_value'     => 'template-portfolio.php',
-					'orderby'        => 'menu_order',
-					'order'          => 'ASC',
+					'orderby'        => 'date',
+					'order'          => 'DESC',
 				);
 
 				$portfolio_query = new WP_Query( $portfolio_args );
@@ -190,7 +188,7 @@ get_header(); ?>
 					endwhile;
 					wp_reset_postdata();
 				else :
-					// Fallback to static portfolio items
+					// Fallback to static toolbox items
 					for ( $i = 1; $i <= 4; $i++ ) :
 						?>
 						<div class="group cursor-pointer fade-in-section <?php echo ( $i % 2 === 0 ) ? 'mt-0 md:mt-16' : ''; ?>">

@@ -219,3 +219,11 @@ function gowebblog_flush_rewrite_rules() {
 	flush_rewrite_rules();
 }
 add_action( 'after_switch_theme', 'gowebblog_flush_rewrite_rules' );
+
+/**
+ * Force rewrite rules flush on activation for existing sites
+ */
+function gowebblog_force_rewrite_flush() {
+	gowebblog_flush_rewrite_rules();
+}
+add_action( 'init', 'gowebblog_force_rewrite_flush' );
