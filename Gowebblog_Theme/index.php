@@ -166,7 +166,7 @@ get_header(); ?>
 						$portfolio_query->the_post();
 						$project_count++;
 						?>
-						<div class="group cursor-pointer fade-in-section <?php echo ( $project_count % 2 === 0 ) ? 'mt-0 md:mt-16' : ''; ?>">
+						<a href="<?php the_permalink(); ?>" class="group block fade-in-section <?php echo ( $project_count % 2 === 0 ) ? 'mt-0 md:mt-16' : ''; ?>">
 							<div class="img-zoom-container rounded-2xl overflow-hidden mb-6 aspect-[4/3]">
 								<?php if ( has_post_thumbnail() ) : ?>
 									<img src="<?php echo esc_url( get_the_post_thumbnail_url( null, 'large' ) ); ?>" alt="<?php echo esc_attr( get_the_title() ); ?>" class="img-zoom w-full h-full object-cover">
@@ -183,7 +183,7 @@ get_header(); ?>
 									<i class="fa-solid fa-arrow-right"></i>
 								</span>
 							</div>
-						</div>
+						</a>
 						<?php
 					endwhile;
 					wp_reset_postdata();
@@ -191,7 +191,7 @@ get_header(); ?>
 					// Fallback to static toolbox items
 					for ( $i = 1; $i <= 4; $i++ ) :
 						?>
-						<div class="group cursor-pointer fade-in-section <?php echo ( $i % 2 === 0 ) ? 'mt-0 md:mt-16' : ''; ?>">
+						<a href="#" class="group block fade-in-section <?php echo ( $i % 2 === 0 ) ? 'mt-0 md:mt-16' : ''; ?>">
 							<div class="img-zoom-container rounded-2xl overflow-hidden mb-6 aspect-[4/3]">
 								<img src="https://dummyimage.com/800x600/ffffff/ccc?text=Project+<?php echo esc_attr( $i ); ?>" alt="<?php esc_attr_e( 'Project', 'gowebblog' ); ?>" class="img-zoom w-full h-full object-cover">
 							</div>
@@ -204,7 +204,7 @@ get_header(); ?>
 									<i class="fa-solid fa-arrow-right"></i>
 								</span>
 							</div>
-						</div>
+						</a>
 						<?php
 					endfor;
 				endif;
