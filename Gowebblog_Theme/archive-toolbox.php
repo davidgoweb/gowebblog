@@ -1,6 +1,6 @@
 <?php
 /**
- * The template for displaying archive of projects
+ * The template for displaying archive of toolbox items
  * Uses the portfolio template structure
  *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
@@ -31,7 +31,7 @@ get_header(); ?>
                         // Start the Loop.
                         while ( have_posts() ) :
                             the_post();
-                            get_template_part( 'template-parts/content', 'project' );
+                            get_template_part( 'template-parts/content', 'toolbox' );
                         endwhile;
                         ?>
                     </div>

@@ -257,36 +257,36 @@ function gowebblog_customize_register_social( $wp_customize ) {
 add_action( 'customize_register', 'gowebblog_customize_register_social' );
 
 /**
- * Get project repository URL
+ * Get toolbox repository URL
  *
  * @param int $post_id The post ID.
  * @return string The repository URL or empty string.
  */
-function gowebblog_get_project_repo_url( $post_id = 0 ) {
+function gowebblog_get_toolbox_repo_url( $post_id = 0 ) {
 	$post_id = $post_id ? $post_id : get_the_ID();
-	return get_post_meta( $post_id, '_project_repo_url', true );
+	return get_post_meta( $post_id, '_toolbox_repo_url', true );
 }
 
 /**
- * Get project demo URL
+ * Get toolbox demo URL
  *
  * @param int $post_id The post ID.
  * @return string The demo URL or empty string.
  */
-function gowebblog_get_project_demo_url( $post_id = 0 ) {
+function gowebblog_get_toolbox_demo_url( $post_id = 0 ) {
 	$post_id = $post_id ? $post_id : get_the_ID();
-	return get_post_meta( $post_id, '_project_demo_url', true );
+	return get_post_meta( $post_id, '_toolbox_demo_url', true );
 }
 
 /**
- * Display project repository link
+ * Display toolbox repository link
  *
  * @param int $post_id The post ID.
  * @param string $text The link text.
  * @param string $class Additional CSS classes.
  */
-function gowebblog_the_project_repo_link( $post_id = 0, $text = '', $class = '' ) {
-	$repo_url = gowebblog_get_project_repo_url( $post_id );
+function gowebblog_the_toolbox_repo_link( $post_id = 0, $text = '', $class = '' ) {
+	$repo_url = gowebblog_get_toolbox_repo_url( $post_id );
 	
 	if ( ! $repo_url ) {
 		return;
@@ -296,7 +296,7 @@ function gowebblog_the_project_repo_link( $post_id = 0, $text = '', $class = '' 
 	$class = $class ? ' ' . $class : '';
 	
 	printf(
-		'<a href="%s" target="_blank" rel="noopener noreferrer" class="project-repo-link%s"><i class="fab fa-github"></i> %s</a>',
+		'<a href="%s" target="_blank" rel="noopener noreferrer" class="toolbox-repo-link%s"><i class="fab fa-github"></i> %s</a>',
 		esc_url( $repo_url ),
 		esc_attr( $class ),
 		esc_html( $text )
@@ -304,14 +304,14 @@ function gowebblog_the_project_repo_link( $post_id = 0, $text = '', $class = '' 
 }
 
 /**
- * Display project demo link
+ * Display toolbox demo link
  *
  * @param int $post_id The post ID.
  * @param string $text The link text.
  * @param string $class Additional CSS classes.
  */
-function gowebblog_the_project_demo_link( $post_id = 0, $text = '', $class = '' ) {
-	$demo_url = gowebblog_get_project_demo_url( $post_id );
+function gowebblog_the_toolbox_demo_link( $post_id = 0, $text = '', $class = '' ) {
+	$demo_url = gowebblog_get_toolbox_demo_url( $post_id );
 	
 	if ( ! $demo_url ) {
 		return;
@@ -321,7 +321,7 @@ function gowebblog_the_project_demo_link( $post_id = 0, $text = '', $class = '' 
 	$class = $class ? ' ' . $class : '';
 	
 	printf(
-		'<a href="%s" target="_blank" rel="noopener noreferrer" class="project-demo-link%s"><i class="fas fa-external-link-alt"></i> %s</a>',
+		'<a href="%s" target="_blank" rel="noopener noreferrer" class="toolbox-demo-link%s"><i class="fas fa-external-link-alt"></i> %s</a>',
 		esc_url( $demo_url ),
 		esc_attr( $class ),
 		esc_html( $text )
@@ -329,14 +329,14 @@ function gowebblog_the_project_demo_link( $post_id = 0, $text = '', $class = '' 
 }
 
 /**
- * Get all projects
+ * Get all toolbox items
  *
  * @param array $args Additional query arguments.
- * @return WP_Query The projects query.
+ * @return WP_Query The toolbox items query.
  */
-function gowebblog_get_projects( $args = array() ) {
+function gowebblog_get_toolbox_items( $args = array() ) {
 	$defaults = array(
-		'post_type'      => 'project',
+		'post_type'      => 'toolbox',
 		'posts_per_page' => -1,
 		'post_status'    => 'publish',
 		'orderby'        => 'date',
@@ -347,13 +347,13 @@ function gowebblog_get_projects( $args = array() ) {
 }
 
 /**
- * Get featured projects
+ * Get featured toolbox items
  *
- * @param int $count Number of projects to return.
- * @return WP_Query The featured projects query.
+ * @param int $count Number of toolbox items to return.
+ * @return WP_Query The featured toolbox items query.
  */
-function gowebblog_get_featured_projects( $count = 6 ) {
-	return gowebblog_get_projects( array(
+function gowebblog_get_featured_toolbox_items( $count = 6 ) {
+	return gowebblog_get_toolbox_items( array(
 		'posts_per_page' => $count,
 	) );
 }
