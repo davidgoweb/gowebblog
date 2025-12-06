@@ -171,7 +171,7 @@ get_header(); ?>
 								<?php if ( has_post_thumbnail() ) : ?>
 									<img src="<?php echo esc_url( get_the_post_thumbnail_url( null, 'large' ) ); ?>" alt="<?php echo esc_attr( get_the_title() ); ?>" class="img-zoom w-full h-full object-cover">
 								<?php else : ?>
-									<img src="https://imagezt.davidgo.web.id/800x600/ffffff/ccc?text=<?php echo esc_attr( get_the_title() ); ?>&fontSize=32&textWrap=true&textWrapWidth=90" alt="<?php echo esc_attr( get_the_title() ); ?>" class="img-zoom w-full h-full object-cover">
+									<img src="https://imagezt.davidgo.web.id/800x600/ffffff/cccccc?text=<?php echo esc_attr( get_the_title() ); ?>&fontSize=38&textWrap=true&textWrapWidth=90" alt="<?php echo esc_attr( get_the_title() ); ?>" class="img-zoom w-full h-full object-cover">
 								<?php endif; ?>
 							</div>
 							<div class="flex justify-between items-start">
@@ -193,7 +193,7 @@ get_header(); ?>
 						?>
 						<a href="#" class="group block fade-in-section <?php echo ( $i % 2 === 0 ) ? 'mt-0 md:mt-16' : ''; ?>">
 							<div class="img-zoom-container rounded-2xl overflow-hidden mb-6 aspect-[4/3]">
-								<img src="https://imagezt.davidgo.web.id/800x600/ffffff/ccc?text=Project+<?php echo esc_attr( $i ); ?>&fontSize=32&textWrap=true&textWrapWidth=90" alt="<?php esc_attr_e( 'Project', 'gowebblog' ); ?>" class="img-zoom w-full h-full object-cover">
+								<img src="https://imagezt.davidgo.web.id/800x600/ffffff/cccccc?text=Project+<?php echo esc_attr( $i ); ?>&fontSize=38&textWrap=true&textWrapWidth=90" alt="<?php esc_attr_e( 'Project', 'gowebblog' ); ?>" class="img-zoom w-full h-full object-cover">
 							</div>
 							<div class="flex justify-between items-start">
 								<div>

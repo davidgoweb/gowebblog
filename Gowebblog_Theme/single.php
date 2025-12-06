@@ -213,7 +213,7 @@ get_header(); ?>
 													<?php if ( has_post_thumbnail() ) : ?>
 														<?php the_post_thumbnail( 'thumbnail', array( 'class' => 'w-full h-full object-cover group-hover:scale-110 transition-transform duration-300' ) ); ?>
 													<?php else : ?>
-														<img src="https://imagezt.davidgo.web.id/80x80/333/fff?text=<?php echo esc_attr( get_the_title() ); ?>&fontSize=12&textWrap=true&textWrapWidth=90" alt="<?php the_title_attribute(); ?>" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
+														<img src="https://imagezt.davidgo.web.id/80x80/333333/ffffff?text=<?php echo esc_attr( get_the_title() ); ?>&fontSize=18&textWrap=true&textWrapWidth=90" alt="<?php the_title_attribute(); ?>" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
 													<?php endif; ?>
 												</div>
 												<div>

@@ -165,7 +165,7 @@ function gowebblog_get_thumbnail( $post_id = 0, $size = 'thumbnail', $attr = arr
 	}
 	
 	$default_attr = array(
-		'src'   => "https://imagezt.davidgo.web.id/{$width}x{$height}/222/fff?text=" . urlencode( $title ) . "&fontSize=24&textWrap=true&textWrapWidth=90",
+		'src'   => "https://imagezt.davidgo.web.id/{$width}x{$height}/222222/ffffff?text=" . urlencode( $title ) . "&fontSize=34&textWrap=true&textWrapWidth=90",
 		'class'  => "attachment-{$size} size-{$size}",
 		'alt'    => $title,
 		'width'   => $width,

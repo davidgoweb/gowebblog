@@ -133,7 +133,7 @@ function gowebblog_add_related_posts() {
 							<?php if ( has_post_thumbnail( $post_id ) ) : ?>
 								<img src="<?php echo esc_url( get_the_post_thumbnail_url( $post_id, 'medium_large' ) ); ?>" alt="<?php echo esc_attr( get_the_title( $post_id ) ); ?>" class="img-zoom w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
 							<?php else : ?>
-								<img src="https://imagezt.davidgo.web.id/600x400/222/fff?text=<?php echo urlencode( get_the_title( $post_id ) ); ?>&fontSize=24&textWrap=true&textWrapWidth=90" alt="<?php echo esc_attr( get_the_title( $post_id ) ); ?>" class="img-zoom w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+								<img src="https://imagezt.davidgo.web.id/600x400/222222/ffffff?text=<?php echo urlencode( get_the_title( $post_id ) ); ?>&fontSize=34&textWrap=true&textWrapWidth=90" alt="<?php echo esc_attr( get_the_title( $post_id ) ); ?>" class="img-zoom w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
 							<?php endif; ?>
 						</div>
 						<h4 class="font-medium text-white text-sm mb-1 group-hover:text-pink-300 transition-colors line-clamp-2">

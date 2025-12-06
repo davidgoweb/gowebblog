@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<?php if ( has_post_thumbnail() ) : ?>
 			<img src="<?php echo esc_url( get_the_post_thumbnail_url( null, 'medium_large' ) ); ?>" alt="<?php the_title_attribute(); ?>" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
 		<?php else : ?>
-			<img src="https://imagezt.davidgo.web.id/600x400/222/fff?text=<?php echo urlencode( get_the_title() ); ?>&fontSize=24&textWrap=true&textWrapWidth=90" alt="<?php the_title_attribute(); ?>" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+			<img src="https://imagezt.davidgo.web.id/600x400/222222/ffffff?text=<?php echo urlencode( get_the_title() ); ?>&fontSize=34&textWrap=true&textWrapWidth=90" alt="<?php the_title_attribute(); ?>" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
 		<?php endif; ?>
 		
 		<?php

@@ -116,7 +116,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<?php if ( has_post_thumbnail( $prev_post->ID ) ) : ?>
 							<img src="<?php echo esc_url( get_the_post_thumbnail_url( $prev_post->ID, 'thumbnail' ) ); ?>" alt="<?php echo esc_attr( $prev_post->post_title ); ?>" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
 						<?php else : ?>
-							<img src="https://imagezt.davidgo.web.id/80x80/333/fff?text=<?php echo urlencode( $prev_post->post_title ); ?>&fontSize=12&textWrap=true&textWrapWidth=90" alt="<?php echo esc_attr( $prev_post->post_title ); ?>" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
+							<img src="https://imagezt.davidgo.web.id/80x80/333333/ffffff?text=<?php echo urlencode( $prev_post->post_title ); ?>&fontSize=18&textWrap=true&textWrapWidth=90" alt="<?php echo esc_attr( $prev_post->post_title ); ?>" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
 						<?php endif; ?>
 					</div>
 					<div>
@@ -138,7 +138,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<?php if ( has_post_thumbnail( $next_post->ID ) ) : ?>
 							<img src="<?php echo esc_url( get_the_post_thumbnail_url( $next_post->ID, 'thumbnail' ) ); ?>" alt="<?php echo esc_attr( $next_post->post_title ); ?>" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
 						<?php else : ?>
-							<img src="https://imagezt.davidgo.web.id/80x80/333/fff?text=<?php echo urlencode( $next_post->post_title ); ?>&fontSize=12&textWrap=true&textWrapWidth=90" alt="<?php echo esc_attr( $next_post->post_title ); ?>" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
+							<img src="https://imagezt.davidgo.web.id/80x80/333333/ffffff?text=<?php echo urlencode( $next_post->post_title ); ?>&fontSize=18&textWrap=true&textWrapWidth=90" alt="<?php echo esc_attr( $next_post->post_title ); ?>" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
 						<?php endif; ?>
 					</div>
 					<div>
