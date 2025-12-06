@@ -54,8 +54,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		<!-- CTA & Mobile Toggle -->
 		<div class="flex items-center gap-4">
-			<a href="#contact" class="hidden sm:inline-block px-6 py-2.5 border border-white/20 rounded-full text-sm font-semibold hover:bg-white hover:text-black transition-all duration-300">
-				Let's Talk
+			<a href="<?php echo esc_url(get_theme_mod('gowebblog_cta_link', '#contact')); ?>" class="hidden sm:inline-block px-6 py-2.5 border border-white/20 rounded-full text-sm font-semibold hover:bg-white hover:text-black transition-all duration-300">
+				<?php echo esc_html(get_theme_mod('gowebblog_cta_text', __("Let's Talk", 'gowebblog'))); ?>
 			</a>
 			<button id="mobile-menu-btn" class="md:hidden text-2xl p-2 focus:outline-none">
 				<i class="fa-solid fa-bars"></i>

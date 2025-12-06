@@ -145,7 +145,6 @@ function gowebblog_toolbox_urls_callback( $post ) {
 	
 	$repo_url = get_post_meta( $post->ID, '_toolbox_repo_url', true );
 	$demo_url = get_post_meta( $post->ID, '_toolbox_demo_url', true );
-	$how_i_use = get_post_meta( $post->ID, '_toolbox_how_i_use', true );
 	
 	?>
 	<table class="form-table">
@@ -165,15 +164,6 @@ function gowebblog_toolbox_urls_callback( $post ) {
 			<td>
 				<input type="url" id="toolbox_demo_url" name="toolbox_demo_url" value="<?php echo esc_attr( $demo_url ); ?>" class="regular-text" />
 				<p class="description"><?php esc_html_e( 'Enter the URL to the live demo (optional)', 'gowebblog' ); ?></p>
-			</td>
-		</tr>
-		<tr>
-			<th scope="row">
-				<label for="toolbox_how_i_use"><?php esc_html_e( 'How I Use This Tool', 'gowebblog' ); ?></label>
-			</th>
-			<td>
-				<textarea id="toolbox_how_i_use" name="toolbox_how_i_use" rows="6" class="large-text"><?php echo esc_textarea( $how_i_use ); ?></textarea>
-				<p class="description"><?php esc_html_e( 'Describe how you use this tool in your personal discoveries and workflows', 'gowebblog' ); ?></p>
 			</td>
 		</tr>
 	</table>
@@ -202,10 +192,6 @@ function gowebblog_save_toolbox_urls( $post_id ) {
 
 	if ( isset( $_POST['toolbox_demo_url'] ) ) {
 		update_post_meta( $post_id, '_toolbox_demo_url', esc_url_raw( $_POST['toolbox_demo_url'] ) );
-	}
-
-	if ( isset( $_POST['toolbox_how_i_use'] ) ) {
-		update_post_meta( $post_id, '_toolbox_how_i_use', wp_kses_post( $_POST['toolbox_how_i_use'] ) );
 	}
 }
 add_action( 'save_post', 'gowebblog_save_toolbox_urls' );

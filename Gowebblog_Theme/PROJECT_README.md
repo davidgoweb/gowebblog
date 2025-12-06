@@ -21,7 +21,6 @@ This theme now includes a custom post type for "Toolbox" with additional fields 
 5. In the "Toolbox URLs" meta box, add:
    - Repository URL (e.g., GitHub, GitLab link)
    - Demo URL (optional - live demo link)
-   - How I Use This Tool (detailed description of how you leverage the tool)
 6. Assign categories and tags if needed
 7. Publish the toolbox item
 

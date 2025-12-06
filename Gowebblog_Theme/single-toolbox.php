@@ -87,22 +87,6 @@ get_header(); ?>
                             ?>
                         </div>
                         
-                        <!-- How I Use This Tool Section -->
-                        <div class="how-i-use-section mt-12 pt-8 border-t border-white/10">
-                            <h3 class="text-xl font-bold mb-6"><?php esc_html_e( 'How I Use This Tool', 'gowebblog' ); ?></h3>
-                            <div class="prose max-w-none text-gray-300">
-                                <?php
-                                // Check if there's a custom field for "how I use" content
-                                $how_i_use = get_post_meta( get_the_ID(), '_toolbox_how_i_use', true );
-                                if ( $how_i_use ) {
-                                    echo wpautop( wp_kses_post( $how_i_use ) );
-                                } else {
-                                    echo '<p class="text-gray-400">' . esc_html__( 'No usage details provided yet.', 'gowebblog' ) . '</p>';
-                                }
-                                ?>
-                            </div>
-                        </div>
-                        
                         <!-- Toolbox Links -->
                         <div class="toolbox-links mt-12 pt-8 border-t border-white/10">
                             <h3 class="text-xl font-bold mb-6"><?php esc_html_e( 'Toolbox Links', 'gowebblog' ); ?></h3>
