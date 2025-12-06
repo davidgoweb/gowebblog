@@ -129,29 +129,6 @@ get_header(); ?>
 								?>
 							</div>
 							
-							<!-- Toolbox Links -->
-							<div class="toolbox-links mt-12 pt-8 border-t border-white/10">
-								<h3 class="text-xl font-bold mb-6"><?php esc_html_e( 'Toolbox Links', 'gowebblog' ); ?></h3>
-								<div class="flex flex-wrap gap-4">
-									<?php
-									$repo_url = get_post_meta( get_the_ID(), '_toolbox_repo_url', true );
-									$demo_url = get_post_meta( get_the_ID(), '_toolbox_demo_url', true );
-									
-									if ( $repo_url ) : ?>
-										<a href="<?php echo esc_url( $repo_url ); ?>" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-6 py-3 bg-white/10 rounded-lg text-white hover:bg-white/20 transition-colors">
-											<i class="fab fa-github"></i>
-											<span><?php esc_html_e( 'View Repository', 'gowebblog' ); ?></span>
-										</a>
-									<?php endif; ?>
-									
-									<?php if ( $demo_url ) : ?>
-										<a href="<?php echo esc_url( $demo_url ); ?>" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-6 py-3 bg-primary-color rounded-lg text-dark-color hover:opacity-90 transition-opacity">
-											<i class="fas fa-external-link-alt"></i>
-											<span><?php esc_html_e( 'Live Demo', 'gowebblog' ); ?></span>
-										</a>
-									<?php endif; ?>
-								</div>
-							</div>
 
 							<!-- Tags and Share -->
 							<div class="mt-16 pt-8 border-t border-white/10 fade-in-section">
@@ -319,25 +296,6 @@ get_header(); ?>
 						endif;
 						?>
 						
-						<!-- Newsletter Signup -->
-						<div class="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 fade-in-section">
-							<h3 class="font-heading text-xl font-bold mb-4 text-white flex items-center">
-								<i class="fa-solid fa-envelope mr-3 text-white/60"></i>
-								<?php esc_html_e( 'Stay Updated', 'gowebblog' ); ?>
-							</h3>
-							<p class="text-sm text-secondary mb-6">
-								<?php esc_html_e( 'Get the latest tools and resources delivered to your inbox.', 'gowebblog' ); ?>
-							</p>
-							<form class="space-y-4" action="<?php echo esc_url( get_theme_mod( 'newsletter_action', '#' ) ); ?>" method="post">
-								<input type="email" name="email" placeholder="<?php esc_attr_e( 'Your email address', 'gowebblog' ); ?>" class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-white/40 focus:outline-none focus:border-white/20 transition-colors" required>
-								<button type="submit" class="w-full py-3 bg-white text-black font-semibold rounded-lg hover:bg-white/90 transition-colors">
-									<?php esc_html_e( 'Subscribe Now', 'gowebblog' ); ?>
-								</button>
-							</form>
-							<p class="text-xs text-secondary mt-4 text-center">
-								<?php esc_html_e( 'No spam. Unsubscribe anytime.', 'gowebblog' ); ?>
-							</p>
-						</div>
 					</div>
 				</div>
 			</div>

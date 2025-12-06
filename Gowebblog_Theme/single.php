@@ -232,25 +232,6 @@ get_header(); ?>
 						endif;
 						?>
 						
-						<!-- Newsletter Signup -->
-						<div class="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 fade-in-section">
-							<h3 class="font-heading text-xl font-bold mb-4 text-white flex items-center">
-								<i class="fa-solid fa-envelope mr-3 text-white/60"></i>
-								<?php esc_html_e( 'Stay Updated', 'gowebblog' ); ?>
-							</h3>
-							<p class="text-sm text-secondary mb-6">
-								<?php esc_html_e( 'Get the latest design insights and articles delivered to your inbox.', 'gowebblog' ); ?>
-							</p>
-							<form class="space-y-4" action="<?php echo esc_url( get_theme_mod( 'newsletter_action', '#' ) ); ?>" method="post">
-								<input type="email" name="email" placeholder="<?php esc_attr_e( 'Your email address', 'gowebblog' ); ?>" class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-white/40 focus:outline-none focus:border-white/20 transition-colors" required>
-								<button type="submit" class="w-full py-3 bg-white text-black font-semibold rounded-lg hover:bg-white/90 transition-colors">
-									<?php esc_html_e( 'Subscribe Now', 'gowebblog' ); ?>
-								</button>
-							</form>
-							<p class="text-xs text-secondary mt-4 text-center">
-								<?php esc_html_e( 'No spam. Unsubscribe anytime.', 'gowebblog' ); ?>
-							</p>
-						</div>
 					</div>
 				</div>
 			</div>
