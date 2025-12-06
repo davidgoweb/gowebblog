@@ -357,3 +357,36 @@ function gowebblog_get_featured_toolbox_items( $count = 6 ) {
 		'posts_per_page' => $count,
 	) );
 }
+
+/**
+ * Get related toolbox items based on categories
+ *
+ * @param int $post_id Current post ID.
+ * @param int $number Number of posts to return.
+ * @return WP_Query Related toolbox items query.
+ */
+function gowebblog_get_related_toolbox_items( $post_id, $number = 3 ) {
+	$categories = wp_get_post_terms( $post_id, 'toolbox-category' );
+	
+	if ( empty( $categories ) || is_wp_error( $categories ) ) {
+		return new WP_Query(); // Return empty query if no categories
+	}
+	
+	$category_ids = wp_list_pluck( $categories, 'term_id' );
+	
+	$args = array(
+		'post_type'      => 'toolbox',
+		'posts_per_page' => $number,
+		'post__not_in'   => array( $post_id ),
+		'tax_query'      => array(
+			array(
+				'taxonomy' => 'toolbox-category',
+				'field'    => 'term_id',
+				'terms'    => $category_ids,
+			),
+		),
+		'orderby'        => 'rand',
+	);
+	
+	return new WP_Query( apply_filters( 'gowebblog_related_toolbox_items_args', $args, $post_id ) );
+}
