@@ -102,6 +102,22 @@ get_header(); ?>
 					<?php endif; ?>
 				</div>
 			</div>
+			
+			<!-- Hero Image -->
+			<div class="order-1 lg:order-2 fade-in-section">
+				<div class="relative">
+					<?php
+					$hero_image = get_theme_mod( 'gowebblog_hero_image' );
+					if ( $hero_image ) :
+						$image_url = wp_get_attachment_image_url( $hero_image, 'large' );
+					else :
+						$image_url = get_template_directory_uri() . '/assets/img/cover.png';
+					endif;
+					?>
+					<img src="<?php echo esc_url( $image_url ); ?>" data-default="<?php echo esc_url( get_template_directory_uri() . '/assets/img/cover.png' ); ?>" alt="<?php esc_attr_e( 'Hero Image', 'gowebblog' ); ?>" class="w-full rounded-2xl shadow-2xl">
+					<div class="absolute inset-0 bg-gradient-to-t from-darker/20 to-transparent rounded-2xl"></div>
+				</div>
+			</div>
 		</div>
 	</section>
 

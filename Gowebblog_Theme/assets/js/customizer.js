@@ -57,4 +57,26 @@
 		// by triggering a partial refresh if needed.
 	} );
 
+	// Hero image.
+	wp.customize( 'gowebblog_hero_image', function( value ) {
+		value.bind( function( newImageId ) {
+			var heroImage = $( '#about .order-1.lg\\:order-2 img' );
+			if ( newImageId ) {
+				// Get the image URL from the attachment ID
+				wp.media.attachment( newImageId ).fetch().then( function( attachment ) {
+					var imageUrl = attachment.get('url');
+					if ( imageUrl ) {
+						// Update the hero image in the preview
+						heroImage.attr( 'src', imageUrl );
+					}
+				});
+			} else {
+				// Revert to default image
+				var defaultImageUrl = heroImage.data('default') ||
+				                      wp.customize.settings.url.template + '/assets/img/cover.png';
+				heroImage.attr( 'src', defaultImageUrl );
+			}
+		});
+	});
+
 } )( jQuery );

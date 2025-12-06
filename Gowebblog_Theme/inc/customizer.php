@@ -214,6 +214,47 @@ function gowebblog_customize_register( $wp_customize ) {
 			'type'    => 'text',
 		)
 	);
+
+	// Add hero image section.
+	$wp_customize->add_section(
+		'gowebblog_hero',
+		array(
+			'title'    => __( 'Hero Section', 'gowebblog' ),
+			'priority' => 25,
+		)
+	);
+
+	// Add hero image setting.
+	$wp_customize->add_setting(
+		'gowebblog_hero_image',
+		array(
+			'default'           => '',
+			'sanitize_callback' => 'absint',
+			'transport'         => 'postMessage',
+		)
+	);
+
+	$wp_customize->add_control(
+		new WP_Customize_Media_Control(
+			$wp_customize,
+			'gowebblog_hero_image',
+			array(
+				'label'       => __( 'Hero Image', 'gowebblog' ),
+				'description' => __( 'Upload an image for the hero section. Default image will be used if no image is selected.', 'gowebblog' ),
+				'section'     => 'gowebblog_hero',
+				'mime_type'   => 'image',
+				'button_labels' => array(
+					'select'       => __( 'Select Image', 'gowebblog' ),
+					'change'       => __( 'Change Image', 'gowebblog' ),
+					'default'      => __( 'Default', 'gowebblog' ),
+					'remove'       => __( 'Remove', 'gowebblog' ),
+					'placeholder'  => __( 'No image selected', 'gowebblog' ),
+					'frame_title'  => __( 'Select Image', 'gowebblog' ),
+					'frame_button' => __( 'Choose Image', 'gowebblog' ),
+				),
+			)
+		)
+	);
 }
 add_action( 'customize_register', 'gowebblog_customize_register' );
 
