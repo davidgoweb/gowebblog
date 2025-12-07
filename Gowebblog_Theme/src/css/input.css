@@ -462,14 +462,18 @@ html {
 }
 
 /* Custom Pagination Styles */
-.gowebblog-pagination {
+.gowebblog-pagination,
+.nav-links {
   @apply flex items-center justify-center gap-2 flex-wrap;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-.gowebblog-pagination .page-numbers {
+.gowebblog-pagination .page-numbers,
+.nav-links .page-numbers,
+.nav-links a,
+.nav-links span {
   @apply flex items-center justify-center w-10 h-10 rounded-lg border border-white/10
          bg-card/50 text-secondary font-medium text-sm
          transition-all duration-300 ease-out
@@ -481,7 +485,10 @@ html {
   overflow: hidden;
 }
 
-.gowebblog-pagination .page-numbers:before {
+.gowebblog-pagination .page-numbers:before,
+.nav-links .page-numbers:before,
+.nav-links a:before,
+.nav-links span:before {
   content: '';
   position: absolute;
   top: 0;
@@ -492,65 +499,120 @@ html {
   transition: left 0.5s ease;
 }
 
-.gowebblog-pagination .page-numbers:hover:before {
+.gowebblog-pagination .page-numbers:hover:before,
+.nav-links .page-numbers:hover:before,
+.nav-links a:hover:before,
+.nav-links span:hover:before {
   left: 100%;
 }
 
-.gowebblog-pagination .page-numbers.current {
+.gowebblog-pagination .page-numbers.current,
+.nav-links .page-numbers.current,
+.nav-links span.current {
   @apply bg-white text-black border-white;
   font-weight: 600;
   box-shadow: 0 4px 12px rgba(255,255,255,0.15);
 }
 
 .gowebblog-pagination .page-numbers.prev,
-.gowebblog-pagination .page-numbers.next {
+.gowebblog-pagination .page-numbers.next,
+.nav-links .page-numbers.prev,
+.nav-links .page-numbers.next,
+.nav-links a.prev,
+.nav-links a.next {
   @apply px-4 w-auto min-w-[40px];
 }
 
 .gowebblog-pagination .page-numbers.prev i,
-.gowebblog-pagination .page-numbers.next i {
+.gowebblog-pagination .page-numbers.next i,
+.nav-links .page-numbers.prev i,
+.nav-links .page-numbers.next i,
+.nav-links a.prev i,
+.nav-links a.next i {
   @apply text-sm;
 }
 
-.gowebblog-pagination .page-numbers.dots {
+.gowebblog-pagination .page-numbers.dots,
+.nav-links .page-numbers.dots,
+.nav-links span.dots {
   @apply bg-transparent border-transparent text-secondary;
   cursor: default;
 }
 
-.gowebblog-pagination .page-numbers.dots:hover {
+.gowebblog-pagination .page-numbers.dots:hover,
+.nav-links .page-numbers.dots:hover,
+.nav-links span.dots:hover {
   @apply bg-transparent border-transparent text-secondary;
 }
 
 /* Mobile responsive pagination */
 @media (max-width: 640px) {
-  .gowebblog-pagination {
+  .gowebblog-pagination,
+  .nav-links {
     @apply gap-1;
   }
   
-  .gowebblog-pagination .page-numbers {
+  .gowebblog-pagination .page-numbers,
+  .nav-links .page-numbers,
+  .nav-links a,
+  .nav-links span {
     @apply w-8 h-8 text-xs;
     min-width: 32px;
   }
   
   .gowebblog-pagination .page-numbers.prev,
-  .gowebblog-pagination .page-numbers.next {
+  .gowebblog-pagination .page-numbers.next,
+  .nav-links .page-numbers.prev,
+  .nav-links .page-numbers.next,
+  .nav-links a.prev,
+  .nav-links a.next {
     @apply px-2 text-xs;
   }
 }
 
 /* Animation for pagination appearance */
-.gowebblog-pagination .page-numbers {
+.gowebblog-pagination .page-numbers,
+.nav-links .page-numbers,
+.nav-links a,
+.nav-links span {
   animation: paginationFadeIn 0.3s ease-out forwards;
   opacity: 0;
 }
 
-.gowebblog-pagination .page-numbers:nth-child(1) { animation-delay: 0.05s; }
-.gowebblog-pagination .page-numbers:nth-child(2) { animation-delay: 0.1s; }
-.gowebblog-pagination .page-numbers:nth-child(3) { animation-delay: 0.15s; }
-.gowebblog-pagination .page-numbers:nth-child(4) { animation-delay: 0.2s; }
-.gowebblog-pagination .page-numbers:nth-child(5) { animation-delay: 0.25s; }
-.gowebblog-pagination .page-numbers:nth-child(6) { animation-delay: 0.3s; }
-.gowebblog-pagination .page-numbers:nth-child(7) { animation-delay: 0.35s; }
+.gowebblog-pagination .page-numbers:nth-child(1),
+.nav-links .page-numbers:nth-child(1),
+.nav-links a:nth-child(1),
+.nav-links span:nth-child(1) { animation-delay: 0.05s; }
+
+.gowebblog-pagination .page-numbers:nth-child(2),
+.nav-links .page-numbers:nth-child(2),
+.nav-links a:nth-child(2),
+.nav-links span:nth-child(2) { animation-delay: 0.1s; }
+
+.gowebblog-pagination .page-numbers:nth-child(3),
+.nav-links .page-numbers:nth-child(3),
+.nav-links a:nth-child(3),
+.nav-links span:nth-child(3) { animation-delay: 0.15s; }
+
+.gowebblog-pagination .page-numbers:nth-child(4),
+.nav-links .page-numbers:nth-child(4),
+.nav-links a:nth-child(4),
+.nav-links span:nth-child(4) { animation-delay: 0.2s; }
+
+.gowebblog-pagination .page-numbers:nth-child(5),
+.nav-links .page-numbers:nth-child(5),
+.nav-links a:nth-child(5),
+.nav-links span:nth-child(5) { animation-delay: 0.25s; }
+
+.gowebblog-pagination .page-numbers:nth-child(6),
+.nav-links .page-numbers:nth-child(6),
+.nav-links a:nth-child(6),
+.nav-links span:nth-child(6) { animation-delay: 0.3s; }
+
+.gowebblog-pagination .page-numbers:nth-child(7),
+.nav-links .page-numbers:nth-child(7),
+.nav-links a:nth-child(7),
+.nav-links span:nth-child(7) { animation-delay: 0.35s; }
 
 @keyframes paginationFadeIn {
   from {
@@ -564,6 +626,7 @@ html {
 }
 
 /* Screen reader text for accessibility */
-.gowebblog-pagination .screen-reader-text {
+.gowebblog-pagination .screen-reader-text,
+.nav-links .screen-reader-text {
   @apply sr-only;
 }
