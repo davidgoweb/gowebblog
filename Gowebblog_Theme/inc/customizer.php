@@ -255,6 +255,43 @@ function gowebblog_customize_register( $wp_customize ) {
 			)
 		)
 	);
+
+	// Add footer options section.
+	$wp_customize->add_section(
+		'gowebblog_footer',
+		array(
+			'title'    => __( 'Footer Options', 'gowebblog' ),
+			'priority' => 45,
+		)
+	);
+
+	// Add footer menu setting.
+	$wp_customize->add_setting(
+		'gowebblog_footer_menu',
+		array(
+			'default'           => 0,
+			'sanitize_callback' => 'absint',
+			'transport'         => 'refresh',
+		)
+	);
+
+	// Get all menus to create choices.
+	$menus = wp_get_nav_menus();
+	$menu_choices = array( 0 => __( 'Select a menu', 'gowebblog' ) );
+	foreach ( $menus as $menu ) {
+		$menu_choices[ $menu->term_id ] = $menu->name;
+	}
+
+	$wp_customize->add_control(
+		'gowebblog_footer_menu',
+		array(
+			'label'       => __( 'Footer Quick Links Menu', 'gowebblog' ),
+			'description' => __( 'Select a menu to display as quick links in the footer. If no menu is selected, default quick links will be shown.', 'gowebblog' ),
+			'section'     => 'gowebblog_footer',
+			'type'        => 'select',
+			'choices'     => $menu_choices,
+		)
+	);
 }
 add_action( 'customize_register', 'gowebblog_customize_register' );
 

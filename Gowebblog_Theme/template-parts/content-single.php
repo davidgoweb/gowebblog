@@ -64,7 +64,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</footer><!-- .entry-footer -->
 <?php endif; ?>
 
-<!-- Author Bio -->
+<!-- Author Bio 
 <div class="author-bio mt-16 pt-8 border-t border-white/10">
 	<div class="flex items-start gap-6">
 		<div class="w-20 h-20 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0">
@@ -99,6 +99,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div>
 	</div>
 </div>
+-->
 
 <!-- Post Navigation -->
 <nav class="navigation post-navigation" role="navigation">

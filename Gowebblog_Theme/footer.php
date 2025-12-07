@@ -44,13 +44,35 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<!-- Quick Links -->
 				<div>
 					<h5 class="text-lg font-bold mb-6"><?php esc_html_e( 'Quick Links', 'gowebblog' ); ?></h5>
-					<ul class="space-y-3">
-						<li><a href="<?php echo esc_url( home_url( '/#about' ) ); ?>" class="text-secondary hover:text-white transition-colors text-sm"><?php esc_html_e( 'About', 'gowebblog' ); ?></a></li>
-						<li><a href="<?php echo esc_url( home_url( '/#services' ) ); ?>" class="text-secondary hover:text-white transition-colors text-sm"><?php esc_html_e( 'Services', 'gowebblog' ); ?></a></li>
-						<li><a href="<?php echo esc_url( home_url( '/#portfolio' ) ); ?>" class="text-secondary hover:text-white transition-colors text-sm"><?php esc_html_e( 'Portfolio', 'gowebblog' ); ?></a></li>
-						<li><a href="<?php echo esc_url( get_permalink( get_option( 'page_for_posts' ) ) ); ?>" class="text-secondary hover:text-white transition-colors text-sm"><?php esc_html_e( 'Blog', 'gowebblog' ); ?></a></li>
-						<li><a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="text-secondary hover:text-white transition-colors text-sm"><?php esc_html_e( 'Contact', 'gowebblog' ); ?></a></li>
-					</ul>
+					<?php
+					$footer_menu_id = get_theme_mod( 'gowebblog_footer_menu', 0 );
+					
+					if ( $footer_menu_id && has_nav_menu( 'footer' ) ) {
+						// Display the selected footer menu
+						wp_nav_menu(
+							array(
+								'menu'            => $footer_menu_id,
+								'theme_location'  => 'footer',
+								'container'       => false,
+								'menu_class'      => 'space-y-3',
+								'fallback_cb'     => false,
+								'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+								'walker'          => new Footer_Menu_Walker(),
+							)
+						);
+					} else {
+						// Fallback to default quick links
+						?>
+						<ul class="space-y-3">
+							<li><a href="<?php echo esc_url( home_url( '/#about' ) ); ?>" class="text-secondary hover:text-white transition-colors text-sm"><?php esc_html_e( 'About', 'gowebblog' ); ?></a></li>
+							<li><a href="<?php echo esc_url( home_url( '/#services' ) ); ?>" class="text-secondary hover:text-white transition-colors text-sm"><?php esc_html_e( 'Services', 'gowebblog' ); ?></a></li>
+							<li><a href="<?php echo esc_url( home_url( '/#portfolio' ) ); ?>" class="text-secondary hover:text-white transition-colors text-sm"><?php esc_html_e( 'Portfolio', 'gowebblog' ); ?></a></li>
+							<li><a href="<?php echo esc_url( get_permalink( get_option( 'page_for_posts' ) ) ); ?>" class="text-secondary hover:text-white transition-colors text-sm"><?php esc_html_e( 'Blog', 'gowebblog' ); ?></a></li>
+							<li><a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="text-secondary hover:text-white transition-colors text-sm"><?php esc_html_e( 'Contact', 'gowebblog' ); ?></a></li>
+						</ul>
+						<?php
+					}
+					?>
 				</div>
 
 				<!-- Social Links -->

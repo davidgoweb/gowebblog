@@ -67,7 +67,7 @@ get_header(); ?>
 			<!-- Text Content -->
 			<div class="order-2 lg:order-1 fade-in-section">
 				<h4 class="text-secondary text-lg mb-4 font-medium tracking-wide"><?php esc_html_e( 'Hello, this is', 'gowebblog' ); ?></h4>
-				<h1 class="font-heading text-6xl md:text-6xl font-bold mb-6 leading-none">
+				<h1 class="font-heading text-3xl md:text-6xl font-bold mb-6 leading-none">
 					<?php bloginfo( 'name' ); ?> <br> <span class="text-secondary"><?php esc_html_e( 'Portal', 'gowebblog' ); ?></span>
 				</h1>
 				<p class="text-secondary text-lg md:text-xl leading-relaxed mb-8 max-w-lg">
