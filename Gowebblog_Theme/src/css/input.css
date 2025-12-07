@@ -380,6 +380,23 @@ html {
   background: rgba(255, 255, 255, 0.3);
 }
 
+/* TOC Header */
+.toc-header {
+  @apply sticky top-0 bg-card/50 backdrop-blur-sm z-10 py-2 px-2 border-b border-white/5 mb-2;
+}
+
+.toc-toggle {
+  @apply text-xs text-secondary hover:text-white transition-colors;
+}
+
+.toc-toggle-text {
+  @apply text-xs;
+}
+
+.toc-toggle-icon {
+  @apply fas fa-chevron-up ml-1 transition-transform duration-300 ease;
+}
+
 /* TOC Links Styling */
 .toc-link {
   position: relative;
@@ -419,11 +436,6 @@ html {
 
 .toc-collapsed .toc-toggle-icon {
   transform: rotate(180deg);
-}
-
-/* Animation for toggle */
-.toc-toggle-icon {
-  transition: transform 0.3s ease;
 }
 
 /* Level-specific styling */
@@ -628,5 +640,54 @@ html {
 /* Screen reader text for accessibility */
 .gowebblog-pagination .screen-reader-text,
 .nav-links .screen-reader-text {
-  @apply sr-only;
+	@apply sr-only;
+}
+
+/* Post Navigation Specific Styles */
+.post-navigation .nav-links {
+	@apply grid grid-cols-1 md:grid-cols-2 gap-8;
+	width: 100%;
+}
+
+.post-navigation .nav-previous,
+.post-navigation .nav-next {
+	@apply w-full;
+}
+
+.post-navigation .nav-previous a,
+.post-navigation .nav-next a {
+	@apply w-full flex items-start gap-4 p-6 bg-card/30 rounded-xl border border-white/5 hover:border-white/20 transition-all duration-300;
+}
+
+.post-navigation .nav-next {
+	@apply md:text-right;
+}
+
+.post-navigation .nav-next a {
+	@apply md:flex-row-reverse;
+}
+
+.post-navigation .nav-next .w-16 {
+	@apply md:order-last;
+}
+
+.post-navigation .nav-previous .w-16 {
+	@apply order-first;
+}
+
+.post-navigation .nav-previous .flex-1,
+.post-navigation .nav-next .flex-1 {
+	@apply min-w-0;
+}
+
+/* Ensure proper spacing and alignment */
+@media (min-width: 768px) {
+	.post-navigation .nav-next a {
+		justify-content: flex-end;
+		text-align: right;
+	}
+	
+	.post-navigation .nav-next .flex-1 {
+		text-align: right;
+	}
 }

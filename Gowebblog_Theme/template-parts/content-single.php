@@ -104,7 +104,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <!-- Post Navigation -->
 <nav class="navigation post-navigation" role="navigation">
 	<h2 class="screen-reader-text"><?php esc_html_e( 'Post navigation', 'gowebblog' ); ?></h2>
-	<div class="nav-links grid md:grid-cols-2 gap-8 mt-16 pt-8 border-t border-white/10">
+	<div class="nav-links grid grid-cols-1 md:grid-cols-2 gap-8 mt-16 pt-8 border-t border-white/10">
 		<?php
 		$prev_post = get_previous_post();
 		$next_post = get_next_post();
@@ -112,7 +112,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		if ( $prev_post ) :
 			?>
 			<div class="nav-previous">
-				<a href="<?php echo esc_url( get_permalink( $prev_post ) ); ?>" class="group flex items-start gap-4 p-6 bg-card/30 rounded-xl border border-white/5 hover:border-white/20 transition-all duration-300">
+				<a href="<?php echo esc_url( get_permalink( $prev_post ) ); ?>" class="group flex items-start gap-4 p-6 bg-card/30 rounded-xl border border-white/5 hover:border-white/20 transition-all duration-300 w-full">
 					<div class="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0">
 						<?php if ( has_post_thumbnail( $prev_post->ID ) ) : ?>
 							<img src="<?php echo esc_url( get_the_post_thumbnail_url( $prev_post->ID, 'thumbnail' ) ); ?>" alt="<?php echo esc_attr( $prev_post->post_title ); ?>" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
@@ -120,7 +120,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 							<img src="https://imagezt.davidgo.web.id/80x80/333333/ffffff?text=<?php echo urlencode( $prev_post->post_title ); ?>&fontSize=18&textWrap=true&textWrapWidth=90" alt="<?php echo esc_attr( $prev_post->post_title ); ?>" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
 						<?php endif; ?>
 					</div>
-					<div>
+					<div class="flex-1 min-w-0">
 						<span class="text-xs text-secondary uppercase tracking-wider mb-2 block"><?php esc_html_e( 'Previous', 'gowebblog' ); ?></span>
 						<h4 class="font-medium text-white text-sm group-hover:text-pink-300 transition-colors line-clamp-2">
 							<?php echo esc_html( $prev_post->post_title ); ?>
@@ -133,20 +133,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		if ( $next_post ) :
 			?>
-			<div class="nav-next">
-				<a href="<?php echo esc_url( get_permalink( $next_post ) ); ?>" class="group flex items-start gap-4 p-6 bg-card/30 rounded-xl border border-white/5 hover:border-white/20 transition-all duration-300">
-					<div class="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0">
+			<div class="nav-next md:text-right">
+				<a href="<?php echo esc_url( get_permalink( $next_post ) ); ?>" class="group flex items-start gap-4 p-6 bg-card/30 rounded-xl border border-white/5 hover:border-white/20 transition-all duration-300 w-full">
+					<div class="flex-1 min-w-0">
+						<span class="text-xs text-secondary uppercase tracking-wider mb-2 block"><?php esc_html_e( 'Next', 'gowebblog' ); ?></span>
+						<h4 class="font-medium text-white text-sm group-hover:text-pink-300 transition-colors line-clamp-2">
+							<?php echo esc_html( $next_post->post_title ); ?>
+						</h4>
+					</div>
+					<div class="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 order-last">
 						<?php if ( has_post_thumbnail( $next_post->ID ) ) : ?>
 							<img src="<?php echo esc_url( get_the_post_thumbnail_url( $next_post->ID, 'thumbnail' ) ); ?>" alt="<?php echo esc_attr( $next_post->post_title ); ?>" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
 						<?php else : ?>
 							<img src="https://imagezt.davidgo.web.id/80x80/333333/ffffff?text=<?php echo urlencode( $next_post->post_title ); ?>&fontSize=18&textWrap=true&textWrapWidth=90" alt="<?php echo esc_attr( $next_post->post_title ); ?>" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
 						<?php endif; ?>
-					</div>
-					<div>
-						<span class="text-xs text-secondary uppercase tracking-wider mb-2 block"><?php esc_html_e( 'Next', 'gowebblog' ); ?></span>
-						<h4 class="font-medium text-white text-sm group-hover:text-pink-300 transition-colors line-clamp-2">
-							<?php echo esc_html( $next_post->post_title ); ?>
-						</h4>
 					</div>
 				</a>
 			</div>

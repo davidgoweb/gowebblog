@@ -191,13 +191,13 @@ get_header(); ?>
 						<!-- Table of Contents -->
 						<?php if ( gowebblog_has_headings() ) : ?>
 							<div class="bg-card/50 backdrop-blur-sm rounded-2xl p-6 border border-white/5 fade-in-section">
-								<h3 class="font-heading text-xl font-bold mb-6 text-white flex items-center">
-									<i class="fa-solid fa-list-ul mr-3 text-white/60"></i>
-									<?php esc_html_e( 'Table of Contents', 'gowebblog' ); ?>
-								</h3>
-								<nav class="space-y-3">
+								<div class="toc-container">
+									<h3 class="font-heading text-xl font-bold mb-6 text-white flex items-center">
+										<i class="fa-solid fa-list-ul mr-3 text-white/60"></i>
+										<?php esc_html_e( 'Table of Contents', 'gowebblog' ); ?>
+									</h3>
 									<?php echo gowebblog_get_table_of_contents(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-								</nav>
+								</div>
 							</div>
 						<?php endif; ?>
 						
