@@ -113,7 +113,7 @@ get_header(); ?>
 							
 							<!-- Share -->
 							<div class="flex items-center gap-4 mb-8">
-								<p class="text-secondary text-sm"><?php esc_html_e( 'Share this article:', 'gowebblog' ); ?></p>
+								<span class="text-secondary text-sm"><?php esc_html_e( 'Share this article:', 'gowebblog' ); ?></span>
 								<div class="flex gap-3">
 									<a href="https://twitter.com/intent/tweet?text=<?php echo urlencode( get_the_title() ); ?>&url=<?php echo urlencode( get_permalink() ); ?>" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors" target="_blank" rel="noopener noreferrer">
 										<i class="fa-brands fa-twitter"></i>

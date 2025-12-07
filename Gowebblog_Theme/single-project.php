@@ -136,7 +136,7 @@ get_header(); ?>
                                                     <div class="flex-1 min-w-0">
                                                         <div class="flex items-center gap-2 mb-3">
                                                             <i class="fa-solid fa-arrow-left text-pink-400 text-sm"></i>
-                                                            <span class="text-xs text-pink-400 font-semibold uppercase tracking-wider w-full"><?php esc_html_e( 'Previous', 'gowebblog' ); ?></span>
+                                                            <span style='width:unset' class="text-xs text-pink-400 font-semibold uppercase tracking-wider w-full"><?php esc_html_e( 'Previous', 'gowebblog' ); ?></span>
                                                         </div>
                                                         <p class="font-bold text-white text-base mb-2 leading-tight group-hover:text-pink-300 transition-colors line-clamp-2">
                                                             <?php echo esc_html( $prev_project->post_title ); ?>
@@ -172,7 +172,7 @@ get_header(); ?>
                                                     <!-- Content -->
                                                     <div class="flex-1 min-w-0 text-right">
                                                         <div class="flex items-center justify-end gap-2 mb-3">
-                                                            <span class="text-xs text-pink-400 font-semibold uppercase tracking-wider w-full"><?php esc_html_e( 'Next', 'gowebblog' ); ?></span>
+                                                            <span style='width:unset' class="text-xs text-pink-400 font-semibold uppercase tracking-wider w-full"><?php esc_html_e( 'Next', 'gowebblog' ); ?></span>
                                                             <i class="fa-solid fa-arrow-right text-pink-400 text-sm"></i>
                                                         </div>
                                                         <p class="font-bold text-white text-base mb-2 leading-tight group-hover:text-pink-300 transition-colors line-clamp-2">
