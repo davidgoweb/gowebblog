@@ -11,20 +11,17 @@ This feature allows you to customize the "Quick Links" section in the footer usi
 4. Add menu items (pages, posts, custom links, etc.)
 5. Save the menu
 
-### 2. Assign the Menu to Footer Location
-1. While editing the menu, go to the "Menu Settings" section at the bottom
-2. Check the box for "Footer Quick Links Menu" location
-3. Save the menu
-
-### 3. Configure in Customizer
+### 2. Configure in Customizer
 1. Go to Appearance → Customize
 2. Navigate to "Footer Options" section
 3. Select your created menu from the "Footer Quick Links Menu" dropdown
 4. Click "Publish"
 
+Note: You don't need to assign the menu to the "Footer Quick Links Menu" location. Simply creating the menu and selecting it in the customizer is sufficient.
+
 ## Fallback Behavior
 
-If no menu is selected or if the selected menu is empty, the theme will display the default quick links:
+If no menu is selected in the customizer, the theme will display the default quick links:
 - About
 - Services
 - Portfolio
@@ -39,7 +36,7 @@ The feature consists of:
 
 2. **Customizer Settings**: Added a new section "Footer Options" in the customizer with a dropdown to select the footer menu
 
-3. **Footer Display**: The `footer.php` file checks if a menu is selected and displays it using a custom walker class
+3. **Footer Display**: The `footer.php` file checks if a menu is selected in the customizer and displays it using a custom walker class
 
 4. **Custom Walker**: The `Footer_Menu_Walker` class formats the menu items with the appropriate CSS classes
 

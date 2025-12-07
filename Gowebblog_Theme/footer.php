@@ -48,12 +48,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<?php
 					$footer_menu_id = get_theme_mod( 'gowebblog_footer_menu', 0 );
 					
-					if ( $footer_menu_id && has_nav_menu( 'footer' ) ) {
+					if ( $footer_menu_id ) {
 						// Display the selected footer menu
 						wp_nav_menu(
 							array(
 								'menu'            => $footer_menu_id,
-								'theme_location'  => 'footer',
 								'container'       => false,
 								'menu_class'      => 'space-y-3',
 								'fallback_cb'     => false,

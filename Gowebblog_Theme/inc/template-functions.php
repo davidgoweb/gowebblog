@@ -43,12 +43,11 @@ class Gowebblog_Nav_Walker extends Walker_Nav_Menu {
 		$id = apply_filters( 'nav_menu_item_id', 'menu-item-' . $item->ID, $item, $args, $depth );
 		$id = $id ? ' id="' . esc_attr( $id ) . '"' : '';
 		
-		$output .= $n . $t . '<a' . $id . $class_names . ' href="' . esc_attr( $item->url ) . '">';
-		
 		$atts           = array();
 		$atts['title']  = ! empty( $item->attr_title ) ? $item->attr_title : '';
 		$atts['target'] = ! empty( $item->target ) ? $item->target : '';
 		$atts['rel']    = ! empty( $item->xfn ) ? $item->xfn : '';
+		$atts['href']   = ! empty( $item->url ) ? $item->url : '';
 		
 		if ( '_blank' === $item->target && empty( $item->xfn ) ) {
 			$atts['rel'] = 'noopener noreferrer';
@@ -65,7 +64,7 @@ class Gowebblog_Nav_Walker extends Walker_Nav_Menu {
 		}
 		
 		$item_output  = $args->before;
-		$item_output .= '<a' . $attributes . '>';
+		$item_output .= '<a' . $attributes . $class_names . '>';
 		$item_output .= $args->link_before . apply_filters( 'the_title', $item->title, $item->ID ) . $args->link_after;
 		$item_output .= '</a>';
 		$item_output .= $args->after;
@@ -108,12 +107,11 @@ class Gowebblog_Mobile_Nav_Walker extends Walker_Nav_Menu {
 		$id = apply_filters( 'nav_menu_item_id', 'menu-item-' . $item->ID, $item, $args, $depth );
 		$id = $id ? ' id="' . esc_attr( $id ) . '"' : '';
 		
-		$output .= $n . $t . '<a' . $id . $class_names . ' href="' . esc_attr( $item->url ) . '">';
-		
 		$atts           = array();
 		$atts['title']  = ! empty( $item->attr_title ) ? $item->attr_title : '';
 		$atts['target'] = ! empty( $item->target ) ? $item->target : '';
 		$atts['rel']    = ! empty( $item->xfn ) ? $item->xfn : '';
+		$atts['href']   = ! empty( $item->url ) ? $item->url : '';
 		
 		if ( '_blank' === $item->target && empty( $item->xfn ) ) {
 			$atts['rel'] = 'noopener noreferrer';
@@ -130,7 +128,7 @@ class Gowebblog_Mobile_Nav_Walker extends Walker_Nav_Menu {
 		}
 		
 		$item_output  = $args->before;
-		$item_output .= '<a' . $attributes . '>';
+		$item_output .= '<a' . $attributes . $class_names . '>';
 		$item_output .= $args->link_before . apply_filters( 'the_title', $item->title, $item->ID ) . $args->link_after;
 		$item_output .= '</a>';
 		$item_output .= $args->after;
