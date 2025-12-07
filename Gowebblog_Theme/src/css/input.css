@@ -394,7 +394,7 @@ html {
 }
 
 .toc-toggle-icon {
-  @apply fas fa-chevron-up ml-1 transition-transform duration-300 ease;
+    @apply ml-1 transition-transform duration-300;
 }
 
 /* TOC Links Styling */
