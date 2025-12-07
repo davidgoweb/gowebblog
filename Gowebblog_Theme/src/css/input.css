@@ -647,11 +647,11 @@ html {
 .post-navigation .nav-links,
 .project-navigation .nav-links,
 .toolbox-navigation .nav-links {
-	display: flex;
+	display: flex !important;
 	flex-direction: column;
 	justify-content: space-between;
 	gap: 2rem;
-	width: 100%;
+	width: 100% !important;
 }
 
 @media (min-width: 768px) {
@@ -670,6 +670,8 @@ html {
 .toolbox-navigation .nav-previous,
 .toolbox-navigation .nav-next {
 	flex: 1;
+	height: auto !important;
+	width: auto !important;
 }
 
 .post-navigation .nav-previous a,
@@ -678,7 +680,9 @@ html {
 .project-navigation .nav-next a,
 .toolbox-navigation .nav-previous a,
 .toolbox-navigation .nav-next a {
-	display: block;
+	display: block !important;
+	height: auto !important;
+	width: 100% !important;
 	background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
 	backdrop-filter: blur(10px);
 	border-radius: 1rem;
@@ -686,6 +690,8 @@ html {
 	transition: all 0.3s ease;
 	overflow: hidden;
 	position: relative;
+	padding: 0 !important;
+	min-width: auto !important;
 }
 
 .post-navigation .nav-previous a:hover,
@@ -699,18 +705,18 @@ html {
 	transform: translateY(-2px);
 }
 
-/* Thumbnail styling */
+/* Thumbnail styling - Override blog-content img styles */
 .post-navigation .w-24,
 .project-navigation .w-24,
 .toolbox-navigation .w-24 {
-	width: 6rem;
+	width: 6rem !important;
 	flex-shrink: 0;
 }
 
 .post-navigation .h-24,
 .project-navigation .h-24,
 .toolbox-navigation .h-24 {
-	height: 6rem;
+	height: 6rem !important;
 }
 
 .post-navigation .rounded-xl,
@@ -719,6 +725,22 @@ html {
 	border-radius: 0.75rem;
 	overflow: hidden;
 	background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Override blog-content img styles for navigation thumbnails */
+.post-navigation img,
+.project-navigation img,
+.toolbox-navigation img {
+	margin: 0 !important;
+	border-radius: 0 !important;
+	box-shadow: none !important;
+	transition: transform 0.5s ease;
+}
+
+.post-navigation .group:hover img,
+.project-navigation .group:hover img,
+.toolbox-navigation .group:hover img {
+	transform: scale(1.1);
 }
 
 .post-navigation .group:hover .group-hover\:scale-110,
@@ -776,13 +798,13 @@ html {
 	.post-navigation .w-24,
 	.project-navigation .w-24,
 	.toolbox-navigation .w-24 {
-		width: 5rem;
+		width: 5rem !important;
 	}
 	
 	.post-navigation .h-24,
 	.project-navigation .h-24,
 	.toolbox-navigation .h-24 {
-		height: 5rem;
+		height: 5rem !important;
 	}
 }
 
