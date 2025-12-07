@@ -32,7 +32,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</div>
 	
 	<div class="flex items-center gap-4 text-xs text-secondary mb-3">
-		<span><i class="fa-regular fa-user mr-1"></i> <?php the_author(); ?></span>
+		<!-- Author removed -->
 		<span><i class="fa-regular fa-calendar mr-1"></i> <?php echo esc_html( get_the_date() ); ?></span>
 	</div>
 	

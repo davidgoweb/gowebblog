@@ -352,9 +352,218 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Table of Contents Improvements */
+.toc-container {
+  @apply relative;
+}
+
+.toc-wrapper {
+  @apply pr-2;
+}
+
+/* Custom scrollbar for TOC */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 2px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* TOC Links Styling */
+.toc-link {
+  position: relative;
+  transition: all 0.2s ease;
+  border-radius: 0 4px 4px 0;
+}
+
+.toc-link:hover {
+  transform: translateX(2px);
+}
+
 /* Active state for TOC links */
 .toc-active {
   color: white !important;
   border-left-color: white !important;
-  background: linear-gradient(90deg, rgba(255,255,255,0.1), transparent);
+  background: linear-gradient(90deg, rgba(255,255,255,0.15), transparent);
+  transform: translateX(2px);
+}
+
+.toc-active::before {
+  content: '';
+  position: absolute;
+  left: -2px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 70%;
+  background: white;
+  border-radius: 2px;
+}
+
+/* Collapsed state for TOC */
+.toc-collapsed .toc-wrapper {
+  max-height: 0 !important;
+  overflow: hidden;
+}
+
+.toc-collapsed .toc-toggle-icon {
+  transform: rotate(180deg);
+}
+
+/* Animation for toggle */
+.toc-toggle-icon {
+  transition: transform 0.3s ease;
+}
+
+/* Level-specific styling */
+.toc-link[data-level="3"] {
+  opacity: 0.85;
+}
+
+.toc-link[data-level="4"] {
+  opacity: 0.75;
+}
+
+.toc-link[data-level="5"] {
+  opacity: 0.65;
+}
+
+.toc-link[data-level="6"] {
+  opacity: 0.6;
+}
+
+/* Responsive adjustments for TOC */
+@media (max-width: 1024px) {
+  .toc-wrapper {
+    max-height: 64vh !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .toc-wrapper {
+    max-height: 48vh !important;
+  }
+  
+  .toc-link {
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+  }
+}
+
+/* Custom Pagination Styles */
+.gowebblog-pagination {
+  @apply flex items-center justify-center gap-2 flex-wrap;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gowebblog-pagination .page-numbers {
+  @apply flex items-center justify-center w-10 h-10 rounded-lg border border-white/10
+         bg-card/50 text-secondary font-medium text-sm
+         transition-all duration-300 ease-out
+         hover:border-white/30 hover:bg-white/10 hover:text-white
+         focus:outline-none focus:ring-2 focus:ring-white/20 focus:ring-offset-2 focus:ring-offset-darker;
+  min-width: 40px;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.gowebblog-pagination .page-numbers:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.gowebblog-pagination .page-numbers:hover:before {
+  left: 100%;
+}
+
+.gowebblog-pagination .page-numbers.current {
+  @apply bg-white text-black border-white;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(255,255,255,0.15);
+}
+
+.gowebblog-pagination .page-numbers.prev,
+.gowebblog-pagination .page-numbers.next {
+  @apply px-4 w-auto min-w-[40px];
+}
+
+.gowebblog-pagination .page-numbers.prev i,
+.gowebblog-pagination .page-numbers.next i {
+  @apply text-sm;
+}
+
+.gowebblog-pagination .page-numbers.dots {
+  @apply bg-transparent border-transparent text-secondary;
+  cursor: default;
+}
+
+.gowebblog-pagination .page-numbers.dots:hover {
+  @apply bg-transparent border-transparent text-secondary;
+}
+
+/* Mobile responsive pagination */
+@media (max-width: 640px) {
+  .gowebblog-pagination {
+    @apply gap-1;
+  }
+  
+  .gowebblog-pagination .page-numbers {
+    @apply w-8 h-8 text-xs;
+    min-width: 32px;
+  }
+  
+  .gowebblog-pagination .page-numbers.prev,
+  .gowebblog-pagination .page-numbers.next {
+    @apply px-2 text-xs;
+  }
+}
+
+/* Animation for pagination appearance */
+.gowebblog-pagination .page-numbers {
+  animation: paginationFadeIn 0.3s ease-out forwards;
+  opacity: 0;
+}
+
+.gowebblog-pagination .page-numbers:nth-child(1) { animation-delay: 0.05s; }
+.gowebblog-pagination .page-numbers:nth-child(2) { animation-delay: 0.1s; }
+.gowebblog-pagination .page-numbers:nth-child(3) { animation-delay: 0.15s; }
+.gowebblog-pagination .page-numbers:nth-child(4) { animation-delay: 0.2s; }
+.gowebblog-pagination .page-numbers:nth-child(5) { animation-delay: 0.25s; }
+.gowebblog-pagination .page-numbers:nth-child(6) { animation-delay: 0.3s; }
+.gowebblog-pagination .page-numbers:nth-child(7) { animation-delay: 0.35s; }
+
+@keyframes paginationFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Screen reader text for accessibility */
+.gowebblog-pagination .screen-reader-text {
+  @apply sr-only;
 }

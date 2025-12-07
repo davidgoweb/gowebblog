@@ -84,24 +84,55 @@ function gowebblog_get_table_of_contents( $post_id = 0 ) {
 		);
 	}
 	
-	$toc = '<ul class="space-y-3">';
+	$toc = '<div class="toc-container">
+		<div class="toc-header sticky top-0 bg-card/50 backdrop-blur-sm z-10 py-2 px-2 border-b border-white/5 mb-2">
+			<div class="flex items-center justify-between">
+				<span class="text-xs text-secondary uppercase tracking-wider">Contents</span>
+				<button class="toc-toggle text-xs text-secondary hover:text-white transition-colors">
+					<span class="toc-toggle-text">Show Less</span>
+					<i class="fas fa-chevron-up ml-1 toc-toggle-icon"></i>
+				</button>
+			</div>
+		</div>
+		<div class="toc-wrapper max-h-96 overflow-y-auto custom-scrollbar">
+			<ul class="space-y-1 py-2">';
 	
 	foreach ( $processed_headings as $heading ) {
 		$level   = $heading['level'];
 		$id      = $heading['id'];
 		$title   = $heading['title'];
-		$padding = ( $level - 2 ) * 4; // h2 = 0, h3 = 4, h4 = 8, etc.
+		
+		// Enhanced hierarchical styling
+		$font_size = 'text-sm'; // Default for h2
+		$padding_class = 'pl-4'; // Default for h2
+		$border_color = 'border-l-2';
+		
+		if ( $level == 3 ) {
+			$font_size = 'text-xs';
+			$padding_class = 'pl-8';
+		} elseif ( $level == 4 ) {
+			$font_size = 'text-xs';
+			$padding_class = 'pl-12';
+		} elseif ( $level == 5 ) {
+			$font_size = 'text-xs';
+			$padding_class = 'pl-16';
+		} elseif ( $level == 6 ) {
+			$font_size = 'text-xs';
+			$padding_class = 'pl-20';
+		}
 		
 		$toc .= sprintf(
-			'<li><a href="#%s" class="block text-sm text-secondary hover:text-white transition-colors py-2 border-l-2 border-transparent hover:border-white/20 pl-%d" style="padding-left: %dpx;">%s</a></li>',
+			'<li><a href="#%s" class="toc-link block %s text-secondary hover:text-white transition-all duration-200 py-1.5 %s %s border-transparent hover:border-white/20 hover:bg-white/5" data-level="%d">%s</a></li>',
 			esc_attr( $id ),
-			esc_attr( 4 + $padding ),
-			16 + $padding,
+			$font_size,
+			$padding_class,
+			$border_color,
+			esc_attr( $level ),
 			esc_html( $title )
 		);
 	}
 	
-	$toc .= '</ul>';
+	$toc .= '</ul></div></div>';
 	
 	return apply_filters( 'gowebblog_table_of_contents', $toc, $post_id );
 }

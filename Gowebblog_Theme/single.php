@@ -153,7 +153,8 @@ get_header(); ?>
 							</div>
 						<?php endif; ?>
 						
-						<!-- Author Info -->
+						<!-- Author Info - REMOVED -->
+						<!--
 						<div class="bg-card/50 backdrop-blur-sm rounded-2xl p-6 border border-white/5 fade-in-section">
 							<h3 class="font-heading text-xl font-bold mb-6 text-white flex items-center">
 								<i class="fa-solid fa-user-pen mr-3 text-white/60"></i>
@@ -191,6 +192,7 @@ get_header(); ?>
 								?>
 							</div>
 						</div>
+						-->
 						
 						<!-- Related Posts -->
 						<?php

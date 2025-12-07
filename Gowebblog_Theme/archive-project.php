@@ -41,10 +41,10 @@ get_header(); ?>
                     the_posts_pagination(
                         array(
                             'mid_size'           => 2,
-                            'prev_text'          => __( 'Previous', 'gowebblog' ),
-                            'next_text'          => __( 'Next', 'gowebblog' ),
+                            'prev_text'          => __( '<i class="fa-solid fa-chevron-left"></i>', 'gowebblog' ),
+                            'next_text'          => __( '<i class="fa-solid fa-chevron-right"></i>', 'gowebblog' ),
                             'before_page_number' => '<span class="screen-reader-text">' . __( 'Page', 'gowebblog' ) . ' </span>',
-                            'class'              => 'pagination flex justify-center gap-2 mt-12',
+                            'class'              => 'gowebblog-pagination',
                         )
                     );
                     ?>

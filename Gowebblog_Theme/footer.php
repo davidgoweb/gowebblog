@@ -29,16 +29,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 						</a>
 					<?php endif; ?>
 					
-					<p class="text-secondary text-sm leading-relaxed">
-						<?php
-						$description = get_bloginfo( 'description', 'display' );
-						if ( $description || is_customize_preview() ) :
-							echo esc_html( $description );
-						else :
-							echo esc_html__( 'Tech enthusiast and architecture-minded builder based in Jakarta. I blend market insight with solid technical structure to help brands turn ideas into high-quality, scalable products.', 'gowebblog' );
-						endif;
-						?>
-					</p>
+					<?php
+					$show_footer_description = get_theme_mod( 'gowebblog_show_footer_description', true );
+					if ( $show_footer_description || is_customize_preview() ) :
+					?>
+						<p class="text-secondary text-sm leading-relaxed footer-brand-description">
+							<?php
+							$footer_description = get_theme_mod( 'gowebblog_footer_description', __( 'A modern WordPress blog theme for developers and designers', 'gowebblog' ) );
+							echo esc_html( $footer_description );
+							?>
+						</p>
+					<?php endif; ?>
 				</div>
 
 				<!-- Quick Links -->

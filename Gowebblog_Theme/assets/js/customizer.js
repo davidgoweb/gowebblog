@@ -20,9 +20,8 @@
 	colorSettings.forEach( function( setting ) {
 		wp.customize( setting, function( value ) {
 			// Update CSS custom properties.
-			$( ':root' ).css( {
-				'--' + setting.replace( '_', '-' ) : value
-			} );
+			var cssVar = '--' + setting.replace( '_', '-' );
+			$( ':root' ).css( cssVar, value );
 		} );
 	} );
 
@@ -78,5 +77,147 @@
 			}
 		});
 	});
+
+	// Hero heading text.
+	wp.customize( 'gowebblog_hero_heading', function( value ) {
+		value.bind( function( newHeading ) {
+			$( '#about .order-2.lg\\:order-1 h4' ).text( newHeading );
+		} );
+	} );
+
+	// Hero subtitle text.
+	wp.customize( 'gowebblog_hero_subtitle', function( value ) {
+		value.bind( function( newSubtitle ) {
+			$( '#about .order-2.lg\\:order-1 h1 .text-secondary' ).text( newSubtitle );
+		} );
+	} );
+
+	// Hero description text.
+	wp.customize( 'gowebblog_hero_description', function( value ) {
+		value.bind( function( newDescription ) {
+			$( '#about .order-2.lg\\:order-1 p.text-secondary' ).text( newDescription );
+		} );
+	} );
+
+	// Hero skill tag 1.
+	wp.customize( 'gowebblog_hero_skill_1', function( value ) {
+		value.bind( function( newSkill ) {
+			$( '#about .order-2.lg\\:order-1 .flex.flex-wrap.gap-3.mb-10 span:first-child' ).text( newSkill );
+		} );
+	} );
+
+	// Hero skill tag 2.
+	wp.customize( 'gowebblog_hero_skill_2', function( value ) {
+		value.bind( function( newSkill ) {
+			$( '#about .order-2.lg\\:order-1 .flex.flex-wrap.gap-3.mb-10 span:nth-child(2)' ).text( newSkill );
+		} );
+	} );
+
+	// Hero skill tag 3.
+	wp.customize( 'gowebblog_hero_skill_3', function( value ) {
+		value.bind( function( newSkill ) {
+			$( '#about .order-2.lg\\:order-1 .flex.flex-wrap.gap-3.mb-10 span:nth-child(3)' ).text( newSkill );
+		} );
+	} );
+
+	// 404 Page Options
+	// 404 page title.
+	wp.customize( 'gowebblog_404_title', function( value ) {
+		value.bind( function( newTitle ) {
+			$( '.error404 h2' ).text( newTitle );
+		} );
+	} );
+
+	// 404 page description.
+	wp.customize( 'gowebblog_404_description', function( value ) {
+		value.bind( function( newDescription ) {
+			$( '.error404 p.text-secondary' ).text( newDescription );
+		} );
+	} );
+
+	// "Go Home" button text.
+	wp.customize( 'gowebblog_404_go_home_text', function( value ) {
+		value.bind( function( newText ) {
+			$( '.error404 a[href*="' + wp.customize.settings.url.home + '"]' ).each( function() {
+				if ( $(this).text().includes( 'Go Home' ) || $(this).find('.fa-home').length > 0 ) {
+					$(this).contents().filter( function() {
+						return this.nodeType === 3;
+					} ).replaceWith( newText );
+				}
+			} );
+		} );
+	} );
+
+	// "Browse Blog" button text.
+	wp.customize( 'gowebblog_404_browse_blog_text', function( value ) {
+		value.bind( function( newText ) {
+			$( '.error404 a' ).each( function() {
+				if ( $(this).find('.fa-newspaper').length > 0 ) {
+					$(this).contents().filter( function() {
+						return this.nodeType === 3;
+					} ).replaceWith( newText );
+				}
+			} );
+		} );
+	} );
+
+	// Show/hide "Go Home" button.
+	wp.customize( 'gowebblog_404_show_go_home', function( value ) {
+		value.bind( function( showButton ) {
+			$( '.error404 a' ).each( function() {
+				if ( $(this).find('.fa-home').length > 0 ) {
+					if ( showButton ) {
+						$(this).show();
+					} else {
+						$(this).hide();
+					}
+				}
+			} );
+		} );
+	} );
+
+	// Show/hide "Browse Blog" button.
+	wp.customize( 'gowebblog_404_show_browse_blog', function( value ) {
+		value.bind( function( showButton ) {
+			$( '.error404 a' ).each( function() {
+				if ( $(this).find('.fa-newspaper').length > 0 ) {
+					if ( showButton ) {
+						$(this).show();
+					} else {
+						$(this).hide();
+					}
+				}
+			} );
+		} );
+	} );
+
+	// Show/hide search functionality.
+	wp.customize( 'gowebblog_404_show_search', function( value ) {
+		value.bind( function( showSearch ) {
+			if ( showSearch ) {
+				$( '.error404 .mt-16' ).show();
+			} else {
+				$( '.error404 .mt-16' ).hide();
+			}
+		} );
+	} );
+
+	// Footer description text.
+	wp.customize( 'gowebblog_footer_description', function( value ) {
+		value.bind( function( newDescription ) {
+			$( '.footer-brand-description' ).text( newDescription );
+		} );
+	} );
+
+	// Show/hide footer description.
+	wp.customize( 'gowebblog_show_footer_description', function( value ) {
+		value.bind( function( showDescription ) {
+			if ( showDescription ) {
+				$( '.footer-brand-description' ).show();
+			} else {
+				$( '.footer-brand-description' ).hide();
+			}
+		} );
+	} );
 
 } )( jQuery );

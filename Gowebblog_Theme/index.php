@@ -42,10 +42,10 @@ get_header(); ?>
 					the_posts_pagination(
 						array(
 							'mid_size'           => 2,
-							'prev_text'          => __( '<i class="fa-solid fa-arrow-left"></i> Previous', 'gowebblog' ),
-							'next_text'          => __( 'Next <i class="fa-solid fa-arrow-right"></i>', 'gowebblog' ),
+							'prev_text'          => __( '<i class="fa-solid fa-chevron-left"></i>', 'gowebblog' ),
+							'next_text'          => __( '<i class="fa-solid fa-chevron-right"></i>', 'gowebblog' ),
 							'screen_reader_text' => __( 'Posts navigation', 'gowebblog' ),
-							'class'              => 'flex gap-2 text-sm font-medium',
+							'class'              => 'gowebblog-pagination',
 						)
 					);
 					?>
@@ -66,26 +66,56 @@ get_header(); ?>
 		<div class="max-w-7xl mx-auto px-6 w-full grid lg:grid-cols-2 gap-12 items-center">
 			<!-- Text Content -->
 			<div class="order-2 lg:order-1 fade-in-section">
-				<h4 class="text-secondary text-lg mb-4 font-medium tracking-wide"><?php esc_html_e( 'Hello, this is', 'gowebblog' ); ?></h4>
+				<h4 class="text-secondary text-lg mb-4 font-medium tracking-wide">
+					<?php
+					$hero_heading = get_theme_mod( 'gowebblog_hero_heading', __( 'Hello, this is', 'gowebblog' ) );
+					echo esc_html( $hero_heading );
+					?>
+				</h4>
 				<h1 class="font-heading text-3xl md:text-6xl font-bold mb-6 leading-none">
-					<?php bloginfo( 'name' ); ?> <br> <span class="text-secondary"><?php esc_html_e( 'Portal', 'gowebblog' ); ?></span>
+					<?php bloginfo( 'name' ); ?> <br> <span class="text-secondary">
+						<?php
+						$hero_subtitle = get_theme_mod( 'gowebblog_hero_subtitle', __( 'Portal', 'gowebblog' ) );
+						echo esc_html( $hero_subtitle );
+						?>
+					</span>
 				</h1>
 				<p class="text-secondary text-lg md:text-xl leading-relaxed mb-8 max-w-lg">
 					<?php
-					$description = get_bloginfo( 'description', 'display' );
-					if ( $description || is_customize_preview() ) :
-						echo esc_html( $description );
+					$hero_description = get_theme_mod( 'gowebblog_hero_description' );
+					if ( $hero_description || is_customize_preview() ) :
+						echo esc_html( $hero_description );
 					else :
-						esc_html_e( 'Tech enthusiast and architecture-minded builder based in Jakarta. I blend market insight with solid technical structure to help brands turn ideas into high-quality, scalable products.', 'gowebblog' );
+						$description = get_bloginfo( 'description', 'display' );
+						if ( $description ) :
+							echo esc_html( $description );
+						else :
+							esc_html_e( 'Tech enthusiast and architecture-minded builder based in Jakarta. I blend market insight with solid technical structure to help brands turn ideas into high-quality, scalable products.', 'gowebblog' );
+						endif;
 					endif;
 					?>
 				</p>
 
 				<!-- Skills Tags -->
 				<div class="flex flex-wrap gap-3 mb-10">
-					<span class="px-4 py-2 bg-card rounded-full text-sm text-secondary border border-white/5"><?php esc_html_e( 'Web Development', 'gowebblog' ); ?></span>
-					<span class="px-4 py-2 bg-card rounded-full text-sm text-secondary border border-white/5"><?php esc_html_e( 'Open Source', 'gowebblog' ); ?></span>
-					<span class="px-4 py-2 bg-card rounded-full text-sm text-secondary border border-white/5"><?php esc_html_e( 'Tech Architecture', 'gowebblog' ); ?></span>
+					<span class="px-4 py-2 bg-card rounded-full text-sm text-secondary border border-white/5">
+						<?php
+						$hero_skill_1 = get_theme_mod( 'gowebblog_hero_skill_1', __( 'Web Development', 'gowebblog' ) );
+						echo esc_html( $hero_skill_1 );
+						?>
+					</span>
+					<span class="px-4 py-2 bg-card rounded-full text-sm text-secondary border border-white/5">
+						<?php
+						$hero_skill_2 = get_theme_mod( 'gowebblog_hero_skill_2', __( 'Open Source', 'gowebblog' ) );
+						echo esc_html( $hero_skill_2 );
+						?>
+					</span>
+					<span class="px-4 py-2 bg-card rounded-full text-sm text-secondary border border-white/5">
+						<?php
+						$hero_skill_3 = get_theme_mod( 'gowebblog_hero_skill_3', __( 'Tech Architecture', 'gowebblog' ) );
+						echo esc_html( $hero_skill_3 );
+						?>
+					</span>
 				</div>
 
 				<!-- Socials -->
@@ -254,10 +284,10 @@ get_header(); ?>
 					the_posts_pagination(
 						array(
 							'mid_size'           => 2,
-							'prev_text'          => __( '<i class="fa-solid fa-arrow-left"></i> Previous', 'gowebblog' ),
-							'next_text'          => __( 'Next <i class="fa-solid fa-arrow-right"></i>', 'gowebblog' ),
+							'prev_text'          => __( '<i class="fa-solid fa-chevron-left"></i>', 'gowebblog' ),
+							'next_text'          => __( '<i class="fa-solid fa-chevron-right"></i>', 'gowebblog' ),
 							'screen_reader_text' => __( 'Posts navigation', 'gowebblog' ),
-							'class'              => 'flex gap-2 text-sm font-medium',
+							'class'              => 'gowebblog-pagination',
 						)
 					);
 					?>

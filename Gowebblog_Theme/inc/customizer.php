@@ -256,6 +256,121 @@ function gowebblog_customize_register( $wp_customize ) {
 		)
 	);
 
+	// Add hero heading text setting.
+	$wp_customize->add_setting(
+		'gowebblog_hero_heading',
+		array(
+			'default'           => __( 'Hello, this is', 'gowebblog' ),
+			'sanitize_callback' => 'sanitize_text_field',
+			'transport'         => 'postMessage',
+		)
+	);
+
+	$wp_customize->add_control(
+		'gowebblog_hero_heading',
+		array(
+			'label'   => __( 'Hero Heading Text', 'gowebblog' ),
+			'section' => 'gowebblog_hero',
+			'type'    => 'text',
+		)
+	);
+
+	// Add hero subtitle text setting.
+	$wp_customize->add_setting(
+		'gowebblog_hero_subtitle',
+		array(
+			'default'           => __( 'Portal', 'gowebblog' ),
+			'sanitize_callback' => 'sanitize_text_field',
+			'transport'         => 'postMessage',
+		)
+	);
+
+	$wp_customize->add_control(
+		'gowebblog_hero_subtitle',
+		array(
+			'label'   => __( 'Hero Subtitle Text', 'gowebblog' ),
+			'section' => 'gowebblog_hero',
+			'type'    => 'text',
+		)
+	);
+
+	// Add hero description text setting.
+	$wp_customize->add_setting(
+		'gowebblog_hero_description',
+		array(
+			'default'           => __( 'Tech enthusiast and architecture-minded builder based in Jakarta. I blend market insight with solid technical structure to help brands turn ideas into high-quality, scalable products.', 'gowebblog' ),
+			'sanitize_callback' => 'sanitize_textarea_field',
+			'transport'         => 'postMessage',
+		)
+	);
+
+	$wp_customize->add_control(
+		'gowebblog_hero_description',
+		array(
+			'label'       => __( 'Hero Description Text', 'gowebblog' ),
+			'description' => __( 'Enter the description text for the hero section. If left empty, the site description will be used.', 'gowebblog' ),
+			'section'     => 'gowebblog_hero',
+			'type'        => 'textarea',
+		)
+	);
+
+	// Add hero skill tag 1 setting.
+	$wp_customize->add_setting(
+		'gowebblog_hero_skill_1',
+		array(
+			'default'           => __( 'Web Development', 'gowebblog' ),
+			'sanitize_callback' => 'sanitize_text_field',
+			'transport'         => 'postMessage',
+		)
+	);
+
+	$wp_customize->add_control(
+		'gowebblog_hero_skill_1',
+		array(
+			'label'   => __( 'Hero Skill Tag 1', 'gowebblog' ),
+			'section' => 'gowebblog_hero',
+			'type'    => 'text',
+		)
+	);
+
+	// Add hero skill tag 2 setting.
+	$wp_customize->add_setting(
+		'gowebblog_hero_skill_2',
+		array(
+			'default'           => __( 'Open Source', 'gowebblog' ),
+			'sanitize_callback' => 'sanitize_text_field',
+			'transport'         => 'postMessage',
+		)
+	);
+
+	$wp_customize->add_control(
+		'gowebblog_hero_skill_2',
+		array(
+			'label'   => __( 'Hero Skill Tag 2', 'gowebblog' ),
+			'section' => 'gowebblog_hero',
+			'type'    => 'text',
+		)
+	);
+
+	// Add hero skill tag 3 setting.
+	$wp_customize->add_setting(
+		'gowebblog_hero_skill_3',
+		array(
+			'default'           => __( 'Tech Architecture', 'gowebblog' ),
+			'sanitize_callback' => 'sanitize_text_field',
+			'transport'         => 'postMessage',
+		)
+	);
+
+	$wp_customize->add_control(
+		'gowebblog_hero_skill_3',
+		array(
+			'label'   => __( 'Hero Skill Tag 3', 'gowebblog' ),
+			'section' => 'gowebblog_hero',
+			'type'    => 'text',
+		)
+	);
+
 	// Add footer options section.
 	$wp_customize->add_section(
 		'gowebblog_footer',
@@ -290,6 +405,187 @@ function gowebblog_customize_register( $wp_customize ) {
 			'section'     => 'gowebblog_footer',
 			'type'        => 'select',
 			'choices'     => $menu_choices,
+		)
+	);
+
+	// Add footer brand description setting.
+	$wp_customize->add_setting(
+		'gowebblog_footer_description',
+		array(
+			'default'           => __( 'A modern WordPress blog theme for developers and designers', 'gowebblog' ),
+			'sanitize_callback' => 'sanitize_textarea_field',
+			'transport'         => 'postMessage',
+		)
+	);
+
+	$wp_customize->add_control(
+		'gowebblog_footer_description',
+		array(
+			'label'       => __( 'Footer Brand Description', 'gowebblog' ),
+			'description' => __( 'Enter the description text for your brand in the footer.', 'gowebblog' ),
+			'section'     => 'gowebblog_footer',
+			'type'        => 'textarea',
+		)
+	);
+
+	// Add toggle to enable/disable footer description.
+	$wp_customize->add_setting(
+		'gowebblog_show_footer_description',
+		array(
+			'default'           => true,
+			'sanitize_callback' => 'gowebblog_sanitize_checkbox',
+			'transport'         => 'postMessage',
+		)
+	);
+
+	$wp_customize->add_control(
+		'gowebblog_show_footer_description',
+		array(
+			'label'   => __( 'Show Footer Description', 'gowebblog' ),
+			'section' => 'gowebblog_footer',
+			'type'    => 'checkbox',
+		)
+	);
+
+	// Add 404 page options section.
+	$wp_customize->add_section(
+		'gowebblog_404_page',
+		array(
+			'title'    => __( '404 Page Options', 'gowebblog' ),
+			'priority' => 50,
+		)
+	);
+
+	// 404 page title setting.
+	$wp_customize->add_setting(
+		'gowebblog_404_title',
+		array(
+			'default'           => __( 'Oops! Page Not Found', 'gowebblog' ),
+			'sanitize_callback' => 'sanitize_text_field',
+			'transport'         => 'postMessage',
+		)
+	);
+
+	$wp_customize->add_control(
+		'gowebblog_404_title',
+		array(
+			'label'   => __( '404 Page Title', 'gowebblog' ),
+			'section' => 'gowebblog_404_page',
+			'type'    => 'text',
+		)
+	);
+
+	// 404 page description setting.
+	$wp_customize->add_setting(
+		'gowebblog_404_description',
+		array(
+			'default'           => __( 'The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.', 'gowebblog' ),
+			'sanitize_callback' => 'sanitize_textarea_field',
+			'transport'         => 'postMessage',
+		)
+	);
+
+	$wp_customize->add_control(
+		'gowebblog_404_description',
+		array(
+			'label'   => __( '404 Page Description', 'gowebblog' ),
+			'section' => 'gowebblog_404_page',
+			'type'    => 'textarea',
+		)
+	);
+
+	// "Go Home" button text setting.
+	$wp_customize->add_setting(
+		'gowebblog_404_go_home_text',
+		array(
+			'default'           => __( 'Go Home', 'gowebblog' ),
+			'sanitize_callback' => 'sanitize_text_field',
+			'transport'         => 'postMessage',
+		)
+	);
+
+	$wp_customize->add_control(
+		'gowebblog_404_go_home_text',
+		array(
+			'label'   => __( '"Go Home" Button Text', 'gowebblog' ),
+			'section' => 'gowebblog_404_page',
+			'type'    => 'text',
+		)
+	);
+
+	// "Browse Blog" button text setting.
+	$wp_customize->add_setting(
+		'gowebblog_404_browse_blog_text',
+		array(
+			'default'           => __( 'Browse Blog', 'gowebblog' ),
+			'sanitize_callback' => 'sanitize_text_field',
+			'transport'         => 'postMessage',
+		)
+	);
+
+	$wp_customize->add_control(
+		'gowebblog_404_browse_blog_text',
+		array(
+			'label'   => __( '"Browse Blog" Button Text', 'gowebblog' ),
+			'section' => 'gowebblog_404_page',
+			'type'    => 'text',
+		)
+	);
+
+	// Toggle to enable/disable "Go Home" button.
+	$wp_customize->add_setting(
+		'gowebblog_404_show_go_home',
+		array(
+			'default'           => true,
+			'sanitize_callback' => 'gowebblog_sanitize_checkbox',
+			'transport'         => 'postMessage',
+		)
+	);
+
+	$wp_customize->add_control(
+		'gowebblog_404_show_go_home',
+		array(
+			'label'   => __( 'Show "Go Home" Button', 'gowebblog' ),
+			'section' => 'gowebblog_404_page',
+			'type'    => 'checkbox',
+		)
+	);
+
+	// Toggle to enable/disable "Browse Blog" button.
+	$wp_customize->add_setting(
+		'gowebblog_404_show_browse_blog',
+		array(
+			'default'           => true,
+			'sanitize_callback' => 'gowebblog_sanitize_checkbox',
+			'transport'         => 'postMessage',
+		)
+	);
+
+	$wp_customize->add_control(
+		'gowebblog_404_show_browse_blog',
+		array(
+			'label'   => __( 'Show "Browse Blog" Button', 'gowebblog' ),
+			'section' => 'gowebblog_404_page',
+			'type'    => 'checkbox',
+		)
+	);
+
+	// Toggle to enable/disable search functionality.
+	$wp_customize->add_setting(
+		'gowebblog_404_show_search',
+		array(
+			'default'           => true,
+			'sanitize_callback' => 'gowebblog_sanitize_checkbox',
+			'transport'         => 'postMessage',
+		)
+	);
+
+	$wp_customize->add_control(
+		'gowebblog_404_show_search',
+		array(
+			'label'   => __( 'Show Search Functionality', 'gowebblog' ),
+			'section' => 'gowebblog_404_page',
+			'type'    => 'checkbox',
 		)
 	);
 }

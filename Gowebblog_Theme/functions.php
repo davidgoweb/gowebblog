@@ -160,6 +160,17 @@ function gowebblog_scripts() {
 		true
 	);
 
+	// Enqueue TOC JavaScript file (only for single posts with TOC).
+	if ( is_singular() && gowebblog_has_headings() ) {
+		wp_enqueue_script(
+			'gowebblog-toc',
+			get_template_directory_uri() . '/assets/js/toc.js',
+			array(),
+			filemtime( get_template_directory() . '/assets/js/toc.js' ),
+			true
+		);
+	}
+
 	// Enqueue comments script.
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
@@ -208,54 +219,6 @@ function gowebblog_scripts() {
 				observer.observe(section);
 			});
 
-			// Table of Contents Active State (for single posts)
-			const tocLinks = document.querySelectorAll('nav a[href^=\"#\"]');
-			const sections = document.querySelectorAll('h2[id], h3[id]');
-			
-			if (tocLinks.length > 0 && sections.length > 0) {
-				function updateActiveTocLink() {
-					let current = '';
-					
-					sections.forEach(section => {
-						const sectionTop = section.offsetTop;
-						const sectionHeight = section.offsetHeight;
-						
-						if (window.pageYOffset >= sectionTop - 100) {
-							current = section.getAttribute('id');
-						}
-					});
-					
-					tocLinks.forEach(link => {
-						link.classList.remove('toc-active');
-						if (link.getAttribute('href') === '#' + current) {
-							link.classList.add('toc-active');
-						}
-					});
-				}
-				
-				// Update active link on scroll
-				window.addEventListener('scroll', updateActiveTocLink);
-				
-				// Initial call to set active state
-				updateActiveTocLink();
-				
-				// Smooth scroll for TOC links
-				tocLinks.forEach(link => {
-					link.addEventListener('click', function(e) {
-						e.preventDefault();
-						const targetId = this.getAttribute('href').substring(1);
-						const targetSection = document.getElementById(targetId);
-						
-						if (targetSection) {
-							const offsetTop = targetSection.offsetTop - 80; // Adjust for header
-							window.scrollTo({
-								top: offsetTop,
-								behavior: 'smooth'
-							});
-						}
-					});
-				});
-			}
 
 			// Newsletter form submission
 			const newsletterForm = document.querySelector('form');
