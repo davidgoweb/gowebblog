@@ -331,9 +331,9 @@ get_header(); ?>
 											<i class="fa-solid fa-arrow-left text-pink-400 text-sm"></i>
 											<span class="text-xs text-pink-400 font-semibold uppercase tracking-wider"><?php esc_html_e( 'Previous', 'gowebblog' ); ?></span>
 										</div>
-										<h4 class="font-bold text-white text-base mb-2 leading-tight group-hover:text-pink-300 transition-colors line-clamp-2">
+										<p class="font-bold text-white text-base mb-2 leading-tight group-hover:text-pink-300 transition-colors line-clamp-2">
 											<?php echo esc_html( $prev_toolbox->post_title ); ?>
-										</h4>
+										</p>
 										<div class="flex items-center gap-3 text-xs text-secondary">
 											<span class="flex items-center gap-1">
 												<i class="far fa-calendar"></i>
@@ -360,7 +360,7 @@ get_header(); ?>
 					<div class="nav-next flex-1">
 						<a href="<?php echo esc_url( get_permalink( $next_toolbox ) ); ?>" class="group block bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-sm rounded-2xl border border-white/10 hover:border-white/25 transition-all duration-300 overflow-hidden hover:shadow-xl hover:shadow-white/5">
 							<div class="p-6">
-								<div class="flex items-start gap-4 flex-row-reverse">
+								<div class="flex items-center gap-4 flex-row-reverse">
 									<!-- Thumbnail -->
 									<div class="flex-shrink-0 w-24 h-24 rounded-xl overflow-hidden bg-white/5">
 										<?php if ( has_post_thumbnail( $next_toolbox->ID ) ) : ?>
@@ -376,9 +376,9 @@ get_header(); ?>
 											<span class="text-xs text-pink-400 font-semibold uppercase tracking-wider"><?php esc_html_e( 'Next', 'gowebblog' ); ?></span>
 											<i class="fa-solid fa-arrow-right text-pink-400 text-sm"></i>
 										</div>
-										<h4 class="font-bold text-white text-base mb-2 leading-tight group-hover:text-pink-300 transition-colors line-clamp-2">
+										<p class="font-bold text-white text-base mb-2 leading-tight group-hover:text-pink-300 transition-colors line-clamp-2">
 											<?php echo esc_html( $next_toolbox->post_title ); ?>
-										</h4>
+										</p>
 										<div class="flex items-center justify-end gap-3 text-xs text-secondary">
 											<span class="flex items-center gap-1">
 												<i class="far fa-calendar"></i>

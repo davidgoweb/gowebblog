@@ -653,7 +653,12 @@ html {
 	gap: 2rem;
 	width: 100% !important;
 }
-
+.post-navigation a span.flex.items-center {
+    width: unset;
+}
+.post-navigation p{
+  margin-bottom:0px;
+}
 @media (min-width: 768px) {
 	.post-navigation .nav-links,
 	.project-navigation .nav-links,
