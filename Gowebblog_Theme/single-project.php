@@ -74,7 +74,7 @@ get_header(); ?>
                             <?php endif; ?>
                         </header>
 
-                        <div class="entry-content">
+                        <div class="blog-content">
                             <?php
                             the_content();
 

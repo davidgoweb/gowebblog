@@ -110,7 +110,7 @@ get_header(); ?>
 			<div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
 				<!-- Main Content -->
 				<div class="lg:col-span-2">
-					<div class="toolbox-content fade-in-section">
+					<div class="blog-content fade-in-section">
 						<?php
 						while ( have_posts() ) :
 							the_post();
