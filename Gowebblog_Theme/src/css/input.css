@@ -644,50 +644,105 @@ html {
 }
 
 /* Post Navigation Specific Styles */
-.post-navigation .nav-links {
-	@apply grid grid-cols-1 md:grid-cols-2 gap-8;
+.post-navigation .nav-links,
+.project-navigation .nav-links,
+.toolbox-navigation .nav-links {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	gap: 1.5rem;
 	width: 100%;
 }
 
+@media (min-width: 768px) {
+	.post-navigation .nav-links,
+	.project-navigation .nav-links,
+	.toolbox-navigation .nav-links {
+		flex-direction: row;
+	}
+}
+
 .post-navigation .nav-previous,
-.post-navigation .nav-next {
-	@apply w-full;
+.post-navigation .nav-next,
+.project-navigation .nav-previous,
+.project-navigation .nav-next,
+.toolbox-navigation .nav-previous,
+.toolbox-navigation .nav-next {
+	flex: 1;
 }
 
 .post-navigation .nav-previous a,
-.post-navigation .nav-next a {
-	@apply w-full flex items-start gap-4 p-6 bg-card/30 rounded-xl border border-white/5 hover:border-white/20 transition-all duration-300;
+.post-navigation .nav-next a,
+.project-navigation .nav-previous a,
+.project-navigation .nav-next a,
+.toolbox-navigation .nav-previous a,
+.toolbox-navigation .nav-next a {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	padding: 1rem;
+	background-color: rgba(255, 255, 255, 0.1);
+	border-radius: 0.5rem;
+	border: 1px solid rgba(255, 255, 255, 0.05);
+	transition: all 0.3s ease;
 }
 
-.post-navigation .nav-next {
-	@apply md:text-right;
+.post-navigation .nav-previous a:hover,
+.post-navigation .nav-next a:hover,
+.project-navigation .nav-previous a:hover,
+.project-navigation .nav-next a:hover,
+.toolbox-navigation .nav-previous a:hover,
+.toolbox-navigation .nav-next a:hover {
+	border-color: rgba(255, 255, 255, 0.2);
 }
 
-.post-navigation .nav-next a {
-	@apply md:flex-row-reverse;
+.post-navigation .nav-next,
+.project-navigation .nav-next,
+.toolbox-navigation .nav-next {
+	text-align: right;
 }
 
-.post-navigation .nav-next .w-16 {
-	@apply md:order-last;
-}
-
-.post-navigation .nav-previous .w-16 {
-	@apply order-first;
+@media (min-width: 768px) {
+	.post-navigation .nav-next,
+	.project-navigation .nav-next,
+	.toolbox-navigation .nav-next {
+		text-align: right;
+	}
 }
 
 .post-navigation .nav-previous .flex-1,
-.post-navigation .nav-next .flex-1 {
-	@apply min-w-0;
+.post-navigation .nav-next .flex-1,
+.project-navigation .nav-previous .flex-1,
+.project-navigation .nav-next .flex-1,
+.toolbox-navigation .nav-previous .flex-1,
+.toolbox-navigation .nav-next .flex-1 {
+	min-width: 0;
+}
+
+/* Arrow icon styling */
+.post-navigation .fa-solid,
+.project-navigation .fa-solid,
+.toolbox-navigation .fa-solid {
+	color: rgba(255, 255, 255, 0.6);
+}
+
+.post-navigation .group:hover .fa-solid,
+.project-navigation .group:hover .fa-solid,
+.toolbox-navigation .group:hover .fa-solid {
+	color: rgba(255, 255, 255, 1);
 }
 
 /* Ensure proper spacing and alignment */
 @media (min-width: 768px) {
-	.post-navigation .nav-next a {
+	.post-navigation .nav-next a,
+	.project-navigation .nav-next a,
+	.toolbox-navigation .nav-next a {
 		justify-content: flex-end;
-		text-align: right;
 	}
 	
-	.post-navigation .nav-next .flex-1 {
+	.post-navigation .nav-next .flex-1,
+	.project-navigation .nav-next .flex-1,
+	.toolbox-navigation .nav-next .flex-1 {
 		text-align: right;
 	}
 }

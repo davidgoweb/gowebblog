@@ -119,15 +119,47 @@ get_header(); ?>
                     endif;
 
                     // Previous/next project navigation.
-                    the_post_navigation(
-                        array(
-                            'prev_text' => '<span class="nav-subtitle">' . esc_html__( 'Previous:', 'gowebblog' ) . '</span> <span class="nav-title">%title</span>',
-                            'next_text' => '<span class="nav-subtitle">' . esc_html__( 'Next:', 'gowebblog' ) . '</span> <span class="nav-title">%title</span>',
-                            'in_same_term'         => true,
-                            'taxonomy'             => 'project-category',
-                            'screen_reader_text' => __( 'Project navigation', 'gowebblog' ),
-                        )
-                    );
+                    $prev_project = get_previous_post();
+                    $next_project = get_next_post();
+                    
+                    if ( $prev_project || $next_project ) : ?>
+                        <nav class="navigation project-navigation" role="navigation">
+                            <h2 class="screen-reader-text"><?php esc_html_e( 'Project navigation', 'gowebblog' ); ?></h2>
+                            <div class="nav-links flex flex-col md:flex-row justify-between gap-6 mt-16 pt-8 border-t border-white/10">
+                                <?php if ( $prev_project ) : ?>
+                                    <div class="nav-previous flex-1">
+                                        <a href="<?php echo esc_url( get_permalink( $prev_project ) ); ?>" class="group flex items-center gap-3 p-4 bg-card/20 rounded-lg border border-white/5 hover:border-white/20 transition-all duration-300">
+                                            <div class="flex-shrink-0">
+                                                <i class="fa-solid fa-arrow-left text-white/60 group-hover:text-white transition-colors"></i>
+                                            </div>
+                                            <div class="flex-1 min-w-0">
+                                                <span class="text-xs text-secondary uppercase tracking-wider block"><?php esc_html_e( 'Previous', 'gowebblog' ); ?></span>
+                                                <h4 class="font-medium text-white text-sm group-hover:text-pink-300 transition-colors truncate">
+                                                    <?php echo esc_html( $prev_project->post_title ); ?>
+                                                </h4>
+                                            </div>
+                                        </a>
+                                    </div>
+                                <?php endif; ?>
+                                
+                                <?php if ( $next_project ) : ?>
+                                    <div class="nav-next flex-1 md:text-right">
+                                        <a href="<?php echo esc_url( get_permalink( $next_project ) ); ?>" class="group flex items-center gap-3 p-4 bg-card/20 rounded-lg border border-white/5 hover:border-white/20 transition-all duration-300">
+                                            <div class="flex-1 min-w-0">
+                                                <span class="text-xs text-secondary uppercase tracking-wider block"><?php esc_html_e( 'Next', 'gowebblog' ); ?></span>
+                                                <h4 class="font-medium text-white text-sm group-hover:text-pink-300 transition-colors truncate">
+                                                    <?php echo esc_html( $next_project->post_title ); ?>
+                                                </h4>
+                                            </div>
+                                            <div class="flex-shrink-0">
+                                                <i class="fa-solid fa-arrow-right text-white/60 group-hover:text-white transition-colors"></i>
+                                            </div>
+                                        </a>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
+                        </nav>
+                    <?php endif;
                     ?>
 
                 <?php endwhile; // End of the loop. ?>
