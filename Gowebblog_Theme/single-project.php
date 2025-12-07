@@ -125,34 +125,92 @@ get_header(); ?>
                     if ( $prev_project || $next_project ) : ?>
                         <nav class="navigation project-navigation" role="navigation">
                             <h2 class="screen-reader-text"><?php esc_html_e( 'Project navigation', 'gowebblog' ); ?></h2>
-                            <div class="nav-links flex flex-col md:flex-row justify-between gap-6 mt-16 pt-8 border-t border-white/10">
+                            <div class="nav-links flex flex-col md:flex-row justify-between gap-8 mt-16 pt-8 border-t border-white/10">
                                 <?php if ( $prev_project ) : ?>
                                     <div class="nav-previous flex-1">
-                                        <a href="<?php echo esc_url( get_permalink( $prev_project ) ); ?>" class="group flex items-center gap-3 p-4 bg-card/20 rounded-lg border border-white/5 hover:border-white/20 transition-all duration-300">
-                                            <div class="flex-shrink-0">
-                                                <i class="fa-solid fa-arrow-left text-white/60 group-hover:text-white transition-colors"></i>
-                                            </div>
-                                            <div class="flex-1 min-w-0">
-                                                <span class="text-xs text-secondary uppercase tracking-wider block"><?php esc_html_e( 'Previous', 'gowebblog' ); ?></span>
-                                                <h4 class="font-medium text-white text-sm group-hover:text-pink-300 transition-colors truncate">
-                                                    <?php echo esc_html( $prev_project->post_title ); ?>
-                                                </h4>
+                                        <a href="<?php echo esc_url( get_permalink( $prev_project ) ); ?>" class="group block bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-sm rounded-2xl border border-white/10 hover:border-white/25 transition-all duration-300 overflow-hidden hover:shadow-xl hover:shadow-white/5">
+                                            <div class="p-6">
+                                                <div class="flex items-start gap-4">
+                                                    <!-- Thumbnail -->
+                                                    <div class="flex-shrink-0 w-24 h-24 rounded-xl overflow-hidden bg-white/5">
+                                                        <?php if ( has_post_thumbnail( $prev_project->ID ) ) : ?>
+                                                            <?php echo get_the_post_thumbnail( $prev_project->ID, 'thumbnail', array( 'class' => 'w-full h-full object-cover group-hover:scale-110 transition-transform duration-500' ) ); ?>
+                                                        <?php else : ?>
+                                                            <img src="https://imagezt.davidgo.web.id/96x96/333333/ffffff?text=<?php echo esc_attr( $prev_project->post_title ); ?>&fontSize=14&textWrap=true&textWrapWidth=90" alt="<?php echo esc_attr( $prev_project->post_title ); ?>" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                                                        <?php endif; ?>
+                                                    </div>
+                                                    
+                                                    <!-- Content -->
+                                                    <div class="flex-1 min-w-0">
+                                                        <div class="flex items-center gap-2 mb-3">
+                                                            <i class="fa-solid fa-arrow-left text-pink-400 text-sm"></i>
+                                                            <span class="text-xs text-pink-400 font-semibold uppercase tracking-wider"><?php esc_html_e( 'Previous', 'gowebblog' ); ?></span>
+                                                        </div>
+                                                        <h4 class="font-bold text-white text-base mb-2 leading-tight group-hover:text-pink-300 transition-colors line-clamp-2">
+                                                            <?php echo esc_html( $prev_project->post_title ); ?>
+                                                        </h4>
+                                                        <div class="flex items-center gap-3 text-xs text-secondary">
+                                                            <span class="flex items-center gap-1">
+                                                                <i class="far fa-calendar"></i>
+                                                                <?php echo esc_html( get_the_date( '', $prev_project->ID ) ); ?>
+                                                            </span>
+                                                            <?php
+                                                            // Display project categories
+                                                            $categories = get_the_terms( $prev_project->ID, 'project-category' );
+                                                            if ( $categories && ! is_wp_error( $categories ) ) : ?>
+                                                                <span class="flex items-center gap-1">
+                                                                    <i class="far fa-folder"></i>
+                                                                    <?php echo esc_html( $categories[0]->name ); ?>
+                                                                </span>
+                                                            <?php endif; ?>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </a>
                                     </div>
                                 <?php endif; ?>
                                 
                                 <?php if ( $next_project ) : ?>
-                                    <div class="nav-next flex-1 md:text-right">
-                                        <a href="<?php echo esc_url( get_permalink( $next_project ) ); ?>" class="group flex items-center gap-3 p-4 bg-card/20 rounded-lg border border-white/5 hover:border-white/20 transition-all duration-300">
-                                            <div class="flex-1 min-w-0">
-                                                <span class="text-xs text-secondary uppercase tracking-wider block"><?php esc_html_e( 'Next', 'gowebblog' ); ?></span>
-                                                <h4 class="font-medium text-white text-sm group-hover:text-pink-300 transition-colors truncate">
-                                                    <?php echo esc_html( $next_project->post_title ); ?>
-                                                </h4>
-                                            </div>
-                                            <div class="flex-shrink-0">
-                                                <i class="fa-solid fa-arrow-right text-white/60 group-hover:text-white transition-colors"></i>
+                                    <div class="nav-next flex-1">
+                                        <a href="<?php echo esc_url( get_permalink( $next_project ) ); ?>" class="group block bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-sm rounded-2xl border border-white/10 hover:border-white/25 transition-all duration-300 overflow-hidden hover:shadow-xl hover:shadow-white/5">
+                                            <div class="p-6">
+                                                <div class="flex items-start gap-4 flex-row-reverse">
+                                                    <!-- Thumbnail -->
+                                                    <div class="flex-shrink-0 w-24 h-24 rounded-xl overflow-hidden bg-white/5">
+                                                        <?php if ( has_post_thumbnail( $next_project->ID ) ) : ?>
+                                                            <?php echo get_the_post_thumbnail( $next_project->ID, 'thumbnail', array( 'class' => 'w-full h-full object-cover group-hover:scale-110 transition-transform duration-500' ) ); ?>
+                                                        <?php else : ?>
+                                                            <img src="https://imagezt.davidgo.web.id/96x96/333333/ffffff?text=<?php echo esc_attr( $next_project->post_title ); ?>&fontSize=14&textWrap=true&textWrapWidth=90" alt="<?php echo esc_attr( $next_project->post_title ); ?>" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                                                        <?php endif; ?>
+                                                    </div>
+                                                    
+                                                    <!-- Content -->
+                                                    <div class="flex-1 min-w-0 text-right">
+                                                        <div class="flex items-center justify-end gap-2 mb-3">
+                                                            <span class="text-xs text-pink-400 font-semibold uppercase tracking-wider"><?php esc_html_e( 'Next', 'gowebblog' ); ?></span>
+                                                            <i class="fa-solid fa-arrow-right text-pink-400 text-sm"></i>
+                                                        </div>
+                                                        <h4 class="font-bold text-white text-base mb-2 leading-tight group-hover:text-pink-300 transition-colors line-clamp-2">
+                                                            <?php echo esc_html( $next_project->post_title ); ?>
+                                                        </h4>
+                                                        <div class="flex items-center justify-end gap-3 text-xs text-secondary">
+                                                            <span class="flex items-center gap-1">
+                                                                <i class="far fa-calendar"></i>
+                                                                <?php echo esc_html( get_the_date( '', $next_project->ID ) ); ?>
+                                                            </span>
+                                                            <?php
+                                                            // Display project categories
+                                                            $categories = get_the_terms( $next_project->ID, 'project-category' );
+                                                            if ( $categories && ! is_wp_error( $categories ) ) : ?>
+                                                                <span class="flex items-center gap-1">
+                                                                    <i class="far fa-folder"></i>
+                                                                    <?php echo esc_html( $categories[0]->name ); ?>
+                                                                </span>
+                                                            <?php endif; ?>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </a>
                                     </div>

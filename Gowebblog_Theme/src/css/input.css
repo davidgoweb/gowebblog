@@ -643,14 +643,14 @@ html {
 	@apply sr-only;
 }
 
-/* Post Navigation Specific Styles */
+/* Modern Post Navigation with Thumbnails */
 .post-navigation .nav-links,
 .project-navigation .nav-links,
 .toolbox-navigation .nav-links {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
-	gap: 1.5rem;
+	gap: 2rem;
 	width: 100%;
 }
 
@@ -659,6 +659,7 @@ html {
 	.project-navigation .nav-links,
 	.toolbox-navigation .nav-links {
 		flex-direction: row;
+		gap: 2rem;
 	}
 }
 
@@ -677,14 +678,14 @@ html {
 .project-navigation .nav-next a,
 .toolbox-navigation .nav-previous a,
 .toolbox-navigation .nav-next a {
-	display: flex;
-	align-items: center;
-	gap: 0.75rem;
-	padding: 1rem;
-	background-color: rgba(255, 255, 255, 0.1);
-	border-radius: 0.5rem;
-	border: 1px solid rgba(255, 255, 255, 0.05);
+	display: block;
+	background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+	backdrop-filter: blur(10px);
+	border-radius: 1rem;
+	border: 1px solid rgba(255, 255, 255, 0.1);
 	transition: all 0.3s ease;
+	overflow: hidden;
+	position: relative;
 }
 
 .post-navigation .nav-previous a:hover,
@@ -693,56 +694,124 @@ html {
 .project-navigation .nav-next a:hover,
 .toolbox-navigation .nav-previous a:hover,
 .toolbox-navigation .nav-next a:hover {
-	border-color: rgba(255, 255, 255, 0.2);
+	border-color: rgba(255, 255, 255, 0.25);
+	box-shadow: 0 10px 25px rgba(255, 255, 255, 0.05);
+	transform: translateY(-2px);
 }
 
-.post-navigation .nav-next,
-.project-navigation .nav-next,
-.toolbox-navigation .nav-next {
-	text-align: right;
+/* Thumbnail styling */
+.post-navigation .w-24,
+.project-navigation .w-24,
+.toolbox-navigation .w-24 {
+	width: 6rem;
+	flex-shrink: 0;
 }
 
-@media (min-width: 768px) {
-	.post-navigation .nav-next,
-	.project-navigation .nav-next,
-	.toolbox-navigation .nav-next {
-		text-align: right;
-	}
+.post-navigation .h-24,
+.project-navigation .h-24,
+.toolbox-navigation .h-24 {
+	height: 6rem;
 }
 
-.post-navigation .nav-previous .flex-1,
-.post-navigation .nav-next .flex-1,
-.project-navigation .nav-previous .flex-1,
-.project-navigation .nav-next .flex-1,
-.toolbox-navigation .nav-previous .flex-1,
-.toolbox-navigation .nav-next .flex-1 {
-	min-width: 0;
+.post-navigation .rounded-xl,
+.project-navigation .rounded-xl,
+.toolbox-navigation .rounded-xl {
+	border-radius: 0.75rem;
+	overflow: hidden;
+	background-color: rgba(255, 255, 255, 0.05);
 }
 
-/* Arrow icon styling */
-.post-navigation .fa-solid,
-.project-navigation .fa-solid,
-.toolbox-navigation .fa-solid {
-	color: rgba(255, 255, 255, 0.6);
+.post-navigation .group:hover .group-hover\:scale-110,
+.project-navigation .group:hover .group-hover\:scale-110,
+.toolbox-navigation .group:hover .group-hover\:scale-110 {
+	transform: scale(1.1);
+	transition: transform 0.5s ease;
 }
 
-.post-navigation .group:hover .fa-solid,
-.project-navigation .group:hover .fa-solid,
-.toolbox-navigation .group:hover .fa-solid {
-	color: rgba(255, 255, 255, 1);
+/* Content styling */
+.post-navigation .font-bold,
+.project-navigation .font-bold,
+.toolbox-navigation .font-bold {
+	font-weight: 700;
 }
 
-/* Ensure proper spacing and alignment */
-@media (min-width: 768px) {
-	.post-navigation .nav-next a,
-	.project-navigation .nav-next a,
-	.toolbox-navigation .nav-next a {
-		justify-content: flex-end;
+.post-navigation .text-base,
+.project-navigation .text-base,
+.toolbox-navigation .text-base {
+	font-size: 1rem;
+	line-height: 1.5;
+}
+
+.post-navigation .line-clamp-2,
+.project-navigation .line-clamp-2,
+.toolbox-navigation .line-clamp-2 {
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+
+/* Arrow and label styling */
+.post-navigation .text-pink-400,
+.project-navigation .text-pink-400,
+.toolbox-navigation .text-pink-400 {
+	color: #f472b6;
+}
+
+.post-navigation .group:hover .group-hover\:text-pink-300,
+.project-navigation .group:hover .group-hover\:text-pink-300,
+.toolbox-navigation .group:hover .group-hover\:text-pink-300 {
+	color: #f9a8d4;
+	transition: color 0.3s ease;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+	.post-navigation .nav-links,
+	.project-navigation .nav-links,
+	.toolbox-navigation .nav-links {
+		gap: 1.5rem;
 	}
 	
-	.post-navigation .nav-next .flex-1,
-	.project-navigation .nav-next .flex-1,
-	.toolbox-navigation .nav-next .flex-1 {
-		text-align: right;
+	.post-navigation .w-24,
+	.project-navigation .w-24,
+	.toolbox-navigation .w-24 {
+		width: 5rem;
+	}
+	
+	.post-navigation .h-24,
+	.project-navigation .h-24,
+	.toolbox-navigation .h-24 {
+		height: 5rem;
+	}
+}
+
+/* Animation for navigation appearance */
+.post-navigation .nav-previous,
+.post-navigation .nav-next,
+.project-navigation .nav-previous,
+.project-navigation .nav-next,
+.toolbox-navigation .nav-previous,
+.toolbox-navigation .nav-next {
+	animation: navFadeIn 0.6s ease-out forwards;
+	opacity: 0;
+}
+
+.post-navigation .nav-previous {
+	animation-delay: 0.1s;
+}
+
+.post-navigation .nav-next {
+	animation-delay: 0.2s;
+}
+
+@keyframes navFadeIn {
+	from {
+		opacity: 0;
+		transform: translateY(20px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
 	}
 }
