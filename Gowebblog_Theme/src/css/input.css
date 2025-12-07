@@ -571,6 +571,9 @@ html {
     @apply w-8 h-8 text-xs;
     min-width: 32px;
   }
+  .nav-links span{
+    width: unset
+  }
   
   .gowebblog-pagination .page-numbers.prev,
   .gowebblog-pagination .page-numbers.next,

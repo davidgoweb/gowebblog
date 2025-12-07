@@ -114,15 +114,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<div class="nav-previous flex-1">
 				<a href="<?php echo esc_url( get_permalink( $prev_post ) ); ?>" class="group block bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-sm rounded-2xl border border-white/10 hover:border-white/25 transition-all duration-300 overflow-hidden hover:shadow-xl hover:shadow-white/5">
 					<div class="p-6">
-						<div class="flex items-start gap-4">
-							<!-- Thumbnail -->
-							<div class="flex-shrink-0 w-24 h-24 rounded-xl overflow-hidden bg-white/5">
-								<?php if ( has_post_thumbnail( $prev_post->ID ) ) : ?>
-									<?php echo get_the_post_thumbnail( $prev_post->ID, 'thumbnail', array( 'class' => 'w-full h-full object-cover group-hover:scale-110 transition-transform duration-500' ) ); ?>
-								<?php else : ?>
-									<img src="https://imagezt.davidgo.web.id/96x96/333333/ffffff?text=<?php echo esc_attr( $prev_post->post_title ); ?>&fontSize=14&textWrap=true&textWrapWidth=90" alt="<?php echo esc_attr( $prev_post->post_title ); ?>" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-								<?php endif; ?>
-							</div>
+						<div class="flex items-center gap-4">
 							
 							<!-- Content -->
 							<div class="flex-1 min-w-0">
@@ -157,14 +149,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<a href="<?php echo esc_url( get_permalink( $next_post ) ); ?>" class="group block bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-sm rounded-2xl border border-white/10 hover:border-white/25 transition-all duration-300 overflow-hidden hover:shadow-xl hover:shadow-white/5">
 					<div class="p-6">
 						<div class="flex items-center gap-4 flex-row-reverse">
-							<!-- Thumbnail -->
-							<div class="flex-shrink-0 w-24 h-24 rounded-xl overflow-hidden bg-white/5">
-								<?php if ( has_post_thumbnail( $next_post->ID ) ) : ?>
-									<?php echo get_the_post_thumbnail( $next_post->ID, 'thumbnail', array( 'class' => 'w-full h-full object-cover group-hover:scale-110 transition-transform duration-500' ) ); ?>
-								<?php else : ?>
-									<img src="https://imagezt.davidgo.web.id/96x96/333333/ffffff?text=<?php echo esc_attr( $next_post->post_title ); ?>&fontSize=14&textWrap=true&textWrapWidth=90" alt="<?php echo esc_attr( $next_post->post_title ); ?>" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-								<?php endif; ?>
-							</div>
 							
 							<!-- Content -->
 							<div class="flex-1 min-w-0 text-right">
@@ -172,9 +156,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 									<span class="text-xs text-pink-400 font-semibold uppercase tracking-wider"><?php esc_html_e( 'Next', 'gowebblog' ); ?></span>
 									<i class="fa-solid fa-arrow-right text-pink-400 text-sm"></i>
 								</div>
-								<h4 class="font-bold text-white text-base mb-2 leading-tight group-hover:text-pink-300 transition-colors line-clamp-2">
+								<p class="font-bold text-white text-base mb-2 leading-tight group-hover:text-pink-300 transition-colors line-clamp-2">
 									<?php echo esc_html( $next_post->post_title ); ?>
-								</h4>
+		</p>
 								<div class="flex items-center justify-end gap-3 text-xs text-secondary">
 									<span class="flex items-center gap-1">
 										<i class="far fa-calendar"></i>

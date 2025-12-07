@@ -219,9 +219,9 @@ get_header(); ?>
 													<?php endif; ?>
 												</div>
 												<div>
-													<h4 class="font-medium text-white text-sm mb-1 group-hover:text-pink-300 transition-colors line-clamp-2">
+													<p class="font-medium text-white text-sm mb-1 group-hover:text-pink-300 transition-colors line-clamp-2">
 														<?php the_title(); ?>
-													</h4>
+													</p>
 													<p class="text-xs text-secondary"><?php echo esc_html( gowebblog_estimated_reading_time() ); ?> <?php esc_html_e( 'min read', 'gowebblog' ); ?></p>
 												</div>
 											</div>

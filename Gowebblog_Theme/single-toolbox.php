@@ -281,9 +281,9 @@ get_header(); ?>
 													<?php endif; ?>
 												</div>
 												<div>
-													<h4 class="font-medium text-white text-sm mb-1 group-hover:text-pink-300 transition-colors line-clamp-2">
+													<p class="font-medium text-white text-sm mb-1 group-hover:text-pink-300 transition-colors line-clamp-2">
 														<?php the_title(); ?>
-													</h4>
+													</p>
 													<p class="text-xs text-secondary"><?php echo esc_html( get_the_date() ); ?></p>
 												</div>
 											</div>
@@ -315,15 +315,7 @@ get_header(); ?>
 					<div class="nav-previous flex-1">
 						<a href="<?php echo esc_url( get_permalink( $prev_toolbox ) ); ?>" class="group block bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-sm rounded-2xl border border-white/10 hover:border-white/25 transition-all duration-300 overflow-hidden hover:shadow-xl hover:shadow-white/5">
 							<div class="p-6">
-								<div class="flex items-start gap-4">
-									<!-- Thumbnail -->
-									<div class="flex-shrink-0 w-24 h-24 rounded-xl overflow-hidden bg-white/5">
-										<?php if ( has_post_thumbnail( $prev_toolbox->ID ) ) : ?>
-											<?php echo get_the_post_thumbnail( $prev_toolbox->ID, 'thumbnail', array( 'class' => 'w-full h-full object-cover group-hover:scale-110 transition-transform duration-500' ) ); ?>
-										<?php else : ?>
-											<img src="https://imagezt.davidgo.web.id/96x96/333333/ffffff?text=<?php echo esc_attr( $prev_toolbox->post_title ); ?>&fontSize=14&textWrap=true&textWrapWidth=90" alt="<?php echo esc_attr( $prev_toolbox->post_title ); ?>" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-										<?php endif; ?>
-									</div>
+								<div class="flex items-center gap-4">
 									
 									<!-- Content -->
 									<div class="flex-1 min-w-0">
@@ -361,14 +353,6 @@ get_header(); ?>
 						<a href="<?php echo esc_url( get_permalink( $next_toolbox ) ); ?>" class="group block bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-sm rounded-2xl border border-white/10 hover:border-white/25 transition-all duration-300 overflow-hidden hover:shadow-xl hover:shadow-white/5">
 							<div class="p-6">
 								<div class="flex items-center gap-4 flex-row-reverse">
-									<!-- Thumbnail -->
-									<div class="flex-shrink-0 w-24 h-24 rounded-xl overflow-hidden bg-white/5">
-										<?php if ( has_post_thumbnail( $next_toolbox->ID ) ) : ?>
-											<?php echo get_the_post_thumbnail( $next_toolbox->ID, 'thumbnail', array( 'class' => 'w-full h-full object-cover group-hover:scale-110 transition-transform duration-500' ) ); ?>
-										<?php else : ?>
-											<img src="https://imagezt.davidgo.web.id/96x96/333333/ffffff?text=<?php echo esc_attr( $next_toolbox->post_title ); ?>&fontSize=14&textWrap=true&textWrapWidth=90" alt="<?php echo esc_attr( $next_toolbox->post_title ); ?>" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-										<?php endif; ?>
-									</div>
 									
 									<!-- Content -->
 									<div class="flex-1 min-w-0 text-right">

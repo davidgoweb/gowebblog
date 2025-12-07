@@ -66,12 +66,12 @@ get_header(); ?>
 		<div class="max-w-7xl mx-auto px-6 w-full grid lg:grid-cols-2 gap-12 items-center">
 			<!-- Text Content -->
 			<div class="order-2 lg:order-1 fade-in-section">
-				<h4 class="text-secondary text-lg mb-4 font-medium tracking-wide">
+				<p class="text-secondary text-lg mb-4 font-medium tracking-wide">
 					<?php
 					$hero_heading = get_theme_mod( 'gowebblog_hero_heading', __( 'Hello, this is', 'gowebblog' ) );
 					echo esc_html( $hero_heading );
 					?>
-				</h4>
+				</p>
 				<h1 class="font-heading text-3xl md:text-6xl font-bold mb-6 leading-none">
 					<?php bloginfo( 'name' ); ?> <br> <span class="text-secondary">
 						<?php
