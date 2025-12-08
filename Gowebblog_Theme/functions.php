@@ -289,19 +289,23 @@ require get_template_directory() . '/inc/post-types.php';
 function gowebblog_set_github_featured_image( $post_id ) {
 	// Check if this is a toolbox post
 	if ( get_post_type( $post_id ) !== 'toolbox' ) {
+		error_log( 'GitHub Image: Not a toolbox post (ID: ' . $post_id . ')' );
 		return;
 	}
 
 	// Check if it's an auto-draft or revision
 	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+		error_log( 'GitHub Image: Autosave in progress (ID: ' . $post_id . ')' );
 		return;
 	}
 	if ( wp_is_post_revision( $post_id ) ) {
+		error_log( 'GitHub Image: Post revision (ID: ' . $post_id . ')' );
 		return;
 	}
 
 	// Check if the post already has a featured image
 	if ( has_post_thumbnail( $post_id ) ) {
+		error_log( 'GitHub Image: Post already has featured image (ID: ' . $post_id . ')' );
 		return;
 	}
 
@@ -309,40 +313,58 @@ function gowebblog_set_github_featured_image( $post_id ) {
 	$github_url = get_post_meta( $post_id, '_toolbox_repo_url', true );
 
 	if ( ! $github_url ) {
+		error_log( 'GitHub Image: No GitHub URL found (ID: ' . $post_id . ')' );
 		return;
 	}
 
 	// Only process GitHub URLs
 	if ( strpos( $github_url, 'github.com' ) === false ) {
+		error_log( 'GitHub Image: Not a GitHub URL: ' . $github_url . ' (ID: ' . $post_id . ')' );
 		return;
 	}
 
 	// Add a transient to prevent multiple requests in a short time
 	$transient_key = 'github_image_' . $post_id;
 	if ( get_transient( $transient_key ) ) {
+		error_log( 'GitHub Image: Transient still active, skipping (ID: ' . $post_id . ')' );
 		return;
 	}
 	
 	// Set transient for 5 minutes to prevent repeated requests
 	set_transient( $transient_key, 'processing', 300 );
+	error_log( 'GitHub Image: Processing GitHub URL: ' . $github_url . ' (ID: ' . $post_id . ')' );
 
 	// Get HTML content using wp_remote_get
 	$response = wp_remote_get( $github_url );
 
-	if ( is_wp_error( $response ) || 200 !== wp_remote_retrieve_response_code( $response ) ) {
+	if ( is_wp_error( $response ) ) {
+		error_log( 'GitHub Image: Error fetching GitHub page: ' . $response->get_error_message() . ' (ID: ' . $post_id . ')' );
+		// Delete transient on error so we can try again later
+		delete_transient( $transient_key );
+		return;
+	}
+
+	$response_code = wp_remote_retrieve_response_code( $response );
+	if ( 200 !== $response_code ) {
+		error_log( 'GitHub Image: HTTP Error: ' . $response_code . ' (ID: ' . $post_id . ')' );
 		// Delete transient on error so we can try again later
 		delete_transient( $transient_key );
 		return;
 	}
 
 	$html = wp_remote_retrieve_body( $response );
+	error_log( 'GitHub Image: Successfully fetched HTML, length: ' . strlen( $html ) . ' (ID: ' . $post_id . ')' );
 
 	// Find the og:image URL using regex
 	if ( preg_match( '/<meta property="og:image" content="([^"]+)"/', $html, $matches ) ) {
 		$image_url = $matches[1];
+		error_log( 'GitHub Image: Found OG image URL: ' . $image_url . ' (ID: ' . $post_id . ')' );
 		
 		// Download the image and set it as featured image
-		gowebblog_download_and_set_featured_image( $post_id, $image_url, $github_url );
+		$result = gowebblog_download_and_set_featured_image( $post_id, $image_url, $github_url );
+		error_log( 'GitHub Image: Download result: ' . ( $result ? 'Success' : 'Failed' ) . ' (ID: ' . $post_id . ')' );
+	} else {
+		error_log( 'GitHub Image: No OG image meta tag found (ID: ' . $post_id . ')' );
 	}
 	
 	// Delete transient after processing
@@ -358,6 +380,8 @@ add_action( 'save_post', 'gowebblog_set_github_featured_image' );
  * @param string $source_url The source URL for reference.
  */
 function gowebblog_download_and_set_featured_image( $post_id, $image_url, $source_url = '' ) {
+	error_log( 'GitHub Image: Starting download of image: ' . $image_url . ' (ID: ' . $post_id . ')' );
+	
 	// Include necessary WordPress files
 	require_once( ABSPATH . 'wp-admin/includes/file.php' );
 	require_once( ABSPATH . 'wp-admin/includes/media.php' );
@@ -367,7 +391,8 @@ function gowebblog_download_and_set_featured_image( $post_id, $image_url, $sourc
 	$tmp = download_url( $image_url );
 	
 	if ( is_wp_error( $tmp ) ) {
-		return;
+		error_log( 'GitHub Image: Download error: ' . $tmp->get_error_message() . ' (ID: ' . $post_id . ')' );
+		return false;
 	}
 
 	// Get file info
@@ -380,28 +405,76 @@ function gowebblog_download_and_set_featured_image( $post_id, $image_url, $sourc
 	$file_info = wp_check_filetype_and_ext( $file_array['tmp_name'], $file_array['name'] );
 	
 	if ( ! in_array( $file_info['ext'], array( 'jpg', 'jpeg', 'png', 'gif', 'webp' ), true ) ) {
+		error_log( 'GitHub Image: Invalid file type: ' . $file_info['ext'] . ' (ID: ' . $post_id . ')' );
 		// Delete the temporary file
 		@unlink( $tmp );
-		return;
+		return false;
 	}
 
 	// Upload the image to WordPress Media Library
 	$attachment_id = media_handle_sideload( $file_array, $post_id );
 	
 	if ( is_wp_error( $attachment_id ) ) {
+		error_log( 'GitHub Image: Media upload error: ' . $attachment_id->get_error_message() . ' (ID: ' . $post_id . ')' );
 		// Delete the temporary file
 		@unlink( $tmp );
-		return;
+		return false;
 	}
 
 	// Set the image as featured image
-	set_post_thumbnail( $post_id, $attachment_id );
+	$result = set_post_thumbnail( $post_id, $attachment_id );
+	
+	if ( ! $result ) {
+		error_log( 'GitHub Image: Failed to set thumbnail (ID: ' . $post_id . ', Attachment ID: ' . $attachment_id . ')' );
+		return false;
+	}
+
+	error_log( 'GitHub Image: Successfully set featured image (ID: ' . $post_id . ', Attachment ID: ' . $attachment_id . ')' );
 
 	// Add source URL as attachment meta if provided
 	if ( $source_url ) {
 		update_post_meta( $attachment_id, 'source_url', $source_url );
 	}
+	
+	return true;
 }
+
+/**
+ * Manual trigger for GitHub image fetching (for testing)
+ *
+ * Add ?fetch_github_image=1&post_id=XX to any URL to trigger the fetch
+ * Only works for logged in administrators
+ */
+function gowebblog_manual_github_image_fetch() {
+	// Check if this is a manual trigger request
+	if ( ! isset( $_GET['fetch_github_image'] ) || $_GET['fetch_github_image'] !== '1' ) {
+		return;
+	}
+	
+	// Check if user is logged in and is administrator
+	if ( ! current_user_can( 'manage_options' ) ) {
+		wp_die( 'You must be an administrator to use this feature.' );
+	}
+	
+	// Get the post ID
+	$post_id = isset( $_GET['post_id'] ) ? intval( $_GET['post_id'] ) : 0;
+	
+	if ( ! $post_id ) {
+		wp_die( 'Please provide a valid post_id parameter.' );
+	}
+	
+	// Clear any existing transient for this post
+	delete_transient( 'github_image_' . $post_id );
+	
+	// Manually trigger the GitHub image fetch
+	gowebblog_set_github_featured_image( $post_id );
+	
+	// Redirect back to the post edit page
+	$redirect_url = admin_url( 'post.php?post=' . $post_id . '&action=edit' );
+	wp_redirect( $redirect_url );
+	exit;
+}
+add_action( 'init', 'gowebblog_manual_github_image_fetch' );
 
 /**
  * Add IDs to heading tags for table of contents
