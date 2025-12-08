@@ -282,6 +282,128 @@ if ( defined( 'JETPACK__VERSION' ) ) {
 require get_template_directory() . '/inc/post-types.php';
 
 /**
+ * Set GitHub repository image as featured image for toolbox items
+ *
+ * @param int $post_id The post ID.
+ */
+function gowebblog_set_github_featured_image( $post_id ) {
+	// Check if this is a toolbox post
+	if ( get_post_type( $post_id ) !== 'toolbox' ) {
+		return;
+	}
+
+	// Check if it's an auto-draft or revision
+	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+		return;
+	}
+	if ( wp_is_post_revision( $post_id ) ) {
+		return;
+	}
+
+	// Check if the post already has a featured image
+	if ( has_post_thumbnail( $post_id ) ) {
+		return;
+	}
+
+	// Get the GitHub URL from the custom field
+	$github_url = get_post_meta( $post_id, '_toolbox_repo_url', true );
+
+	if ( ! $github_url ) {
+		return;
+	}
+
+	// Only process GitHub URLs
+	if ( strpos( $github_url, 'github.com' ) === false ) {
+		return;
+	}
+
+	// Add a transient to prevent multiple requests in a short time
+	$transient_key = 'github_image_' . $post_id;
+	if ( get_transient( $transient_key ) ) {
+		return;
+	}
+	
+	// Set transient for 5 minutes to prevent repeated requests
+	set_transient( $transient_key, 'processing', 300 );
+
+	// Get HTML content using wp_remote_get
+	$response = wp_remote_get( $github_url );
+
+	if ( is_wp_error( $response ) || 200 !== wp_remote_retrieve_response_code( $response ) ) {
+		// Delete transient on error so we can try again later
+		delete_transient( $transient_key );
+		return;
+	}
+
+	$html = wp_remote_retrieve_body( $response );
+
+	// Find the og:image URL using regex
+	if ( preg_match( '/<meta property="og:image" content="([^"]+)"/', $html, $matches ) ) {
+		$image_url = $matches[1];
+		
+		// Download the image and set it as featured image
+		gowebblog_download_and_set_featured_image( $post_id, $image_url, $github_url );
+	}
+	
+	// Delete transient after processing
+	delete_transient( $transient_key );
+}
+add_action( 'save_post', 'gowebblog_set_github_featured_image' );
+
+/**
+ * Download an image from URL and set it as featured image
+ *
+ * @param int    $post_id   The post ID.
+ * @param string $image_url The image URL to download.
+ * @param string $source_url The source URL for reference.
+ */
+function gowebblog_download_and_set_featured_image( $post_id, $image_url, $source_url = '' ) {
+	// Include necessary WordPress files
+	require_once( ABSPATH . 'wp-admin/includes/file.php' );
+	require_once( ABSPATH . 'wp-admin/includes/media.php' );
+	require_once( ABSPATH . 'wp-admin/includes/image.php' );
+
+	// Download the image to temporary file
+	$tmp = download_url( $image_url );
+	
+	if ( is_wp_error( $tmp ) ) {
+		return;
+	}
+
+	// Get file info
+	$file_array = array(
+		'name'     => basename( $image_url ),
+		'tmp_name' => $tmp,
+	);
+
+	// Check if the file is an image
+	$file_info = wp_check_filetype_and_ext( $file_array['tmp_name'], $file_array['name'] );
+	
+	if ( ! in_array( $file_info['ext'], array( 'jpg', 'jpeg', 'png', 'gif', 'webp' ), true ) ) {
+		// Delete the temporary file
+		@unlink( $tmp );
+		return;
+	}
+
+	// Upload the image to WordPress Media Library
+	$attachment_id = media_handle_sideload( $file_array, $post_id );
+	
+	if ( is_wp_error( $attachment_id ) ) {
+		// Delete the temporary file
+		@unlink( $tmp );
+		return;
+	}
+
+	// Set the image as featured image
+	set_post_thumbnail( $post_id, $attachment_id );
+
+	// Add source URL as attachment meta if provided
+	if ( $source_url ) {
+		update_post_meta( $attachment_id, 'source_url', $source_url );
+	}
+}
+
+/**
  * Add IDs to heading tags for table of contents
  *
  * @param string $content The post content.

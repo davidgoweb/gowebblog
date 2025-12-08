@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 get_header(); ?>
 
 	<!-- Back to Toolbox -->
-	<section class="py-8">
+	<section class="py-5">
 		<div class="max-w-7xl mx-auto px-6">
 			<a href="<?php echo esc_url( get_post_type_archive_link( 'toolbox' ) ); ?>" class="inline-flex items-center text-secondary hover:text-white transition-colors">
 				<i class="fa-solid fa-arrow-left mr-2"></i>
@@ -109,18 +109,18 @@ get_header(); ?>
 			
 			// Only show this section if at least one URL is available
 			if ( $demo_url || $repo_url ) : ?>
-				<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-12 fade-in-section">
+				<div class="grid grid-cols-2 sm:grid-cols-2 gap-4 mb-12 fade-in-section">
 					<?php if ( $demo_url ) : ?>
 						<a href="<?php echo esc_url( $demo_url ); ?>" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-3 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold rounded-lg hover:from-blue-600 hover:to-blue-700 transition-all duration-300 shadow-lg hover:shadow-xl">
 							<i class="fas fa-external-link-alt"></i>
-							<span><?php esc_html_e( 'Live Demo', 'gowebblog' ); ?></span>
+							<span><?php esc_html_e( 'Website', 'gowebblog' ); ?></span>
 						</a>
 					<?php endif; ?>
 					
 					<?php if ( $repo_url ) : ?>
 						<a href="<?php echo esc_url( $repo_url ); ?>" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-3 py-3 bg-gradient-to-r from-gray-700 to-gray-800 text-white font-semibold rounded-lg hover:from-gray-800 hover:to-gray-900 transition-all duration-300 shadow-lg hover:shadow-xl">
 							<i class="fab fa-github"></i>
-							<span><?php esc_html_e( 'GitHub Repository', 'gowebblog' ); ?></span>
+							<span><?php esc_html_e( 'GitHub', 'gowebblog' ); ?></span>
 						</a>
 					<?php endif; ?>
 				</div>
