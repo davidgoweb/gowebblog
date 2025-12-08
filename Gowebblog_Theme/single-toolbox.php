@@ -40,7 +40,7 @@ get_header(); ?>
 			</div>
 			
 			<!-- Toolbox Title -->
-			<h1 class="font-heading text-4xl md:text-5xl lg:text-6xl font-bold mb-8 leading-tight fade-in-section">
+			<h1 class="font-heading text-3xl md:text-5xl lg:text-6xl font-bold mb-8 leading-tight fade-in-section">
 				<?php the_title(); ?>
 			</h1>
 			
