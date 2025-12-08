@@ -185,23 +185,20 @@ get_header(); ?>
 	</section>
 
 	<!-- Toolbox Section -->
-	<section id="toolbox" class="py-24 relative">
+	<section id="toolbox" class="py-24 relative overflow-hidden">
 		<!-- Background decoration -->
-		<div class="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-primary/5 to-transparent pointer-events-none"></div>
+		<div class="absolute inset-0 bg-gradient-to-br from-darker via-darker to-darker opacity-90"></div>
+		<div class="absolute top-0 right-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl"></div>
+		<div class="absolute bottom-0 left-0 w-96 h-96 bg-secondary/20 rounded-full blur-3xl"></div>
 		
 		<div class="max-w-7xl mx-auto px-6 relative z-10">
-			<div class="flex flex-col md:flex-row md:items-end justify-between mb-16 fade-in-section">
-				<div>
-					<h2 class="text-secondary uppercase tracking-widest text-sm font-semibold"><?php esc_html_e( 'Toolbox', 'gowebblog' ); ?></h2>
-					<span class="font-heading text-4xl md:text-5xl font-bold mt-2"><?php esc_html_e( 'Discoveries', 'gowebblog' ); ?></span>
-				</div>
-				<a href="<?php echo esc_url( get_post_type_archive_link( 'toolbox' ) ); ?>" class="mt-6 md:mt-0 inline-flex items-center text-secondary hover:text-white transition-colors">
-					<span><?php esc_html_e( 'View All', 'gowebblog' ); ?></span>
-					<i class="fa-solid fa-arrow-right ml-2"></i>
-				</a>
+			<div class="text-center mb-16 fade-in-section">
+				<h2 class="text-secondary uppercase tracking-widest text-sm font-semibold mb-4"><?php esc_html_e( 'Toolbox', 'gowebblog' ); ?></h2>
+				<span class="font-heading text-4xl md:text-6xl font-bold bg-gradient-to-r from-white to-secondary bg-clip-text text-transparent"><?php esc_html_e( 'Discoveries', 'gowebblog' ); ?></span>
+				<p class="text-secondary mt-6 max-w-2xl mx-auto"><?php esc_html_e( 'Explore my collection of tools, utilities, and experiments built with modern technologies', 'gowebblog' ); ?></p>
 			</div>
 
-			<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
 				<?php
 				// Display portfolio projects from toolbox post type
 				$portfolio_args = array(
@@ -217,95 +214,107 @@ get_header(); ?>
 					while ( $portfolio_query->have_posts() ) :
 						$portfolio_query->the_post();
 						?>
-						<div class="group relative bg-card/50 backdrop-blur-sm rounded-2xl overflow-hidden border border-white/10 hover:border-white/20 transition-all duration-300 fade-in-section hover:shadow-xl hover:shadow-primary/10">
-							<!-- Card Image -->
-							<div class="aspect-[4/3] overflow-hidden">
-								<?php if ( has_post_thumbnail() ) : ?>
-									<a href="<?php the_permalink(); ?>" class="block w-full h-full">
-										<img src="<?php echo esc_url( get_the_post_thumbnail_url( null, 'medium_large' ) ); ?>" alt="<?php echo esc_attr( get_the_title() ); ?>" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-									</a>
-								<?php else : ?>
-									<?php
-									// Try to get GitHub image directly if no featured image
-									$github_url = gowebblog_get_toolbox_repo_url( get_the_ID() );
-									if ( $github_url && strpos( $github_url, 'github.com' ) !== false ) :
-										// Check if we have a cached GitHub image
-										$image_url = get_transient( 'github_image_url_' . get_the_ID() );
-										if ( ! $image_url ) :
-											// Try to get the GitHub image directly
-											$response = wp_remote_get( $github_url );
-											if ( ! is_wp_error( $response ) && 200 === wp_remote_retrieve_response_code( $response ) ) :
-												$html = wp_remote_retrieve_body( $response );
-												if ( preg_match( '/<meta property="og:image" content="([^"]+)"/', $html, $matches ) ) :
-													$image_url = $matches[1];
-													// Cache the image URL for 1 hour
-													set_transient( 'github_image_url_' . get_the_ID(), $image_url, HOUR_IN_SECONDS );
+						<div class="group fade-in-section">
+							<!-- Card Container -->
+							<div class="relative h-full flex flex-col">
+								<!-- Image Container with 1:2 aspect ratio -->
+								<div class="relative aspect-[1/2] overflow-hidden rounded-t-2xl bg-gradient-to-br from-card to-darker border border-white/10">
+									<?php if ( has_post_thumbnail() ) : ?>
+										<a href="<?php the_permalink(); ?>" class="block w-full h-full">
+											<img src="<?php echo esc_url( get_the_post_thumbnail_url( null, 'medium_large' ) ); ?>" alt="<?php echo esc_attr( get_the_title() ); ?>" class="w-full h-full object-cover transition-all duration-700 group-hover:scale-105 group-hover:opacity-90">
+										</a>
+									<?php else : ?>
+										<?php
+										// Try to get GitHub image directly if no featured image
+										$github_url = gowebblog_get_toolbox_repo_url( get_the_ID() );
+										if ( $github_url && strpos( $github_url, 'github.com' ) !== false ) :
+											// Check if we have a cached GitHub image
+											$image_url = get_transient( 'github_image_url_' . get_the_ID() );
+											if ( ! $image_url ) :
+												// Try to get GitHub image directly
+												$response = wp_remote_get( $github_url );
+												if ( ! is_wp_error( $response ) && 200 === wp_remote_retrieve_response_code( $response ) ) :
+													$html = wp_remote_retrieve_body( $response );
+													if ( preg_match( '/<meta property="og:image" content="([^"]+)"/', $html, $matches ) ) :
+														$image_url = $matches[1];
+														// Cache image URL for 1 hour
+														set_transient( 'github_image_url_' . get_the_ID(), $image_url, HOUR_IN_SECONDS );
+													endif;
 												endif;
 											endif;
-										endif;
-										
-										if ( $image_url ) : ?>
-											<a href="<?php the_permalink(); ?>" class="block w-full h-full">
-												<img src="<?php echo esc_url( $image_url ); ?>" alt="<?php echo esc_attr( get_the_title() ); ?> - GitHub Repository Image" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-											</a>
+											
+											if ( $image_url ) : ?>
+												<a href="<?php the_permalink(); ?>" class="block w-full h-full">
+													<img src="<?php echo esc_url( $image_url ); ?>" alt="<?php echo esc_attr( get_the_title() ); ?> - GitHub Repository Image" class="w-full h-full object-cover transition-all duration-700 group-hover:scale-105 group-hover:opacity-90">
+												</a>
+											<?php else : ?>
+												<div class="w-full h-full flex items-center justify-center">
+													<div class="text-center p-8">
+														<i class="fab fa-github text-4xl text-white/20 mb-4"></i>
+														<p class="text-white/40 text-sm"><?php echo esc_html( get_the_title() ); ?></p>
+													</div>
+												</div>
+											<?php endif; ?>
 										<?php else : ?>
-											<a href="<?php the_permalink(); ?>" class="block w-full h-full">
-												<img src="https://imagezt.davidgo.web.id/800x600/ffffff/cccccc?text=<?php echo esc_attr( get_the_title() ); ?>&fontSize=38&textWrap=true&textWrapWidth=90" alt="<?php echo esc_attr( get_the_title() ); ?>" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-											</a>
+											<div class="w-full h-full flex items-center justify-center">
+												<div class="text-center p-8">
+													<i class="fas fa-code text-4xl text-white/20 mb-4"></i>
+													<p class="text-white/40 text-sm"><?php echo esc_html( get_the_title() ); ?></p>
+												</div>
+											</div>
 										<?php endif; ?>
-									<?php else : ?>
-										<a href="<?php the_permalink(); ?>" class="block w-full h-full">
-											<img src="https://imagezt.davidgo.web.id/800x600/ffffff/cccccc?text=<?php echo esc_attr( get_the_title() ); ?>&fontSize=38&textWrap=true&textWrapWidth=90" alt="<?php echo esc_attr( get_the_title() ); ?>" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-										</a>
 									<?php endif; ?>
-								<?php endif; ?>
-							</div>
-							
-							<!-- Card Content -->
-							<div class="p-6">
-								<!-- Category Badge -->
-								<?php
-								$categories = get_the_terms( get_the_ID(), 'toolbox-category' );
-								if ( $categories && ! is_wp_error( $categories ) ) : ?>
-									<div class="mb-3">
-										<span class="text-xs px-2 py-1 bg-white/10 rounded-full text-white/80">
-											<?php echo esc_html( $categories[0]->name ); ?>
-										</span>
+									
+									<!-- Overlay Icons -->
+									<div class="absolute top-4 right-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+										<?php
+										$repo_url = gowebblog_get_toolbox_repo_url( get_the_ID() );
+										$demo_url = gowebblog_get_toolbox_demo_url( get_the_ID() );
+										
+										if ( $repo_url ) : ?>
+											<div class="w-8 h-8 rounded-full bg-black/60 backdrop-blur-sm flex items-center justify-center" title="<?php esc_attr_e( 'GitHub Repository', 'gowebblog' ); ?>">
+												<i class="fab fa-github text-xs text-white"></i>
+											</div>
+										<?php endif; ?>
+										
+										<?php if ( $demo_url ) : ?>
+											<div class="w-8 h-8 rounded-full bg-black/60 backdrop-blur-sm flex items-center justify-center" title="<?php esc_attr_e( 'Live Demo', 'gowebblog' ); ?>">
+												<i class="fas fa-globe text-xs text-white"></i>
+											</div>
+										<?php endif; ?>
 									</div>
-								<?php endif; ?>
+								</div>
 								
-								<!-- Title -->
-								<h3 class="font-heading text-lg font-bold mb-2 line-clamp-2">
-									<a href="<?php the_permalink(); ?>" class="text-white hover:text-primary transition-colors">
-										<?php the_title(); ?>
-									</a>
-								</h3>
-								
-								<!-- Excerpt -->
-								<p class="text-secondary text-sm leading-relaxed mb-4 line-clamp-3">
-									<?php echo esc_html( wp_trim_words( get_the_excerpt(), 15, '...' ) ); ?>
-								</p>
-								
-								<!-- Links -->
-								<div class="flex gap-3">
+								<!-- Content Area -->
+								<div class="bg-card/80 backdrop-blur-sm border border-white/10 border-t-0 rounded-b-2xl p-6 flex-1 flex flex-col">
+									<!-- Category Badge -->
 									<?php
-									$repo_url = gowebblog_get_toolbox_repo_url( get_the_ID() );
-									$demo_url = gowebblog_get_toolbox_demo_url( get_the_ID() );
-									
-									if ( $repo_url ) : ?>
-										<a href="<?php echo esc_url( $repo_url ); ?>" target="_blank" rel="noopener noreferrer" class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors" title="<?php esc_attr_e( 'GitHub Repository', 'gowebblog' ); ?>">
-											<i class="fab fa-github text-sm"></i>
-										</a>
+									$categories = get_the_terms( get_the_ID(), 'toolbox-category' );
+									if ( $categories && ! is_wp_error( $categories ) ) : ?>
+										<div class="mb-3">
+											<span class="text-xs px-3 py-1 bg-primary/20 text-primary rounded-full font-medium">
+												<?php echo esc_html( $categories[0]->name ); ?>
+											</span>
+										</div>
 									<?php endif; ?>
 									
-									<?php if ( $demo_url ) : ?>
-										<a href="<?php echo esc_url( $demo_url ); ?>" target="_blank" rel="noopener noreferrer" class="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center hover:bg-primary/30 transition-colors" title="<?php esc_attr_e( 'Live Demo', 'gowebblog' ); ?>">
-											<i class="fas fa-external-link-alt text-sm"></i>
+									<!-- Title -->
+									<h3 class="font-heading text-lg font-bold mb-3 line-clamp-2 flex-1">
+										<a href="<?php the_permalink(); ?>" class="text-white hover:text-primary transition-colors duration-300">
+											<?php the_title(); ?>
 										</a>
-									<?php endif; ?>
+									</h3>
 									
-									<a href="<?php the_permalink(); ?>" class="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center hover:bg-white hover:text-black transition-all ml-auto" title="<?php esc_attr_e( 'View Details', 'gowebblog' ); ?>">
-										<i class="fa-solid fa-arrow-right text-xs"></i>
+									<!-- Date -->
+									<div class="flex items-center text-xs text-secondary mb-4">
+										<i class="far fa-calendar mr-2"></i>
+										<?php echo esc_html( get_the_date() ); ?>
+									</div>
+									
+									<!-- View Details Button -->
+									<a href="<?php the_permalink(); ?>" class="inline-flex items-center justify-center w-full py-2 px-4 bg-gradient-to-r from-primary/20 to-primary/10 hover:from-primary/30 hover:to-primary/20 text-primary rounded-lg transition-all duration-300 text-sm font-medium">
+										<?php esc_html_e( 'View Details', 'gowebblog' ); ?>
+										<i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
 									</a>
 								</div>
 							</div>
@@ -317,29 +326,41 @@ get_header(); ?>
 					// Fallback to static toolbox items
 					for ( $i = 1; $i <= 8; $i++ ) :
 						?>
-						<div class="group relative bg-card/50 backdrop-blur-sm rounded-2xl overflow-hidden border border-white/10 hover:border-white/20 transition-all duration-300 fade-in-section hover:shadow-xl hover:shadow-primary/10">
-							<div class="aspect-[4/3] overflow-hidden">
-								<img src="https://imagezt.davidgo.web.id/800x600/ffffff/cccccc?text=Project+<?php echo esc_attr( $i ); ?>&fontSize=38&textWrap=true&textWrapWidth=90" alt="<?php esc_attr_e( 'Project', 'gowebblog' ); ?>" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-							</div>
-							<div class="p-6">
-								<h3 class="font-heading text-lg font-bold mb-2">
-									<a href="#" class="text-white hover:text-primary transition-colors">
-										<?php printf( esc_html__( 'Project %d', 'gowebblog' ), $i ); ?>
+						<div class="group fade-in-section">
+							<div class="relative h-full flex flex-col">
+								<div class="relative aspect-[1/2] overflow-hidden rounded-t-2xl bg-gradient-to-br from-card to-darker border border-white/10">
+									<div class="w-full h-full flex items-center justify-center">
+										<div class="text-center p-8">
+											<i class="fas fa-code text-4xl text-white/20 mb-4"></i>
+											<p class="text-white/40 text-sm">Project <?php echo esc_html( $i ); ?></p>
+										</div>
+									</div>
+								</div>
+								<div class="bg-card/80 backdrop-blur-sm border border-white/10 border-t-0 rounded-b-2xl p-6 flex-1 flex flex-col">
+									<h3 class="font-heading text-lg font-bold mb-3 line-clamp-2 flex-1">
+										<a href="#" class="text-white hover:text-primary transition-colors duration-300">
+											<?php printf( esc_html__( 'Project %d', 'gowebblog' ), $i ); ?>
+										</a>
+									</h3>
+									<a href="#" class="inline-flex items-center justify-center w-full py-2 px-4 bg-gradient-to-r from-primary/20 to-primary/10 hover:from-primary/30 hover:to-primary/20 text-primary rounded-lg transition-all duration-300 text-sm font-medium">
+										<?php esc_html_e( 'View Details', 'gowebblog' ); ?>
+										<i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
 									</a>
-								</h3>
-								<p class="text-secondary text-sm leading-relaxed mb-4">
-									<?php esc_html_e( 'Project description goes here', 'gowebblog' ); ?>
-								</p>
-								<a href="#" class="inline-flex items-center gap-2 text-sm text-primary hover:underline">
-									<span><?php esc_html_e( 'Learn More', 'gowebblog' ); ?></span>
-									<i class="fa-solid fa-arrow-right text-xs"></i>
-								</a>
+								</div>
 							</div>
 						</div>
 						<?php
 					endfor;
 				endif;
 				?>
+			</div>
+			
+			<!-- View All Button -->
+			<div class="text-center mt-16 fade-in-section">
+				<a href="<?php echo esc_url( get_post_type_archive_link( 'toolbox' ) ); ?>" class="inline-flex items-center gap-3 py-3 px-8 bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary text-white rounded-full transition-all duration-300 font-medium shadow-lg hover:shadow-xl hover:shadow-primary/25">
+					<span><?php esc_html_e( 'View All Projects', 'gowebblog' ); ?></span>
+					<i class="fa-solid fa-arrow-right"></i>
+				</a>
 			</div>
 		</div>
 	</section>
