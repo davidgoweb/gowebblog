@@ -36,20 +36,24 @@ get_header(); ?>
                     $archive_description = '';
                     
                     // Check if we're viewing a category
-                    if ( is_tax() ) {
-                        $queried_object = get_queried_object();
-                        if ( $queried_object ) {
-                            $archive_title = sprintf(
-                                /* translators: %s: category name */
-                                esc_html__( 'Category: %s', 'gowebblog' ),
-                                '<span class="text-primary">' . esc_html( $queried_object->name ) . '</span>'
-                            );
-                            $archive_description = sprintf(
-                                /* translators: %s: category description */
-                                esc_html__( 'Browse all tools and utilities in the %s category.', 'gowebblog' ),
-                                esc_html( $queried_object->description ? $queried_object->description : $queried_object->name )
-                            );
-                        }
+                   if ( is_tax() ) {
+                       $queried_object = get_queried_object();
+                       if ( $queried_object ) {
+                           $archive_title = sprintf(
+                               /* translators: %s: category name */
+                               esc_html__( 'Category: %s', 'gowebblog' ),
+                               '<span class="text-primary">' . esc_html( $queried_object->name ) . '</span>'
+                           );
+                           $archive_description = sprintf(
+                               /* translators: %s: category description */
+                               esc_html__( 'Browse all tools and utilities in the %s category.', 'gowebblog' ),
+                               esc_html( $queried_object->description ? $queried_object->description : $queried_object->name )
+                           );
+                       } else {
+                           // Fallback if get_queried_object() fails
+                           $archive_title = esc_html__( 'Toolbox Archive', 'gowebblog' );
+                           $archive_description = esc_html__( 'Explore my complete collection of tools, utilities, and experiments built with modern technologies.', 'gowebblog' );
+                       }
                     } elseif ( is_tag() ) {
                         $archive_title = esc_html__( 'Tag Archive', 'gowebblog' );
                         $archive_description = esc_html__( 'Browse all tools and utilities tagged with specific keywords.', 'gowebblog' );
@@ -123,7 +127,7 @@ get_header(); ?>
                                         <!-- Image Container with 2:1 aspect ratio -->
                                         <div class="relative aspect-[2/1] overflow-hidden rounded-t-2xl bg-gradient-to-br from-card to-darker border border-white/10">
                                             <?php if ( has_post_thumbnail() ) : ?>
-                                                <a href="<?php the_permalink(); ?>" class="block w-full h-full" aria-label="<?php echo esc_attr( sprintf( __( 'View details for %s', 'gowebblog' ), get_the_title() ); ?>">
+                                                <a href="<?php the_permalink(); ?>" class="block w-full h-full" aria-label="<?php echo esc_attr( sprintf( __( 'View details for %s', 'gowebblog' ), get_the_title() ) ); ?>">
                                                     <img src="<?php echo esc_url( get_the_post_thumbnail_url( null, 'medium_large' ) ); ?>"
                                                          alt="<?php echo esc_attr( get_the_title() ); ?>"
                                                          class="w-full h-full object-cover transition-all duration-700 group-hover:scale-105 group-hover:opacity-90"
@@ -150,14 +154,14 @@ get_header(); ?>
                                                     endif;
                                                     
                                                     if ( $image_url ) : ?>
-                                                        <a href="<?php the_permalink(); ?>" class="block w-full h-full" aria-label="<?php echo esc_attr( sprintf( __( 'View details for %s', 'gowebblog' ), get_the_title() ); ?>">
+                                                        <a href="<?php the_permalink(); ?>" class="block w-full h-full" aria-label="<?php echo esc_attr( sprintf( __( 'View details for %s', 'gowebblog' ), get_the_title() ) ); ?>">
                                                             <img src="<?php echo esc_url( $image_url ); ?>" 
                                                                  alt="<?php echo esc_attr( get_the_title() ); ?> - GitHub Repository Image" 
                                                                  class="w-full h-full object-cover transition-all duration-700 group-hover:scale-105 group-hover:opacity-90"
                                                                  loading="lazy">
                                                         </a>
                                                     <?php else : ?>
-                                                        <a href="<?php the_permalink(); ?>" class="block w-full h-full" aria-label="<?php echo esc_attr( sprintf( __( 'View details for %s', 'gowebblog' ), get_the_title() ); ?>">
+                                                        <a href="<?php the_permalink(); ?>" class="block w-full h-full" aria-label="<?php echo esc_attr( sprintf( __( 'View details for %s', 'gowebblog' ), get_the_title() ) ); ?>">
                                                             <div class="w-full h-full flex items-center justify-center">
                                                                 <div class="text-center p-8">
                                                                     <i class="fab fa-github text-4xl text-white/20 mb-4"></i>
@@ -166,7 +170,7 @@ get_header(); ?>
                                                             </a>
                                                     <?php endif; ?>
                                                 <?php else : ?>
-                                                    <a href="<?php the_permalink(); ?>" class="block w-full h-full" aria-label="<?php echo esc_attr( sprintf( __( 'View details for %s', 'gowebblog' ), get_the_title() ); ?>">
+                                                    <a href="<?php the_permalink(); ?>" class="block w-full h-full" aria-label="<?php echo esc_attr( sprintf( __( 'View details for %s', 'gowebblog' ), get_the_title() ) ); ?>">
                                                         <div class="w-full h-full flex items-center justify-center">
                                                             <div class="text-center p-8">
                                                                 <i class="fas fa-code text-4xl text-white/20 mb-4"></i>
@@ -251,7 +255,7 @@ get_header(); ?>
                                                 <a href="<?php the_permalink(); ?>" 
                                                    class="inline-flex items-center justify-center w-full py-2 px-4 bg-gradient-to-r from-primary/20 to-primary/10 hover:from-primary/30 hover:to-primary/20 text-primary rounded-lg transition-all duration-300 text-sm font-medium" 
                                                    rel="bookmark"
-                                                   aria-label="<?php echo esc_attr( sprintf( __( 'View full details for %s', 'gowebblog' ), get_the_title() ); ?>">
+                                                   aria-label="<?php echo esc_attr( sprintf( __( 'View full details for %s', 'gowebblog' ), get_the_title() ) ); ?>">
                                                     <?php esc_html_e( 'View Details', 'gowebblog' ); ?>
                                                     <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
                                                 </a>
