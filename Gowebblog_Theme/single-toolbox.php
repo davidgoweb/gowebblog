@@ -100,6 +100,26 @@ get_header(); ?>
 				<div class="rounded-2xl overflow-hidden mb-8 fade-in-section">
 					<?php the_post_thumbnail( 'large', array( 'class' => 'w-full h-auto' ) ); ?>
 				</div>
+			<?php else : ?>
+				<!-- Fallback: Try to display GitHub image directly if featured image is not set -->
+				<?php
+				$github_url = gowebblog_get_toolbox_repo_url( get_the_ID() );
+				if ( $github_url && strpos( $github_url, 'github.com' ) !== false ) :
+					// Try to get the GitHub image directly
+					$response = wp_remote_get( $github_url );
+					if ( ! is_wp_error( $response ) && 200 === wp_remote_retrieve_response_code( $response ) ) :
+						$html = wp_remote_retrieve_body( $response );
+						if ( preg_match( '/<meta property="og:image" content="([^"]+)"/', $html, $matches ) ) :
+							$image_url = $matches[1];
+							?>
+							<div class="rounded-2xl overflow-hidden mb-8 fade-in-section">
+								<img src="<?php echo esc_url( $image_url ); ?>" alt="<?php echo esc_attr( get_the_title() ); ?> - GitHub Repository Image" class="w-full h-auto" />
+							</div>
+							<?php
+						endif;
+					endif;
+				endif;
+				?>
 			<?php endif; ?>
 			
 			<!-- Demo and Repository Links -->
