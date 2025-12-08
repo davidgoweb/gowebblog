@@ -217,8 +217,8 @@ get_header(); ?>
 						<div class="group fade-in-section">
 							<!-- Card Container -->
 							<div class="relative h-full flex flex-col">
-								<!-- Image Container with 1:2 aspect ratio -->
-								<div class="relative aspect-[1/2] overflow-hidden rounded-t-2xl bg-gradient-to-br from-card to-darker border border-white/10">
+								<!-- Image Container with 2:1 aspect ratio -->
+								<div class="relative aspect-[2/1] overflow-hidden rounded-t-2xl bg-gradient-to-br from-card to-darker border border-white/10">
 									<?php if ( has_post_thumbnail() ) : ?>
 										<a href="<?php the_permalink(); ?>" class="block w-full h-full">
 											<img src="<?php echo esc_url( get_the_post_thumbnail_url( null, 'medium_large' ) ); ?>" alt="<?php echo esc_attr( get_the_title() ); ?>" class="w-full h-full object-cover transition-all duration-700 group-hover:scale-105 group-hover:opacity-90">
@@ -328,7 +328,7 @@ get_header(); ?>
 						?>
 						<div class="group fade-in-section">
 							<div class="relative h-full flex flex-col">
-								<div class="relative aspect-[1/2] overflow-hidden rounded-t-2xl bg-gradient-to-br from-card to-darker border border-white/10">
+								<div class="relative aspect-[2/1] overflow-hidden rounded-t-2xl bg-gradient-to-br from-card to-darker border border-white/10">
 									<div class="w-full h-full flex items-center justify-center">
 										<div class="text-center p-8">
 											<i class="fas fa-code text-4xl text-white/20 mb-4"></i>
