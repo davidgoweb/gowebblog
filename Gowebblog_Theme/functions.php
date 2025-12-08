@@ -396,16 +396,93 @@ function gowebblog_download_and_set_featured_image( $post_id, $image_url, $sourc
 	}
 
 	// Get file info
+	$file_name = basename( $image_url );
+	
+	// If the file doesn't have an extension, add one based on MIME type
+	$path_parts = pathinfo( $file_name );
+	if ( ! isset( $path_parts['extension'] ) || empty( $path_parts['extension'] ) ) {
+		$finfo = finfo_open( $tmp );
+		if ( $finfo ) {
+			$mime_type = finfo_file( $finfo );
+			finfo_close( $finfo );
+			
+			switch ( $mime_type ) {
+				case 'image/jpeg':
+					$file_name .= '.jpg';
+					break;
+				case 'image/png':
+					$file_name .= '.png';
+					break;
+				case 'image/gif':
+					$file_name .= '.gif';
+					break;
+				case 'image/webp':
+					$file_name .= '.webp';
+					break;
+			}
+		}
+	}
+	
 	$file_array = array(
-		'name'     => basename( $image_url ),
+		'name'     => $file_name,
 		'tmp_name' => $tmp,
 	);
 
 	// Check if the file is an image
 	$file_info = wp_check_filetype_and_ext( $file_array['tmp_name'], $file_array['name'] );
 	
+	// GitHub OG images often don't have extensions in the URL, so we need to check the MIME type instead
+	$allowed_mime_types = array(
+		'image/jpeg',
+		'image/png',
+		'image/gif',
+		'image/webp',
+	);
+	
+	// First check by extension
+	if ( ! empty( $file_info['ext'] ) && in_array( $file_info['ext'], array( 'jpg', 'jpeg', 'png', 'gif', 'webp' ), true ) ) {
+		error_log( 'GitHub Image: Valid file type by extension: ' . $file_info['ext'] . ' (ID: ' . $post_id . ')' );
+	} else {
+		// If extension check fails, try to determine by MIME type
+		$finfo = finfo_open( $tmp );
+		if ( $finfo ) {
+			$mime_type = finfo_file( $finfo );
+			finfo_close( $finfo );
+			
+			if ( in_array( $mime_type, $allowed_mime_types ) ) {
+				error_log( 'GitHub Image: Valid file type by MIME: ' . $mime_type . ' (ID: ' . $post_id . ')' );
+				// Override the file info with a proper extension based on MIME type
+				switch ( $mime_type ) {
+					case 'image/jpeg':
+						$file_info['ext'] = 'jpg';
+						break;
+					case 'image/png':
+						$file_info['ext'] = 'png';
+						break;
+					case 'image/gif':
+						$file_info['ext'] = 'gif';
+						break;
+					case 'image/webp':
+						$file_info['ext'] = 'webp';
+						break;
+				}
+			} else {
+				error_log( 'GitHub Image: Invalid MIME type: ' . $mime_type . ' (ID: ' . $post_id . ')' );
+				// Delete the temporary file
+				@unlink( $tmp );
+				return false;
+			}
+		} else {
+			error_log( 'GitHub Image: Could not determine file type (ID: ' . $post_id . ')' );
+			// Delete the temporary file
+			@unlink( $tmp );
+			return false;
+		}
+	}
+	
+	// Final check
 	if ( ! in_array( $file_info['ext'], array( 'jpg', 'jpeg', 'png', 'gif', 'webp' ), true ) ) {
-		error_log( 'GitHub Image: Invalid file type: ' . $file_info['ext'] . ' (ID: ' . $post_id . ')' );
+		error_log( 'GitHub Image: Invalid file type after all checks: ' . $file_info['ext'] . ' (ID: ' . $post_id . ')' );
 		// Delete the temporary file
 		@unlink( $tmp );
 		return false;
